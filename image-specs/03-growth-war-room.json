@@ -1,0 +1,89 @@
+{
+  "marketing_image": {
+    "meta": {
+      "spec_version": "1.0.0",
+      "title": "Lumivance — Growth War Room Wide Photo",
+      "campaign": "lumivance_website",
+      "brand_name": "Lumivance",
+      "usage_context": "web, full-width band on contact or CTA section"
+    },
+    "subject": {
+      "type": "editorial_brand_photograph",
+      "name": "Analysts reviewing live acquisition dashboard",
+      "variant": "wide environmental shot",
+      "physical_properties": {
+        "people_count": 2,
+        "description": "Two growth analysts standing before a large wall-mounted display, one pointing at an ascending retention-curve chart. Seen from behind at a respectful distance, silhouetted against the screen glow. Smart-casual attire.",
+        "finish": "photorealistic, cinematic editorial quality"
+      }
+    },
+    "props": {
+      "foreground": [
+        {
+          "type": "conference_table_edge",
+          "count": 1,
+          "position": "bottom_frame",
+          "notes": "dark table edge with a laptop and two coffee cups, softly out of focus"
+        }
+      ],
+      "midground": [],
+      "background": [
+        {
+          "type": "wall_display",
+          "count": 1,
+          "position": "center_back_wall",
+          "notes": "very large screen showing abstract ascending line charts and cohort grids in indigo, violet, and aqua (#2DD4BF) tones — clearly data, but no readable labels"
+        }
+      ]
+    },
+    "environment": {
+      "surface": {
+        "material": "concrete",
+        "reflection_strength": 0.25
+      },
+      "background": {
+        "color": "#101540",
+        "texture": "dark modern office at night, polished concrete floor reflecting screen glow",
+        "effect": "none"
+      },
+      "atmosphere": {
+        "mood": "command center, momentum, numbers going the right way",
+        "keywords": ["cinematic", "wide", "screen glow", "night office", "midnight indigo"]
+      }
+    },
+    "camera": {
+      "angle": "front",
+      "framing": "wide",
+      "focal_length_mm": 28,
+      "depth_of_field": "deep"
+    },
+    "lighting": {
+      "key_light_direction": "back",
+      "key_light_intensity": "high",
+      "fill_light_direction": "top",
+      "fill_light_intensity": "very_low",
+      "rim_light": true,
+      "color_temperature": "cool — dominated by indigo-violet screen light, faint warm gold edge from a corridor lamp on the right"
+    },
+    "brand": {
+      "logo_asset": "none — no logos or readable text anywhere in frame",
+      "primary_colors": ["#101540", "#6366F1", "#8B5CF6", "#2DD4BF"],
+      "must_match_assets": [],
+      "forbidden_changes": [
+        "no_readable_text_on_screens",
+        "no_visible_brand_logos",
+        "people_remain_back_lit_silhouettes_with_subtle_detail"
+      ]
+    },
+    "controls": {
+      "lock_subject_geometry": false,
+      "lock_logo_and_label": true,
+      "allow_background_variation": true,
+      "allow_prop_relayout": "small_only"
+    },
+    "output": {
+      "aspect_ratio": "16:9",
+      "target_file": "public/images/growth-war-room.jpg"
+    }
+  }
+}

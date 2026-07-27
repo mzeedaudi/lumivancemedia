@@ -1,0 +1,120 @@
+{
+  "social_graphic": {
+    "meta": {
+      "spec_version": "1.0.0",
+      "title": "Lumivance — Social Share (OG) Image",
+      "campaign": "lumivance_website",
+      "brand_name": "Lumivance"
+    },
+    "platform": "facebook_post",
+    "dimensions": {
+      "width": 1200,
+      "height": 630,
+      "unit": "px"
+    },
+    "background": {
+      "type": "gradient",
+      "gradient": {
+        "direction": "diagonal_bottom_right",
+        "colors": ["#150C33", "#281959", "#150C33"]
+      },
+      "overlay": {
+        "type": "noise",
+        "opacity": 0.04
+      }
+    },
+    "text_layers": [
+      {
+        "id": "wordmark",
+        "content": "Lumivance",
+        "position": "center",
+        "offset_y": -70,
+        "style": {
+          "font_family": "Sora",
+          "font_weight": "semibold",
+          "font_size": 84,
+          "color": "#FFFFFF",
+          "text_align": "center",
+          "letter_spacing": "-0.03em"
+        }
+      },
+      {
+        "id": "tagline",
+        "content": "User acquisition for software & apps",
+        "position": "center",
+        "offset_y": 30,
+        "style": {
+          "font_family": "Sora",
+          "font_weight": "regular",
+          "font_size": 30,
+          "color": "#B5AFD4",
+          "text_align": "center"
+        }
+      },
+      {
+        "id": "kicker",
+        "content": "PAID MEDIA · ASO · PERFORMANCE CREATIVE",
+        "position": "bottom_center",
+        "offset_y": -60,
+        "style": {
+          "font_family": "Inter",
+          "font_weight": "medium",
+          "font_size": 17,
+          "color": "#F4C77B",
+          "text_align": "center",
+          "letter_spacing": "0.18em"
+        }
+      }
+    ],
+    "visual_elements": [
+      {
+        "id": "aurora_glow_left",
+        "type": "soft_glow_blob",
+        "position": "top_left",
+        "size": { "width": 520, "height": 420 },
+        "description": "soft indigo-to-violet radial glow (#6366F1 to #8B5CF6), 35% opacity, heavily blurred, bleeding off the top-left corner",
+        "effects": ["blur_heavy"]
+      },
+      {
+        "id": "aurora_glow_right",
+        "type": "soft_glow_blob",
+        "position": "bottom_right",
+        "size": { "width": 480, "height": 380 },
+        "description": "soft fuchsia radial glow (#D946EF), 25% opacity, heavily blurred, bleeding off the bottom-right corner",
+        "effects": ["blur_heavy"]
+      },
+      {
+        "id": "spark_dot",
+        "type": "accent_dot",
+        "position": "center",
+        "offset_y": -150,
+        "size": { "width": 10, "height": 10 },
+        "description": "single small champagne-gold (#F4C77B) glowing dot above the wordmark, like a spark of light"
+      }
+    ],
+    "brand": {
+      "logo": {
+        "asset": "text_wordmark_only",
+        "position": "center",
+        "size": { "width": 0, "height": 0 }
+      },
+      "primary_colors": ["#150C33", "#6366F1", "#8B5CF6", "#D946EF", "#F4C77B"],
+      "fonts": ["Sora", "Inter"]
+    },
+    "style": {
+      "mood": "premium",
+      "keywords": ["minimal", "dark", "aurora", "luminous", "modern SaaS"]
+    },
+    "constraints": {
+      "lock_text_content": true,
+      "lock_brand_elements": true,
+      "allow_color_variation": false,
+      "allow_layout_adjustment": "minor",
+      "spelling_must_be_exact": ["Lumivance", "User acquisition for software & apps"]
+    },
+    "output": {
+      "aspect_ratio": "16:9 (crop to 1200x630 center)",
+      "target_file": "public/og.png"
+    }
+  }
+}

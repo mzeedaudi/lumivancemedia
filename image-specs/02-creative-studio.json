@@ -1,0 +1,95 @@
+{
+  "marketing_image": {
+    "meta": {
+      "spec_version": "1.0.0",
+      "title": "Lumivance — Performance Creative Studio Photo",
+      "campaign": "lumivance_website",
+      "brand_name": "Lumivance",
+      "usage_context": "web, services page, performance creative section"
+    },
+    "subject": {
+      "type": "editorial_brand_photograph",
+      "name": "Creative director reviewing ad variants",
+      "variant": "over-the-shoulder workspace",
+      "physical_properties": {
+        "people_count": 2,
+        "description": "A creative director seated at a dual-monitor workstation reviewing a grid of mobile ad creative variants; a strategist stands beside them pointing at one variant. Both dressed smart-casual, absorbed in the work, faces in profile or three-quarter — not looking at camera.",
+        "finish": "photorealistic, editorial magazine quality"
+      }
+    },
+    "props": {
+      "foreground": [
+        {
+          "type": "dual_monitors",
+          "count": 2,
+          "position": "center_desk",
+          "notes": "screens show a grid of colorful abstract mobile-ad thumbnails in violet, fuchsia, and indigo tones — vibrant but with no readable text"
+        },
+        {
+          "type": "printed_storyboards",
+          "count": 4,
+          "position": "front_right_desk",
+          "notes": "printed creative frames fanned out with handwritten markup scribbles"
+        }
+      ],
+      "midground": [
+        {
+          "type": "desk_lamp",
+          "count": 1,
+          "position": "left_desk_edge",
+          "notes": "warm champagne-gold glow, the single warm light source"
+        }
+      ],
+      "background": []
+    },
+    "environment": {
+      "surface": {
+        "material": "matte",
+        "reflection_strength": 0.15
+      },
+      "background": {
+        "color": "#150C33",
+        "texture": "dark studio wall with soft out-of-focus violet LED strip accent",
+        "effect": "bokeh_soft"
+      },
+      "atmosphere": {
+        "mood": "craft, obsession with detail, late-evening flow state",
+        "keywords": ["moody", "cinematic", "screen glow", "violet ambience", "focused"]
+      }
+    },
+    "camera": {
+      "angle": "three_quarter_back",
+      "framing": "medium",
+      "focal_length_mm": 50,
+      "depth_of_field": "shallow"
+    },
+    "lighting": {
+      "key_light_direction": "front",
+      "key_light_intensity": "medium",
+      "fill_light_direction": "left",
+      "fill_light_intensity": "low",
+      "rim_light": true,
+      "color_temperature": "cool screen glow (#8B5CF6 violet cast) balanced by warm desk lamp (#F4C77B)"
+    },
+    "brand": {
+      "logo_asset": "none — no logos or readable text anywhere in frame",
+      "primary_colors": ["#150C33", "#8B5CF6", "#D946EF", "#F4C77B"],
+      "must_match_assets": [],
+      "forbidden_changes": [
+        "no_readable_text_on_screens",
+        "no_visible_brand_logos",
+        "no_apple_or_dell_logos_on_hardware"
+      ]
+    },
+    "controls": {
+      "lock_subject_geometry": false,
+      "lock_logo_and_label": true,
+      "allow_background_variation": true,
+      "allow_prop_relayout": "small_only"
+    },
+    "output": {
+      "aspect_ratio": "3:2",
+      "target_file": "public/images/creative-studio.jpg"
+    }
+  }
+}

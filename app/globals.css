@@ -1,0 +1,274 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #150c33;
+  --ring: rgba(167, 139, 250, 0.7);
+  /* Font stacks — loaded via <link> in layout, with graceful fallbacks */
+  --font-inter: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-sora: "Sora", var(--font-inter);
+  --font-instrument: "Instrument Serif", Georgia, "Times New Roman", serif;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: var(--bg);
+  color: #ededf2;
+  font-feature-settings: "ss01", "cv01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Selection */
+::selection {
+  background: rgba(167, 139, 250, 0.45);
+  color: #fff;
+}
+
+/* Focus visibility for keyboard users */
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--ring);
+  border-radius: 6px;
+}
+
+/* Thin custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #150c33;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(167, 139, 250, 0.28);
+  border-radius: 99px;
+  border: 2px solid #150c33;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-container px-5 sm:px-8;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-line bg-white/[0.03] px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-ink2;
+  }
+
+  /* Gradient text */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      100deg,
+      #a5b4fc 0%,
+      #8b5cf6 38%,
+      #d946ef 72%,
+      #f4c77b 100%
+    );
+  }
+
+  /* Glass surface */
+  .glass {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.05),
+      rgba(255, 255, 255, 0.02)
+    );
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(14px);
+  }
+
+  /* Gradient ring border using mask trick */
+  .ring-gradient {
+    position: relative;
+  }
+  .ring-gradient::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      130deg,
+      rgba(139, 92, 246, 0.7),
+      rgba(217, 70, 239, 0.4) 40%,
+      rgba(255, 255, 255, 0.05) 75%
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* Primary gradient button */
+  .btn-grad {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition-transform duration-200 will-change-transform;
+    background: linear-gradient(100deg, #6366f1, #8b5cf6 45%, #d946ef);
+    box-shadow: 0 10px 30px -8px rgba(139, 92, 246, 0.6),
+      0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+  }
+  .btn-grad:hover {
+    transform: translateY(-2px);
+  }
+  .btn-grad:active {
+    transform: translateY(0);
+  }
+  .btn-grad::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(
+      100deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.35) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .btn-grad:hover::after {
+    opacity: 1;
+    animation: shimmer 1.6s linear infinite;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-line bg-white/[0.02] px-6 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-white/[0.06];
+  }
+
+  /* Wordmark "lumi": luminous wireframe — white outline + faint rainbow glow */
+  .lumi-stroke {
+    color: transparent;
+    -webkit-text-stroke: 0.9px rgba(236, 235, 250, 0.92);
+  }
+  .lumi-rainbow {
+    color: transparent;
+    background-image: linear-gradient(
+      95deg,
+      #7dd3fc 0%,
+      #a5b4fc 35%,
+      #f0abfc 65%,
+      #fde68a 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    opacity: 0.6;
+  }
+}
+
+@layer utilities {
+  /* Section colour bands — each stretch of the page gets its own hue so the
+     scroll feels alive instead of one flat backdrop. */
+  .band-violet {
+    background-image: radial-gradient(
+      75% 55% at 50% 0%,
+      rgba(139, 92, 246, 0.2),
+      transparent 72%
+    );
+  }
+  .band-fuchsia {
+    background-image: radial-gradient(
+      75% 55% at 50% 0%,
+      rgba(217, 70, 239, 0.16),
+      transparent 72%
+    );
+  }
+  .band-teal {
+    background-image: radial-gradient(
+      75% 55% at 50% 0%,
+      rgba(45, 212, 191, 0.14),
+      transparent 72%
+    );
+  }
+  .band-indigo {
+    background-image: radial-gradient(
+      75% 55% at 50% 0%,
+      rgba(99, 102, 241, 0.2),
+      transparent 72%
+    );
+  }
+  .band-gold {
+    background-image: radial-gradient(
+      75% 55% at 50% 0%,
+      rgba(244, 199, 123, 0.13),
+      transparent 72%
+    );
+  }
+
+  .grain {
+    position: relative;
+  }
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Scroll reveal — initial hidden state, .is-visible flips it */
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 12%,
+      #000 88%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 12%,
+      #000 88%,
+      transparent
+    );
+  }
+}
+
+/* Honour reduced motion globally for decorative animation */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
