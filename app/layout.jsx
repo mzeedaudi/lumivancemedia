@@ -3,9 +3,10 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Aurora from "@/components/Aurora";
 import Cursor from "@/components/Cursor";
+import { SITE_URL } from "@/lib/siteUrl";
 
 export const metadata = {
-  metadataBase: new URL("https://lumivance.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Lumivance — User acquisition for software & apps",
     template: "%s — Lumivance",

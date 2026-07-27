@@ -1,4 +1,4 @@
-const BASE = "https://lumivance.com";
+import { SITE_URL as BASE } from "@/lib/siteUrl";
 
 export default function robots() {
   return {

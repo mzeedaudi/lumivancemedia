@@ -1,9 +1,8 @@
 import { posts } from "@/lib/blog";
 import { site } from "@/lib/site";
+import { SITE_URL as BASE } from "@/lib/siteUrl";
 
 export const dynamic = "force-static";
-
-const BASE = "https://lumivance.com";
 
 function escapeXml(str = "") {
   return str

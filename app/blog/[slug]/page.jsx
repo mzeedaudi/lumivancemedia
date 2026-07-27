@@ -16,6 +16,7 @@ import {
   ctaByCategory,
 } from "@/lib/blog";
 import { site } from "@/lib/site";
+import { SITE_URL } from "@/lib/siteUrl";
 
 export function generateStaticParams() {
   return getAllSlugs().map((slug) => ({ slug }));
@@ -117,7 +118,7 @@ export default function BlogPostPage({ params }) {
     publisher: { "@type": "Organization", name: site.name },
     keywords: post.keywords.join(", "),
     articleSection: post.category,
-    mainEntityOfPage: `https://lumivance.com/blog/${post.slug}`,
+    mainEntityOfPage: `${SITE_URL}/blog/${post.slug}`,
   };
 
   return (

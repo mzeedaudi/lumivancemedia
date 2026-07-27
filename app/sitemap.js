@@ -1,7 +1,6 @@
 import { posts } from "@/lib/blog";
 import { channels } from "@/lib/channels";
-
-const BASE = "https://lumivance.com";
+import { SITE_URL as BASE } from "@/lib/siteUrl";
 
 export default function sitemap() {
   const staticRoutes = [
