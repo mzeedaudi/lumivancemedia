@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import { site } from "@/lib/site";
 
 const budgets = ["< $5k / mo", "$5k–$10k / mo", "$10k–$25k / mo", "$25k+ / mo"];
 
 export default function ContactForm() {
-  const [status, setStatus] = useState("idle"); // idle | loading | success
+  const [status, setStatus] = useState("idle"); // idle | loading | success | error
   const [errors, setErrors] = useState({});
+  const [sendError, setSendError] = useState("");
 
   function validate(data) {
     const next = {};
@@ -27,10 +29,23 @@ export default function ContactForm() {
     if (Object.keys(found).length > 0) return;
 
     setStatus("loading");
-    // Front-end demo: simulate a request. Wire to your backend / email service here.
-    await new Promise((r) => setTimeout(r, 1100));
-    setStatus("success");
-    form.reset();
+    setSendError("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(json.error || "Something went wrong.");
+      setStatus("success");
+      form.reset();
+    } catch (err) {
+      // Never show success on a failed send — a lost lead is invisible to us
+      // and the visitor walks away believing they made contact.
+      setSendError(err.message || "Something went wrong.");
+      setStatus("error");
+    }
   }
 
   if (status === "success") {
@@ -63,7 +78,7 @@ export default function ContactForm() {
     <form
       onSubmit={onSubmit}
       noValidate
-      className="ring-gradient rounded-[1.75rem] bg-ink-soft/70 p-7 sm:p-9"
+      className="ring-gradient relative rounded-[1.75rem] bg-ink-soft/70 p-7 sm:p-9"
     >
       <div className="grid gap-5 sm:grid-cols-2">
         <Field label="Name" name="name" error={errors.name} placeholder="Alex Rivera" />
@@ -89,6 +104,13 @@ export default function ContactForm() {
             ))}
           </select>
         </div>
+      </div>
+
+      {/* Honeypot — hidden from people, irresistible to bots. Submissions with
+          this filled are silently discarded server-side. */}
+      <div className="absolute left-[-9999px]" aria-hidden="true">
+        <label htmlFor="website">Website</label>
+        <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
       <div className="mt-5">
@@ -126,6 +148,18 @@ export default function ContactForm() {
           "Request my free teardown"
         )}
       </button>
+      {status === "error" && (
+        <p
+          role="alert"
+          className="mt-4 rounded-xl border border-rose-400/40 bg-rose-500/10 px-4 py-3 text-center text-sm text-rose-200"
+        >
+          {sendError}{" "}
+          <a href={`mailto:${site.email}`} className="font-semibold underline">
+            {site.email}
+          </a>
+        </p>
+      )}
+
       <p className="mt-4 text-center text-xs text-white/40">
         No spam, no sales pressure. We reply within one business day.
       </p>
