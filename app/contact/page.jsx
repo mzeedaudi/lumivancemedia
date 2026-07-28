@@ -46,7 +46,13 @@ export default function ContactPage() {
 
             <Reveal delay={120} className="mt-10 space-y-4 border-t border-line pt-8">
               <ContactDetail label="Email" value={site.email} href={`mailto:${site.email}`} />
-              <ContactDetail label="Phone" value={site.phone} href={`tel:${site.phone.replace(/[^+\d]/g, "")}`} />
+              {site.phone && (
+                <ContactDetail
+                  label="Phone"
+                  value={site.phone}
+                  href={`tel:${site.phone.replace(/[^+\d]/g, "")}`}
+                />
+              )}
               <ContactDetail label="Where" value={site.location} />
             </Reveal>
           </div>

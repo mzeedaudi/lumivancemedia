@@ -19,13 +19,15 @@ const groups = [
   },
   {
     title: "Connect",
+    // Social entries are dropped when their URL is blank in lib/site.js, so the
+    // footer never ships a link that goes nowhere.
     links: [
       { label: "Book a call", href: "/contact" },
       { label: site.email, href: `mailto:${site.email}` },
-      { label: "LinkedIn", href: "#" },
-      { label: "X / Twitter", href: "#" },
+      site.social?.linkedin && { label: "LinkedIn", href: site.social.linkedin, external: true },
+      site.social?.x && { label: "X / Twitter", href: site.social.x, external: true },
       { label: "RSS Feed", href: "/feed.xml" },
-    ],
+    ].filter(Boolean),
   },
 ];
 
@@ -57,6 +59,9 @@ export default function Footer() {
                   <li key={link.label}>
                     <Link
                       href={link.href}
+                      {...(link.external
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
                       className="text-sm text-ink2 transition-colors hover:text-white"
                     >
                       {link.label}
@@ -73,10 +78,10 @@ export default function Footer() {
             © {new Date().getFullYear()} {site.name}. All rights reserved.
           </p>
           <div className="flex gap-6">
-            <Link href="#" className="transition-colors hover:text-white">
+            <Link href="/privacy" className="transition-colors hover:text-white">
               Privacy
             </Link>
-            <Link href="#" className="transition-colors hover:text-white">
+            <Link href="/terms" className="transition-colors hover:text-white">
               Terms
             </Link>
           </div>
