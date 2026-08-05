@@ -20,7 +20,7 @@ export default function Hero() {
           >
             Turn budget into{" "}
             <span className="text-gradient">users that stay</span>
-            <span className="block font-serif text-[2.4rem] font-normal italic text-white/70 sm:text-5xl lg:text-[3.4rem]">
+            <span className="block font-display text-[2.4rem] font-normal text-white/70 sm:text-5xl lg:text-[3.4rem]">
               and revenue that compounds.
             </span>
           </Reveal>
