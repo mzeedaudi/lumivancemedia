@@ -26,7 +26,7 @@ export default function PrivacyPage() {
           <Section title="Who we are">
             <p>
               {site.legal.entity} (&ldquo;we&rdquo;, &ldquo;us&rdquo;) operates
-              this website and provides user-acquisition and marketing services.
+              this website and provides AI commercial and content production services.
               For any question about this policy or your data, contact us at{" "}
               <a href={`mailto:${site.email}`} className="text-spark underline">
                 {site.email}
@@ -118,10 +118,10 @@ export default function PrivacyPage() {
 function Section({ title, children }) {
   return (
     <Reveal>
-      <h2 className="font-display text-xl font-semibold tracking-tight text-white">
+      <h2 className="font-display text-xl font-semibold tracking-tight text-bone">
         {title}
       </h2>
-      <div className="mt-3 space-y-3 text-[1.02rem] leading-relaxed text-ink2 [&_li]:ml-5 [&_li]:list-disc [&_strong]:text-white/90 [&_ul]:space-y-2">
+      <div className="mt-3 space-y-3 text-[1.02rem] leading-relaxed text-ink2 [&_li]:ml-5 [&_li]:list-disc [&_strong]:text-bone/90 [&_ul]:space-y-2">
         {children}
       </div>
     </Reveal>

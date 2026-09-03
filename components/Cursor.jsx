@@ -51,7 +51,7 @@ export default function Cursor() {
       className="pointer-events-none fixed left-0 top-0 -z-10 h-[500px] w-[500px] rounded-full opacity-60 will-change-transform"
       style={{
         background:
-          "radial-gradient(circle, rgba(139,92,246,0.16) 0%, rgba(217,70,239,0.08) 35%, transparent 70%)",
+          "radial-gradient(circle, rgba(242,166,58,0.14) 0%, rgba(255,122,26,0.07) 35%, transparent 70%)",
       }}
     />
   );

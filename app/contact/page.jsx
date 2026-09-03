@@ -4,15 +4,16 @@ import ContactForm from "@/components/ContactForm";
 import { site } from "@/lib/site";
 
 export const metadata = {
-  title: "Contact",
+  title: "Start a retainer",
   description:
-    "Book a free 30-minute growth teardown with Lumivance. We’ll audit your funnel and show you where your next users come from.",
+    "Tell Lumivance about your brand and the placements you’re buying. We reply within one business day with a treatment and a plan for your first month.",
+  alternates: { canonical: "/contact" },
 };
 
-const points = [
-  "A teardown of your funnel and attribution",
-  "Where your next profitable users will come from",
-  "A 30/60/90-day plan — yours to keep, no strings",
+const steps = [
+  "We reply within one business day with a call slot",
+  "A 30-minute brief: product, audience, placements, feeling",
+  "A treatment and first-month plan, yours to keep",
 ];
 
 export default function ContactPage() {
@@ -20,44 +21,36 @@ export default function ContactPage() {
     <>
       <PageHeader
         eyebrow="Contact"
-        title="Book your free teardown"
-        intro="Tell us about your product and goals. In 30 minutes we’ll show you exactly where your acquisition has room to grow."
+        title="Start a retainer"
+        intro="Tell us about the brand and what you need first. No pitch deck required — a paragraph is plenty."
       />
 
       <section className="container-x py-12">
         <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
-          {/* Left rail */}
           <div>
             <Reveal>
-              <h2 className="font-display text-2xl font-semibold tracking-tight text-white">
-                What you’ll walk away with
-              </h2>
-              <ul className="mt-6 space-y-4">
-                {points.map((p) => (
-                  <li key={p} className="flex items-start gap-3 text-sm text-white/85 sm:text-base">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true" className="mt-0.5 flex-none text-brand-fuchsia">
-                      <path d="M5 12l4 4L19 7" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                    {p}
+              <h2 className="font-display text-2xl font-bold tracking-tight text-bone">What happens next</h2>
+              <ol className="mt-6 space-y-4">
+                {steps.map((s, i) => (
+                  <li key={s} className="flex items-start gap-3 text-sm text-bone/85 sm:text-base">
+                    <span className="grid h-7 w-7 flex-none place-items-center rounded-full bg-gradient-to-br from-gold to-ember font-display text-xs font-bold text-ink">
+                      {i + 1}
+                    </span>
+                    {s}
                   </li>
                 ))}
-              </ul>
+              </ol>
             </Reveal>
 
             <Reveal delay={120} className="mt-10 space-y-4 border-t border-line pt-8">
-              <ContactDetail label="Email" value={site.email} href={`mailto:${site.email}`} />
+              <Detail label="Email" value={site.email} href={`mailto:${site.email}`} />
               {site.phone && (
-                <ContactDetail
-                  label="Phone"
-                  value={site.phone}
-                  href={`tel:${site.phone.replace(/[^+\d]/g, "")}`}
-                />
+                <Detail label="Phone" value={site.phone} href={`tel:${site.phone.replace(/[^+\d]/g, "")}`} />
               )}
-              <ContactDetail label="Where" value={site.location} />
+              <Detail label="Where" value={site.location} />
             </Reveal>
           </div>
 
-          {/* Form */}
           <Reveal delay={80}>
             <ContactForm />
           </Reveal>
@@ -69,18 +62,16 @@ export default function ContactPage() {
   );
 }
 
-function ContactDetail({ label, value, href }) {
+function Detail({ label, value, href }) {
   return (
     <div className="flex items-baseline gap-4">
-      <span className="w-16 flex-none text-xs uppercase tracking-[0.16em] text-white/40">
-        {label}
-      </span>
+      <span className="w-16 flex-none text-[0.68rem] uppercase tracking-[0.18em] text-bone/40">{label}</span>
       {href ? (
-        <a href={href} className="text-sm text-white transition-colors hover:text-spark">
+        <a href={href} className="text-sm text-bone/90 transition-colors hover:text-amber sm:text-base">
           {value}
         </a>
       ) : (
-        <span className="text-sm text-white">{value}</span>
+        <span className="text-sm text-bone/90 sm:text-base">{value}</span>
       )}
     </div>
   );

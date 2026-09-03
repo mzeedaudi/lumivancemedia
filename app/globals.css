@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --bg: #150c33;
-  --ring: rgba(167, 139, 250, 0.7);
+  --bg: #0b0907;
+  --ring: rgba(242, 166, 58, 0.75);
   /* Font stacks — loaded via <link> in layout, with graceful fallbacks */
   --font-inter: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-sora: "Sora", var(--font-inter);
+  --font-bricolage: "Bricolage Grotesque", var(--font-inter);
   --font-instrument: "Instrument Serif", Georgia, "Times New Roman", serif;
 }
 
@@ -27,41 +27,38 @@ html {
 
 body {
   background-color: var(--bg);
-  color: #ededf2;
+  color: #f4ede3;
   font-feature-settings: "ss01", "cv01", "cv11";
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
 }
 
-/* Selection */
 ::selection {
-  background: rgba(167, 139, 250, 0.45);
-  color: #fff;
+  background: rgba(242, 166, 58, 0.55);
+  color: #0b0907;
 }
 
-/* Focus visibility for keyboard users */
 :focus-visible {
   outline: none;
   box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px var(--ring);
   border-radius: 6px;
 }
 
-/* Thin custom scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #150c33;
+  background: #0b0907;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(167, 139, 250, 0.28);
+  background: rgba(242, 166, 58, 0.28);
   border-radius: 99px;
-  border: 2px solid #150c33;
+  border: 2px solid #0b0907;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(244, 237, 227, 0.25);
 }
 
 @layer components {
@@ -70,33 +67,26 @@ body {
   }
 
   .eyebrow {
-    @apply inline-flex items-center gap-2 rounded-full border border-line bg-white/[0.03] px-3 py-1 text-xs font-medium uppercase tracking-[0.16em] text-ink2;
+    @apply inline-flex items-center gap-2 rounded-full border border-line bg-bone/[0.03] px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-sand;
   }
 
-  /* Gradient text */
+  /* Bone → amber → ember: the sunset in text */
   .text-gradient {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(
-      100deg,
-      #a5b4fc 0%,
-      #8b5cf6 38%,
-      #d946ef 72%,
-      #f4c77b 100%
-    );
+    background-image: linear-gradient(100deg, #f4ede3 0%, #f2a63a 48%, #ff7a1a 100%);
+  }
+  .text-sun {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(90deg, #ffd08a 0%, #f2a63a 50%, #ff7a1a 100%);
   }
 
-  /* Glass surface */
   .glass {
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.05),
-      rgba(255, 255, 255, 0.02)
-    );
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(14px);
+    background: linear-gradient(180deg, rgba(244, 237, 227, 0.06), rgba(244, 237, 227, 0.02));
+    border: 1px solid rgba(244, 237, 227, 0.1);
+    backdrop-filter: blur(16px);
   }
 
-  /* Gradient ring border using mask trick */
+  /* 1px gradient border via mask trick */
   .ring-gradient {
     position: relative;
   }
@@ -107,112 +97,70 @@ body {
     border-radius: inherit;
     padding: 1px;
     background: linear-gradient(
-      130deg,
-      rgba(139, 92, 246, 0.7),
-      rgba(217, 70, 239, 0.4) 40%,
-      rgba(255, 255, 255, 0.05) 75%
+      135deg,
+      rgba(242, 166, 58, 0.65),
+      rgba(255, 122, 26, 0.3) 40%,
+      rgba(244, 237, 227, 0.06) 75%
     );
-    -webkit-mask: linear-gradient(#000 0 0) content-box,
-      linear-gradient(#000 0 0);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
   }
 
-  /* Primary gradient button */
+  /* Primary — ember sun button */
+  .btn-primary,
   .btn-grad {
-    @apply relative inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition-transform duration-200 will-change-transform;
-    background: linear-gradient(100deg, #6366f1, #8b5cf6 45%, #d946ef);
-    box-shadow: 0 10px 30px -8px rgba(139, 92, 246, 0.6),
-      0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-ink transition-transform duration-200 will-change-transform;
+    background: linear-gradient(100deg, #ffb347, #ff7a1a);
+    box-shadow: 0 14px 44px -12px rgba(255, 122, 26, 0.6),
+      0 0 0 1px rgba(255, 255, 255, 0.18) inset;
   }
+  .btn-primary:hover,
   .btn-grad:hover {
     transform: translateY(-2px);
   }
+  .btn-primary:active,
   .btn-grad:active {
     transform: translateY(0);
   }
+  .btn-primary::after,
   .btn-grad::after {
     content: "";
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    background: linear-gradient(
-      100deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.35) 50%,
-      transparent 100%
-    );
+    background: linear-gradient(100deg, transparent 0%, rgba(255, 255, 255, 0.45) 50%, transparent 100%);
     background-size: 200% 100%;
     opacity: 0;
     transition: opacity 0.3s;
   }
+  .btn-primary:hover::after,
   .btn-grad:hover::after {
     opacity: 1;
     animation: shimmer 1.6s linear infinite;
   }
 
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border border-line bg-white/[0.02] px-6 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-white/[0.06];
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-bone/20 bg-bone/[0.03] px-6 py-3 text-sm font-semibold text-bone transition-colors duration-200 hover:border-bone/40 hover:bg-bone/[0.07];
   }
 
-  /* Wordmark "lumi": luminous wireframe — white outline + faint rainbow glow */
-  .lumi-stroke {
-    color: transparent;
-    -webkit-text-stroke: 0.9px rgba(236, 235, 250, 0.92);
-  }
-  .lumi-rainbow {
-    color: transparent;
-    background-image: linear-gradient(
-      95deg,
-      #7dd3fc 0%,
-      #a5b4fc 35%,
-      #f0abfc 65%,
-      #fde68a 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    opacity: 0.6;
+  /* Solid bone button — for sitting on top of film */
+  .btn-light {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-bone px-6 py-3 text-sm font-semibold text-ink transition-all duration-200 hover:-translate-y-0.5 hover:bg-white;
   }
 }
 
 @layer utilities {
-  /* Section colour bands — each stretch of the page gets its own hue so the
-     scroll feels alive instead of one flat backdrop. */
-  .band-violet {
-    background-image: radial-gradient(
-      75% 55% at 50% 0%,
-      rgba(139, 92, 246, 0.2),
-      transparent 72%
-    );
+  /* Warm section bands */
+  .band-amber {
+    background-image: radial-gradient(75% 55% at 50% 0%, rgba(242, 166, 58, 0.13), transparent 72%);
   }
-  .band-fuchsia {
-    background-image: radial-gradient(
-      75% 55% at 50% 0%,
-      rgba(217, 70, 239, 0.16),
-      transparent 72%
-    );
+  .band-ember {
+    background-image: radial-gradient(75% 55% at 50% 0%, rgba(255, 122, 26, 0.1), transparent 72%);
   }
-  .band-teal {
-    background-image: radial-gradient(
-      75% 55% at 50% 0%,
-      rgba(45, 212, 191, 0.14),
-      transparent 72%
-    );
-  }
-  .band-indigo {
-    background-image: radial-gradient(
-      75% 55% at 50% 0%,
-      rgba(99, 102, 241, 0.2),
-      transparent 72%
-    );
-  }
-  .band-gold {
-    background-image: radial-gradient(
-      75% 55% at 50% 0%,
-      rgba(244, 199, 123, 0.13),
-      transparent 72%
-    );
+  .band-dusk {
+    background-image: radial-gradient(75% 55% at 50% 0%, rgba(107, 52, 33, 0.35), transparent 72%);
   }
 
   .grain {
@@ -223,16 +171,24 @@ body {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    opacity: 0.04;
+    opacity: 0.05;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  /* Scroll reveal — initial hidden state, .is-visible flips it */
+  /* Fade-to-page-background from the bottom — used under film */
+  .vignette-b {
+    background: linear-gradient(to top, #0b0907 0%, rgba(11, 9, 7, 0.75) 30%, rgba(11, 9, 7, 0.15) 62%, transparent 100%);
+  }
+  .vignette-t {
+    background: linear-gradient(to bottom, rgba(11, 9, 7, 0.7) 0%, transparent 40%);
+  }
+
+  /* Scroll reveal */
   .reveal {
     opacity: 0;
     transform: translateY(22px);
-    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
     will-change: opacity, transform;
   }
   .reveal.is-visible {
@@ -241,24 +197,17 @@ body {
   }
 
   .mask-fade-x {
-    -webkit-mask-image: linear-gradient(
-      90deg,
-      transparent,
-      #000 12%,
-      #000 88%,
-      transparent
-    );
-    mask-image: linear-gradient(
-      90deg,
-      transparent,
-      #000 12%,
-      #000 88%,
-      transparent
-    );
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  }
+
+  /* Tight, cinematic display type */
+  .display-tight {
+    letter-spacing: -0.045em;
+    line-height: 0.96;
   }
 }
 
-/* Honour reduced motion globally for decorative animation */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

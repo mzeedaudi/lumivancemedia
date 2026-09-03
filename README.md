@@ -1,6 +1,6 @@
 # Lumivance
 
-Marketing-agency website for **Lumivance** — user acquisition for software & apps.
+Website for **Lumivance** — an AI-native commercial studio making cinematic AI commercials, campaign imagery and showreels for brands on a monthly retainer.
 Built with **Next.js 14 (App Router)** + **Tailwind CSS**, with lightweight,
 GPU-friendly animations designed to perform on any device.
 
@@ -22,46 +22,54 @@ npm run start
 
 ```
 app/
-  layout.jsx          Root shell: fonts, navbar, footer, background
-  page.jsx            Home
-  services/           Services index + [slug] detail pages
-  case-studies/       Case-study index + [slug] detail pages
-  blog/               Blog index + [slug] article pages
-  pricing/            Pricing
-  about/              About + team
-  contact/            Contact form
-  feed.xml/           RSS feed route
+  layout.jsx          Root shell: fonts, navbar, footer, backdrop
+  page.jsx            Home: film hero, capabilities, showreel, formats, process,
+                      facts, retainers, FAQ, CTA
+  work/               Showreel, placement formats, what a month on retainer looks like
+  services/           The four disciplines in detail
+  pricing/            Retainer tiers + FAQ
+  about/              Manifesto, principles, process
+  contact/            Retainer enquiry form
+  api/contact/        Form delivery over SMTP (see .env.example)
+  privacy/, terms/    Legal pages
   robots.js           robots.txt
   sitemap.js          sitemap.xml
-  globals.css         Design tokens, keyframes, utilities
-components/           Reusable UI (Hero, Stats, Reveal, FAQ, ...)
+  globals.css         Design tokens, buttons, bands, reveal, utilities
+components/
+  Hero.jsx            Full-viewport film hero with inline blurred poster + mute toggle
+  Showreel.jsx        Cinematic player: autoplays in view, custom transport
+  Formats.jsx         The same spot reframed live into 16:9 / 9:16 / 1:1 / 4:5
+  Capabilities.jsx    Editorial rate-card rows from `services`
+  PricingTiers.jsx    Retainer cards; `excluded` items render struck through
+  Marquee, Process, Facts, CTA, FAQ, Navbar, Footer, Logo, Backdrop, Reveal …
 lib/
-  site.js             Core copy & data: services, pricing, case studies, team
-  blog.js             Blog posts (body blocks, figures, authors)
-  caseStudyContent.js Case-study helpers & fallback narrative
-  channels.js         Paid-channel detail content
+  site.js             All copy & data: services, process, facts, formats, month,
+                      pricing, faqs, values, manifesto, projects
+  heroPoster.js       96px blurred frame of the hero film, inlined as a data URL
+  siteUrl.js          Canonical origin per environment
+public/video/hero.mp4 The hero film / showreel (1920×1080, 10s)
 scripts/dev-server.js Starts `next dev` with the project root as cwd
-image-specs/          JSON prompt specs for generating brand imagery
 ```
 
 ## Customising
 
-- **Copy, numbers, services, pricing, testimonials, team** → `lib/site.js`
-- **Blog articles** → `lib/blog.js`. Each post's `body` is an array of blocks:
-  `{ p }`, `{ h2 }`, `{ ul }`, `{ quote }`, and `{ fig, caption }` for inline
-  illustrations (scene names are registered in `components/BlogArt.jsx`).
-- **Case studies** → the `work` array (featured, with step-by-step timelines) and
-  `caseStudies` array (compact library) in `lib/site.js`. To show a real client's
-  official logo, drop the file in `public/logos/` and set `logoSrc` on that entry —
-  it overrides the drawn wordmark everywhere, including the home-page marquee.
-- **Brand colors, fonts, animations** → `tailwind.config.js` + `app/globals.css`
+- **Every word of copy, the tiers, FAQs and principles** → `lib/site.js`
+- **Swap the hero film** → replace `public/video/hero.mp4` (16:9, H.264, ideally
+  under 10MB), then regenerate `lib/heroPoster.js` from its first frame so the
+  page paints in the right colours before the video arrives.
+- **Add real projects to the Work page** → push entries into `projects` in
+  `lib/site.js` (`{ title, client, year, src, poster }`); the grid renders itself.
+- **Social links, phone, legal entity** → `site.social`, `site.phone`,
+  `site.legal` in `lib/site.js`. Blank values are hidden, never shipped as dead links.
+- **Brand colours, fonts, motion** → `tailwind.config.js` + `app/globals.css`
 - **Logo mark** → `components/Logo.jsx` and `app/icon.svg`
-- **Contact form** is front-end only. Wire the `onSubmit` in
-  `components/ContactForm.jsx` to your email service / API route to receive leads.
+- **Contact form delivery** needs `SMTP_USER` / `SMTP_PASS` in the host
+  environment — see `.env.example`. Until then it fails honestly instead of
+  pretending to send.
 
-> The case studies and client names shipped in this repo are illustrative
-> examples, not named engagements. Replace them with real clients (and written
-> permission to use their name, logo, and numbers) before launch.
+> Nothing on the site claims past clients, results or named staff. The facts
+> block states offer terms (turnaround, formats, ownership), and the pricing is a
+> starting point — adjust the tiers to your actual capacity before launch.
 
 ## Design notes
 

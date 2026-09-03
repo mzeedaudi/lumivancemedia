@@ -18,11 +18,11 @@ export default function FAQ() {
               aria-expanded={isOpen}
               className="flex w-full items-center justify-between gap-6 px-6 py-5 text-left transition-colors hover:bg-white/[0.02]"
             >
-              <span className="font-display text-base font-medium text-white sm:text-lg">
+              <span className="font-display text-base font-medium text-bone sm:text-lg">
                 {item.q}
               </span>
               <span
-                className={`grid h-8 w-8 flex-none place-items-center rounded-full border border-line text-white transition-transform duration-300 ${
+                className={`grid h-8 w-8 flex-none place-items-center rounded-full border border-line text-bone transition-transform duration-300 ${
                   isOpen ? "rotate-45 bg-white/[0.06]" : ""
                 }`}
                 aria-hidden="true"

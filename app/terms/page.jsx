@@ -119,7 +119,7 @@ export default function TermsPage() {
 function Section({ title, children }) {
   return (
     <Reveal>
-      <h2 className="font-display text-xl font-semibold tracking-tight text-white">
+      <h2 className="font-display text-xl font-semibold tracking-tight text-bone">
         {title}
       </h2>
       <div className="mt-3 space-y-3 text-[1.02rem] leading-relaxed text-ink2">

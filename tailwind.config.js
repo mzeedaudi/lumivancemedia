@@ -8,52 +8,43 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Deep violet-indigo base — richer and warmer than the old near-black
+        // Warm cinematic black — tinted toward the hero film's amber, never pure #000
         ink: {
-          DEFAULT: "#150C33", // page background
-          soft: "#1E1246",    // raised surface / cards
-          panel: "#281959",   // elevated panel
+          DEFAULT: "#0B0907", // page background
+          soft: "#14100D",    // raised surface / cards
+          panel: "#1C1713",   // elevated panel
         },
-        line: "rgba(255,255,255,0.11)",
-        brand: {
-          indigo: "#6366F1",
-          violet: "#8B5CF6",
-          fuchsia: "#D946EF",
-        },
-        // Section band tints — give each stretch of the page its own hue
-        band: {
-          indigo: "#141338",
-          plum: "#2A1140",
-          teal: "#0C2B36",
-          midnight: "#101540",
-        },
-        spark: "#F4C77B", // warm "luminance" champagne-gold accent
-        aqua: "#2DD4BF",  // cool counterpoint to the violets
-        ink2: "#B5AFD4",  // muted text, tuned for the violet base
+        bone: "#F4EDE3",  // primary text
+        sand: "#B9A88F",  // muted text
+        line: "rgba(244,237,227,0.10)",
+        ember: "#FF7A1A", // hot CTA
+        amber: "#F2A63A", // signature accent — the sun in the film
+        gold: "#E8C57C",  // soft highlight
+        dusk: "#6B3421",  // deep burnt shadow tone
+        // Aliases kept so shared components (FAQ, legal pages) need no edits
+        ink2: "#B9A88F",
+        spark: "#F2A63A",
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        display: ["var(--font-sora)", "var(--font-inter)", "sans-serif"],
+        display: ["var(--font-bricolage)", "var(--font-inter)", "sans-serif"],
         serif: ["var(--font-instrument)", "Georgia", "serif"],
       },
       letterSpacing: {
-        tightest: "-0.04em",
+        tightest: "-0.045em",
       },
       maxWidth: {
-        container: "1200px",
+        container: "1240px",
       },
       boxShadow: {
-        glow: "0 0 0 1px rgba(255,255,255,0.06), 0 30px 80px -20px rgba(99,102,241,0.45)",
-        card: "0 1px 0 0 rgba(255,255,255,0.04) inset, 0 24px 60px -30px rgba(0,0,0,0.8)",
+        glow: "0 0 0 1px rgba(244,237,227,0.06), 0 30px 80px -20px rgba(242,166,58,0.35)",
+        card: "0 1px 0 0 rgba(255,255,255,0.04) inset, 0 24px 60px -30px rgba(0,0,0,0.85)",
+        ember: "0 14px 44px -12px rgba(255,122,26,0.6)",
       },
       keyframes: {
-        "aurora-drift": {
-          "0%, 100%": { transform: "translate3d(-4%, -2%, 0) scale(1)" },
-          "50%": { transform: "translate3d(4%, 3%, 0) scale(1.15)" },
-        },
-        "aurora-drift-2": {
-          "0%, 100%": { transform: "translate3d(3%, 2%, 0) scale(1.1)" },
-          "50%": { transform: "translate3d(-3%, -3%, 0) scale(0.95)" },
+        "sun-drift": {
+          "0%, 100%": { transform: "translate3d(-3%, 0, 0) scale(1)" },
+          "50%": { transform: "translate3d(3%, 2%, 0) scale(1.08)" },
         },
         float: {
           "0%, 100%": { transform: "translateY(0)" },
@@ -76,10 +67,9 @@ module.exports = {
         },
       },
       animation: {
-        "aurora-drift": "aurora-drift 18s ease-in-out infinite",
-        "aurora-drift-2": "aurora-drift-2 22s ease-in-out infinite",
+        "sun-drift": "sun-drift 22s ease-in-out infinite",
         float: "float 7s ease-in-out infinite",
-        marquee: "marquee 38s linear infinite",
+        marquee: "marquee 42s linear infinite",
         shimmer: "shimmer 6s linear infinite",
         "spin-slow": "spin-slow 22s linear infinite",
       },

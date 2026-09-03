@@ -1,179 +1,132 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import Reveal from "@/components/Reveal";
-import Counter from "@/components/Counter";
+import { HERO_POSTER } from "@/lib/heroPoster";
 
+// Full-viewport film hero. The blurred inline poster paints the instant HTML
+// arrives; the video fades over it on its first `playing` event, so there is
+// never a black flash while 14MB downloads. Reduced-motion users get the first
+// frame, sharp and still, and no autoplay.
 export default function Hero() {
+  const videoRef = useRef(null);
+  const [ready, setReady] = useState(false);
+  const [muted, setMuted] = useState(true);
+
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    // React does not reliably emit the muted attribute in server HTML, and
+    // browsers only allow autoplay when muted — set it imperatively too.
+    v.muted = true;
+    v.defaultMuted = true;
+    const show = () => setReady(true);
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Swap the blurred poster for the film as soon as a frame is decoded —
+    // even if autoplay is refused, a sharp first frame beats a blur.
+    v.addEventListener("loadeddata", show, { once: true });
+    v.addEventListener("playing", show, { once: true });
+    if (reduced) v.pause();
+    else v.play().catch(() => {});
+    return () => {
+      v.removeEventListener("loadeddata", show);
+      v.removeEventListener("playing", show);
+    };
+  }, []);
+
+  function toggleMute() {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = !v.muted;
+    setMuted(v.muted);
+    if (v.paused) v.play().catch(() => {});
+  }
+
   return (
-    <section className="relative overflow-hidden">
-      <div className="container-x grid items-center gap-14 pb-10 pt-36 sm:pt-40 lg:grid-cols-[1.08fr_0.92fr] lg:pb-16 lg:pt-44">
-        {/* Copy */}
-        <div>
-          <Reveal as="div" className="eyebrow">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-spark" />
-            User acquisition for software & apps
-          </Reveal>
+    <section className="relative isolate h-[100svh] min-h-[640px] w-full overflow-hidden bg-ink">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={HERO_POSTER}
+        alt=""
+        aria-hidden="true"
+        className={`absolute inset-0 h-full w-full scale-110 object-cover blur-2xl transition-opacity duration-1000 ${
+          ready ? "opacity-0" : "opacity-100"
+        }`}
+      />
+      <video
+        ref={videoRef}
+        src="/video/hero.mp4"
+        muted
+        loop
+        playsInline
+        autoPlay
+        preload="auto"
+        aria-hidden="true"
+        className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ${
+          ready ? "opacity-100" : "opacity-0"
+        }`}
+      />
+      <div aria-hidden="true" className="vignette-t absolute inset-0" />
+      <div aria-hidden="true" className="vignette-b absolute inset-x-0 bottom-0 h-[74%]" />
 
-          <Reveal
-            as="h1"
-            delay={70}
-            className="mt-6 font-display text-[2.7rem] font-semibold leading-[1.02] tracking-tightest sm:text-6xl lg:text-[4.1rem]"
-          >
-            Turn budget into{" "}
-            <span className="text-gradient">users that stay</span>
-            <span className="block font-display text-[2.4rem] font-normal text-white/70 sm:text-5xl lg:text-[3.4rem]">
-              and revenue that compounds.
-            </span>
-          </Reveal>
+      <div className="container-x relative z-10 flex h-full flex-col justify-end pb-12 sm:pb-16 lg:pb-20">
+        <p className="eyebrow w-fit border-bone/15 bg-ink/40 backdrop-blur">
+          <span className="h-1.5 w-1.5 rounded-full bg-ember" />
+          AI commercial studio
+          <span className="hidden sm:inline"> · Monthly retainer</span>
+        </p>
 
-          <Reveal
-            as="p"
-            delay={140}
-            className="mt-7 max-w-xl text-base leading-relaxed text-ink2 sm:text-lg"
-          >
-            Lumivance is the growth partner for SaaS and mobile teams. We run
-            full-funnel paid media, ASO, and performance creative — engineered
-            to acquire qualified users at a cost that trends down, not up.
-          </Reveal>
+        <h1 className="display-tight mt-6 max-w-5xl font-display text-[2.9rem] font-bold text-bone sm:text-[4.4rem] lg:text-[6rem]">
+          Commercials that look like <span className="text-sun">a million dollars.</span>
+          <span className="mt-3 block font-serif text-[0.58em] font-normal italic tracking-normal text-bone/85">
+            Made in days. Delivered every month.
+          </span>
+        </h1>
 
-          <Reveal
-            as="div"
-            delay={210}
-            className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
-          >
-            <Link href="/contact" className="btn-grad">
-              Book a free teardown
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </Link>
-            <Link href="/case-studies" className="btn-ghost">
-              See the results
-            </Link>
-          </Reveal>
+        <p className="mt-6 max-w-xl text-base leading-relaxed text-bone/75 sm:text-lg">
+          Lumivance is an AI-native studio making broadcast-grade commercials,
+          campaign imagery and showreels for brands — without the shoot, the
+          crew, or the six-week wait.
+        </p>
 
-          <Reveal
-            as="div"
-            delay={280}
-            className="mt-10 flex items-center gap-6 text-sm text-ink2"
-          >
-            <div className="flex -space-x-2.5">
-              {["EM", "TR", "AB", "KW"].map((t, i) => (
-                <span
-                  key={t}
-                  className="grid h-9 w-9 place-items-center rounded-full border-2 border-ink bg-gradient-to-br from-brand-indigo to-brand-fuchsia text-[11px] font-semibold text-white"
-                  style={{ zIndex: 10 - i }}
-                >
-                  {t}
-                </span>
-              ))}
-            </div>
-            <p className="max-w-[15rem] leading-snug">
-              A senior team trusted by{" "}
-              <span className="font-semibold text-white">30+</span> software
-              companies.
-            </p>
-          </Reveal>
+        <div className="mt-8 flex flex-wrap items-center gap-3">
+          <Link href="/contact" className="btn-primary">
+            Start a retainer
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </Link>
+          <a href="#showreel" className="btn-ghost border-bone/25 bg-ink/30 backdrop-blur">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M8 5.5v13l11-6.5-11-6.5Z" />
+            </svg>
+            Watch the reel
+          </a>
         </div>
 
-        {/* Visual */}
-        <Reveal as="div" delay={160} className="relative">
-          <HeroVisual />
-        </Reveal>
+        <div className="mt-10 flex items-center justify-between border-t border-bone/10 pt-5 text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-bone/55">
+          <span className="flex items-center gap-3">
+            <span className="inline-block h-6 w-px animate-pulse bg-bone/40" />
+            Scroll
+          </span>
+          <button
+            type="button"
+            onClick={toggleMute}
+            aria-pressed={!muted}
+            className="flex items-center gap-2 transition-colors hover:text-bone"
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M4 10v4h3l4 3.5v-11L7 10H4Z" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+              {muted ? (
+                <path d="M16 9.5l4 5M20 9.5l-4 5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+              ) : (
+                <path d="M15 9a4 4 0 0 1 0 6M17.5 6.5a7.5 7.5 0 0 1 0 11" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+              )}
+            </svg>
+            Sound {muted ? "off" : "on"}
+          </button>
+        </div>
       </div>
     </section>
-  );
-}
-
-function HeroVisual() {
-  return (
-    <div className="relative mx-auto max-w-md lg:max-w-none">
-      {/* main dashboard card */}
-      <div className="ring-gradient relative overflow-hidden rounded-[1.75rem] bg-ink-panel/90 p-6 shadow-card backdrop-blur">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-xs uppercase tracking-[0.16em] text-ink2">
-              Qualified users
-            </p>
-            <p className="mt-1 font-display text-3xl font-semibold tracking-tight text-white">
-              <Counter value={128400} />
-            </p>
-          </div>
-          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 px-3 py-1 text-xs font-semibold text-emerald-300">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M5 17l6-6 4 4 5-7" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            +42%
-          </span>
-        </div>
-
-        {/* area chart */}
-        <div className="mt-6">
-          <svg viewBox="0 0 320 140" className="h-32 w-full" role="img" aria-label="Growth trend chart">
-            <defs>
-              <linearGradient id="area" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0.45" />
-                <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0" />
-              </linearGradient>
-              <linearGradient id="stroke" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#6366F1" />
-                <stop offset="60%" stopColor="#8B5CF6" />
-                <stop offset="100%" stopColor="#D946EF" />
-              </linearGradient>
-            </defs>
-            <path
-              d="M0 110 C40 104 60 96 90 84 C120 72 140 78 170 60 C200 42 220 46 250 30 C280 16 300 18 320 8 L320 140 L0 140 Z"
-              fill="url(#area)"
-            />
-            <path
-              d="M0 110 C40 104 60 96 90 84 C120 72 140 78 170 60 C200 42 220 46 250 30 C280 16 300 18 320 8"
-              fill="none"
-              stroke="url(#stroke)"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-            />
-            <circle cx="320" cy="8" r="4" fill="#F4C77B" />
-          </svg>
-        </div>
-
-        <div className="mt-4 grid grid-cols-3 gap-3 border-t border-line pt-4">
-          {[
-            ["CPI", "−38%"],
-            ["ROAS", "4.2x"],
-            ["D30", "↑ 2.1x"],
-          ].map(([k, v]) => (
-            <div key={k}>
-              <p className="text-[0.7rem] uppercase tracking-wider text-ink2">{k}</p>
-              <p className="mt-0.5 font-display text-base font-semibold text-white">{v}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* floating rating badge */}
-      <div className="absolute -left-4 -top-5 hidden animate-float rounded-2xl glass px-4 py-3 shadow-glow sm:flex sm:items-center sm:gap-3">
-        <span className="grid h-9 w-9 place-items-center rounded-full bg-gradient-to-br from-spark to-amber-500 text-sm font-bold text-ink">
-          ★
-        </span>
-        <div>
-          <p className="font-display text-sm font-semibold text-white">4.9 / 5</p>
-          <p className="text-[0.7rem] text-ink2">Avg client rating</p>
-        </div>
-      </div>
-
-      {/* floating channel chip */}
-      <div
-        className="absolute -bottom-6 -right-3 hidden animate-float rounded-2xl glass px-4 py-3 shadow-glow sm:block"
-        style={{ animationDelay: "1.2s" }}
-      >
-        <p className="text-[0.7rem] uppercase tracking-wider text-ink2">Channels live</p>
-        <div className="mt-1.5 flex items-center gap-2">
-          {["Meta", "Google", "TikTok", "ASA"].map((c) => (
-            <span key={c} className="rounded-md bg-white/[0.06] px-2 py-0.5 text-[0.7rem] font-medium text-white/80">
-              {c}
-            </span>
-          ))}
-        </div>
-      </div>
-    </div>
   );
 }

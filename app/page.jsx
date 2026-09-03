@@ -1,101 +1,95 @@
 import Link from "next/link";
 import Hero from "@/components/Hero";
-import LogoMarquee from "@/components/LogoMarquee";
-import Stats from "@/components/Stats";
+import Marquee from "@/components/Marquee";
 import SectionHeading from "@/components/SectionHeading";
-import ServicesGrid from "@/components/ServicesGrid";
+import Capabilities from "@/components/Capabilities";
+import Showreel from "@/components/Showreel";
+import Formats from "@/components/Formats";
 import Process from "@/components/Process";
-import Talent from "@/components/Talent";
-import Testimonials from "@/components/Testimonials";
+import Facts from "@/components/Facts";
+import PricingTiers from "@/components/PricingTiers";
 import FAQ from "@/components/FAQ";
 import CTA from "@/components/CTA";
 import Reveal from "@/components/Reveal";
-import CaseCard from "@/components/CaseCard";
-import { work } from "@/lib/site";
 
 export default function Home() {
   return (
     <>
       <Hero />
+      <Marquee />
 
-      {/* Social proof */}
-      <section className="container-x py-12">
-        <Reveal as="p" className="mb-8 text-center text-xs uppercase tracking-[0.2em] text-white/40">
-          Trusted by software teams from seed to Series C
-        </Reveal>
-        <LogoMarquee />
+      {/* What we make */}
+      <section className="band-amber container-x py-20 sm:py-28">
+        <SectionHeading
+          eyebrow="What we make"
+          title="Four things, made properly"
+          intro="Commercials, imagery, films and a monthly drop of all three. Everything directed, graded and finished — nothing straight out of a model."
+          className="mb-12"
+        />
+        <Capabilities />
       </section>
 
-      <Stats />
+      {/* Showreel */}
+      <section className="container-x py-16 sm:py-24">
+        <div className="mb-10 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
+          <SectionHeading
+            eyebrow="Showreel"
+            title="Watch the reel"
+            intro="Directed, generated, graded and scored. Every frame you’ll see was made without a camera."
+          />
+          <Reveal as="p" delay={120} className="font-mono text-xs uppercase tracking-[0.2em] text-sand">
+            2026 · Sound on
+          </Reveal>
+        </div>
+        <Showreel />
+      </section>
 
-      {/* Services */}
-      <section className="band-violet container-x py-20 sm:py-28">
+      {/* Formats */}
+      <section className="band-dusk container-x py-20 sm:py-28">
         <SectionHeading
-          eyebrow="What we do"
-          title="One team for every lever of growth"
-          intro="Acquisition is a system, not a channel. We run the whole engine — media, creative, search, lifecycle, and analytics — so nothing leaks between the cracks."
+          eyebrow="Every placement"
+          title="One film. Every format it needs to be."
+          intro="Each spot ships as a 16:9 master plus every cutdown — vertical, square and portrait — reframed shot by shot, not just cropped."
           align="center"
           className="mb-14"
         />
-        <ServicesGrid />
+        <Formats />
       </section>
 
       {/* Process */}
-      <section className="band-teal container-x py-20 sm:py-28">
+      <section className="band-amber container-x py-20 sm:py-28">
         <SectionHeading
           eyebrow="How it works"
-          title="A method that makes spend efficient"
-          intro="No six-month strategy decks. We diagnose, ship, and compound — with experiments live in your first two weeks."
+          title="Directed, not prompted"
+          intro="The same discipline as a film shoot — brief, direct, craft, deliver — running on a weekly rhythm instead of a production calendar."
           align="center"
           className="mb-14"
         />
         <Process />
       </section>
 
-      {/* Talent */}
-      <Talent />
+      <Facts />
 
-      {/* Work preview */}
-      <section className="band-indigo container-x py-20 sm:py-28">
-        <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
+      {/* Retainers */}
+      <section className="band-ember container-x py-20 sm:py-28">
+        <div className="mb-14 flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
           <SectionHeading
-            eyebrow="Proof"
-            title="Numbers we’re happy to be judged on"
-            intro="A few of the software companies we’ve helped find their next growth curve."
+            eyebrow="Retainers"
+            title="A studio on call, for a flat monthly fee"
+            intro="Pick the volume you need. Every plan includes every format and full ownership of the work."
           />
           <Reveal as="div" delay={120}>
-            <Link href="/case-studies" className="btn-ghost">
-              All case studies
+            <Link href="/pricing" className="btn-ghost">
+              Compare plans
             </Link>
           </Reveal>
         </div>
-
-        <div className="mt-14 grid gap-5 lg:grid-cols-3">
-          {work.map((c, i) => (
-            <CaseCard key={c.id} c={c} delay={i * 90} />
-          ))}
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="band-fuchsia container-x py-20 sm:py-28">
-        <SectionHeading
-          eyebrow="In their words"
-          title="Operators who’ve felt the difference"
-          align="center"
-          className="mb-14"
-        />
-        <Testimonials />
+        <PricingTiers />
       </section>
 
       {/* FAQ */}
-      <section className="band-gold container-x py-20 sm:py-28">
-        <SectionHeading
-          eyebrow="Questions"
-          title="The things teams ask us first"
-          align="center"
-          className="mb-12"
-        />
+      <section className="container-x py-20 sm:py-28">
+        <SectionHeading eyebrow="Questions" title="What brands ask us first" align="center" className="mb-12" />
         <FAQ />
       </section>
 
