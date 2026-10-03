@@ -125,6 +125,15 @@ body {
       font-size: clamp(46px, 6.4vw, 92px);
     }
   }
+  /* Inner-page headlines: one step down from the homepage, seven columns wide. */
+  .h1s {
+    font-size: clamp(36px, 9.6vw, 76px);
+  }
+  @media (min-width: 1024px) {
+    .h1s {
+      font-size: clamp(44px, 5.2vw, 76px);
+    }
+  }
   .h2 {
     font-size: clamp(36px, 4.6vw, 66px);
     text-wrap: balance;
