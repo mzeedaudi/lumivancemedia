@@ -1,5 +1,4 @@
 import PageHeader from "@/components/PageHeader";
-import Reveal from "@/components/Reveal";
 import { site } from "@/lib/site";
 
 export const metadata = {
@@ -10,7 +9,7 @@ export const metadata = {
 };
 
 // Last substantive review of this policy. Update when the content changes.
-const UPDATED = "27 July 2026";
+const UPDATED = "3 October 2026";
 
 export default function PrivacyPage() {
   return (
@@ -21,14 +20,14 @@ export default function PrivacyPage() {
         intro={`How we handle the information you share with us. Last updated ${UPDATED}.`}
       />
 
-      <section className="container-x pb-24">
-        <div className="mx-auto max-w-3xl space-y-10">
+      <section className="wrap grid-12 pb-24">
+        <div className="body space-y-10 lg:col-span-7">
           <Section title="Who we are">
             <p>
               {site.legal.entity} (&ldquo;we&rdquo;, &ldquo;us&rdquo;) operates
-              this website and provides AI commercial and content production services.
+              this website and provides performance creative and advertising services.
               For any question about this policy or your data, contact us at{" "}
-              <a href={`mailto:${site.email}`} className="text-spark underline">
+              <a href={`mailto:${site.email}`}>
                 {site.email}
               </a>
               .
@@ -40,7 +39,8 @@ export default function PrivacyPage() {
             <ul>
               <li>
                 <strong>Contact form submissions.</strong> Your name, email
-                address, company, budget range, and the message you write. These
+                address, brand, the service you&rsquo;re interested in, and the
+                message you write. These
                 are sent to our inbox so we can reply.
               </li>
               <li>
@@ -68,6 +68,8 @@ export default function PrivacyPage() {
               Your submission is handled by our own team and by the service
               providers that run our infrastructure &mdash; our website host and
               our email provider. They process data on our instructions only.
+              The typefaces on this site are served by Google Fonts, which
+              receives your browser&rsquo;s IP address when a page loads.
             </p>
           </Section>
 
@@ -85,7 +87,7 @@ export default function PrivacyPage() {
               You can ask us to give you a copy of the information we hold about
               you, correct it if it is wrong, or delete it. You can also object
               to how we use it. Email{" "}
-              <a href={`mailto:${site.email}`} className="text-spark underline">
+              <a href={`mailto:${site.email}`}>
                 {site.email}
               </a>{" "}
               and we will respond within 30 days. Depending on where you live,
@@ -117,13 +119,11 @@ export default function PrivacyPage() {
 
 function Section({ title, children }) {
   return (
-    <Reveal>
-      <h2 className="font-display text-xl font-semibold tracking-tight text-bone">
-        {title}
-      </h2>
-      <div className="mt-3 space-y-3 text-[1.02rem] leading-relaxed text-ink2 [&_li]:ml-5 [&_li]:list-disc [&_strong]:text-bone/90 [&_ul]:space-y-2">
+    <div className="border-t border-rule pt-5">
+      <h2 className="h3 text-[22px]">{title}</h2>
+      <div className="mt-3 space-y-3 text-[18px] leading-relaxed text-graphite [&_a]:text-ink [&_a]:underline [&_a]:decoration-tally [&_a]:underline-offset-2 [&_li]:ml-5 [&_li]:list-disc [&_strong]:text-ink [&_ul]:space-y-2">
         {children}
       </div>
-    </Reveal>
+    </div>
   );
 }

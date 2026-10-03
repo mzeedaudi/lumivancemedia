@@ -5,7 +5,16 @@ import { site } from "@/lib/site";
 
 // The select keeps the field name `budget` so app/api/contact/route.js needs
 // no changes — the label is what the visitor sees.
-const plans = ["Studio — $3,500/mo", "Signature — $7,500/mo", "Cinema — $15,000/mo", "Not sure yet"];
+const interests = [
+  "Creative Testing Sprint — 20 ads",
+  "Creative Testing Sprint — 40 ads",
+  "Creative Testing Sprint — 80 ads",
+  "Creative + performance retainer",
+  "Not sure yet",
+];
+
+const INPUT =
+  "w-full border bg-[#FAF7F1] px-4 py-3.5 font-serif text-[17px] text-ink outline-none transition-colors placeholder:text-graphite/60 focus:border-ink";
 
 export default function ContactForm() {
   const [status, setStatus] = useState("idle"); // idle | loading | success | error
@@ -50,42 +59,46 @@ export default function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="ring-gradient flex flex-col items-center rounded-[1.75rem] bg-ink-soft/70 p-10 text-center">
-        <span className="grid h-14 w-14 place-items-center rounded-full bg-gradient-to-br from-gold to-ember text-ink shadow-ember">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M5 13l4 4L19 7" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </span>
-        <h3 className="mt-5 font-display text-2xl font-bold text-bone">Brief received.</h3>
-        <p className="mt-3 max-w-sm text-sm leading-relaxed text-sand">
-          We’ll reply within one business day with a call slot and first thoughts on a treatment.
+      <div className="border border-ink p-8 sm:p-10">
+        <span className="label text-tally">Received</span>
+        <h2 className="display mt-3 text-[40px]">
+          Brief received<span className="text-tally">.</span>
+        </h2>
+        <p className="mt-4 max-w-[460px] text-graphite">
+          We’ll reply within one business day with a few times for a call.
         </p>
-        <button type="button" onClick={() => setStatus("idle")} className="btn-ghost mt-7">
+        <button type="button" onClick={() => setStatus("idle")} className="label mt-8 border-b-2 border-tally pb-0.5">
           Send another
         </button>
       </div>
     );
   }
 
-  const input =
-    "w-full rounded-xl border bg-ink/60 px-4 py-3 text-sm text-bone outline-none transition-colors placeholder:text-bone/30 focus:border-amber";
-
   return (
-    <form onSubmit={onSubmit} noValidate className="ring-gradient relative rounded-[1.75rem] bg-ink-soft/70 p-7 sm:p-9">
-      <div className="grid gap-5 sm:grid-cols-2">
-        <Field label="Name" name="name" error={errors.name} placeholder="Alex Rivera" input={input} />
-        <Field label="Work email" name="email" type="email" error={errors.email} placeholder="alex@yourbrand.com" input={input} />
-        <Field label="Brand / company" name="company" placeholder="Yourbrand" input={input} />
+    <form onSubmit={onSubmit} noValidate className="relative border-t border-ink pt-8">
+      <div className="grid gap-6 sm:grid-cols-2">
+        <Field label="Name" name="name" error={errors.name} placeholder="Alex Rivera" autoComplete="name" />
+        <Field label="Work email" name="email" type="email" error={errors.email} placeholder="alex@yourbrand.com" autoComplete="email" />
+        <Field label="Brand" name="company" placeholder="Yourbrand" autoComplete="organization" />
         <div>
-          <label htmlFor="budget" className="mb-2 block text-sm font-medium text-bone/90">
-            Which retainer are you considering?
+          <label htmlFor="budget" className="label mb-2 block text-[11px] text-graphite">
+            What are you interested in?
           </label>
-          <select id="budget" name="budget" defaultValue="" className={`${input} appearance-none border-line`}>
-            <option value="" disabled>Select a plan</option>
-            {plans.map((p) => (
-              <option key={p} value={p} className="bg-ink">{p}</option>
-            ))}
-          </select>
+          <div className="relative">
+            <select id="budget" name="budget" defaultValue="" className={`${INPUT} appearance-none border-rule pr-10`}>
+              <option value="" disabled>
+                Choose one
+              </option>
+              {interests.map((p) => (
+                <option key={p} value={p}>
+                  {p}
+                </option>
+              ))}
+            </select>
+            <span aria-hidden="true" className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 font-mono text-[14px]">
+              ↓
+            </span>
+          </div>
         </div>
       </div>
 
@@ -95,60 +108,70 @@ export default function ContactForm() {
         <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
-      <div className="mt-5">
-        <label htmlFor="message" className="mb-2 block text-sm font-medium text-bone/90">
-          Tell us about the brand and what you need first
+      <div className="mt-6">
+        <label htmlFor="message" className="label mb-2 block text-[11px] text-graphite">
+          What do you sell, and what are you running now?
         </label>
         <textarea
           id="message"
           name="message"
-          rows={5}
-          placeholder="We’re a DTC skincare brand launching a new line in October — we need a 30s hero spot, vertical cutdowns, and campaign stills for the site and paid social…"
-          className={`${input} ${errors.message ? "border-rose-400/70" : "border-line"}`}
+          rows={6}
+          aria-invalid={Boolean(errors.message)}
+          aria-describedby={errors.message ? "message-error" : undefined}
+          placeholder="We sell a vitamin C serum on Shopify and spend around $8k a month on Meta. Our best ad is six months old and fading, and we need new angles to test."
+          className={`${INPUT} ${errors.message ? "border-tally" : "border-rule"}`}
         />
-        {errors.message && <p className="mt-1.5 text-xs text-rose-300">{errors.message}</p>}
+        {errors.message && (
+          <p id="message-error" className="mt-1.5 text-[15px] text-tally">
+            {errors.message}
+          </p>
+        )}
       </div>
 
-      <button type="submit" disabled={status === "loading"} className="btn-primary mt-7 w-full disabled:cursor-not-allowed disabled:opacity-70">
-        {status === "loading" ? (
-          <>
-            <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <circle cx="12" cy="12" r="9" stroke="currentColor" strokeWidth="3" strokeOpacity="0.3" />
-              <path d="M21 12a9 9 0 0 0-9-9" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-            </svg>
-            Sending…
-          </>
-        ) : (
-          "Request a call"
+      <button type="submit" disabled={status === "loading"} className="btn mt-8 w-full disabled:cursor-not-allowed disabled:opacity-70">
+        {status === "loading" ? "Sending…" : "Send it"}
+        {status !== "loading" && (
+          <span aria-hidden="true" className="font-mono font-medium">
+            →
+          </span>
         )}
       </button>
 
       {status === "error" && (
-        <p role="alert" className="mt-4 rounded-xl border border-rose-400/40 bg-rose-500/10 px-4 py-3 text-center text-sm text-rose-200">
+        <p role="alert" className="mt-4 border border-tally px-4 py-3 text-[16px]">
           {sendError}{" "}
-          <a href={`mailto:${site.email}`} className="font-semibold underline">{site.email}</a>
+          <a href={`mailto:${site.email}`} className="font-semibold underline decoration-tally underline-offset-2">
+            {site.email}
+          </a>
         </p>
       )}
 
-      <p className="mt-4 text-center text-xs text-bone/40">
-        No pitch deck, no pressure. We reply within one business day.
-      </p>
+      <p className="label mt-4 text-[10.5px] text-graphite">No pitch deck needed. We reply within one business day.</p>
     </form>
   );
 }
 
-function Field({ label, name, type = "text", error, placeholder, input }) {
+function Field({ label, name, type = "text", error, placeholder, autoComplete }) {
   return (
     <div>
-      <label htmlFor={name} className="mb-2 block text-sm font-medium text-bone/90">{label}</label>
+      <label htmlFor={name} className="label mb-2 block text-[11px] text-graphite">
+        {label}
+      </label>
       <input
         id={name}
         name={name}
         type={type}
         placeholder={placeholder}
-        className={`${input} ${error ? "border-rose-400/70" : "border-line"}`}
+        autoComplete={autoComplete}
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? `${name}-error` : undefined}
+        className={`${INPUT} ${error ? "border-tally" : "border-rule"}`}
       />
-      {error && <p className="mt-1.5 text-xs text-rose-300">{error}</p>}
+      {error && (
+        <p id={`${name}-error`} className="mt-1.5 text-[15px] text-tally">
+          {error}
+        </p>
+      )}
     </div>
   );
 }

@@ -1,32 +1,19 @@
-import Reveal from "@/components/Reveal";
+import { Lines } from "@/components/Tally";
 
+// Inner-page header. The label hangs in the gutter and the title sits on the
+// content column, the same scaffold every homepage section uses.
 export default function PageHeader({ eyebrow, title, intro }) {
   return (
-    <section className="relative overflow-hidden">
-      <div className="container-x pb-6 pt-36 text-center sm:pt-44">
-        <Reveal as="div" className="mx-auto inline-block">
-          <span className="eyebrow">
-            <span className="h-1.5 w-1.5 rounded-full bg-amber" />
-            {eyebrow}
-          </span>
-        </Reveal>
-        <Reveal
-          as="h1"
-          delay={70}
-          className="display-tight mx-auto mt-6 max-w-4xl font-display text-[2.7rem] font-bold text-bone sm:text-6xl lg:text-[4.4rem]"
-        >
-          {title}
-        </Reveal>
-        {intro && (
-          <Reveal
-            as="p"
-            delay={140}
-            className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-sand sm:text-lg"
-          >
-            {intro}
-          </Reveal>
-        )}
+    <header className="wrap grid-12 pb-12 pt-12 lg:pb-16 lg:pt-20">
+      <div className="gut">
+        <span className="label text-graphite">{eyebrow}</span>
       </div>
-    </section>
+      <div className="body">
+        <h1 className="display h2">
+          <Lines>{title}</Lines>
+        </h1>
+        {intro && <p className="lede mt-5 max-w-measure text-graphite">{intro}</p>}
+      </div>
+    </header>
   );
 }

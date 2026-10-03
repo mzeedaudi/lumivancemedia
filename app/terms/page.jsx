@@ -1,5 +1,4 @@
 import PageHeader from "@/components/PageHeader";
-import Reveal from "@/components/Reveal";
 import { site } from "@/lib/site";
 
 export const metadata = {
@@ -20,8 +19,8 @@ export default function TermsPage() {
         intro={`The terms governing your use of this website. Last updated ${UPDATED}.`}
       />
 
-      <section className="container-x pb-24">
-        <div className="mx-auto max-w-3xl space-y-10">
+      <section className="wrap grid-12 pb-24">
+        <div className="body space-y-10 lg:col-span-7">
           <Section title="Agreement">
             <p>
               By using this website you accept these terms. If you do not agree
@@ -104,7 +103,7 @@ export default function TermsPage() {
           <Section title="Contact">
             <p>
               Questions about these terms? Email{" "}
-              <a href={`mailto:${site.email}`} className="text-spark underline">
+              <a href={`mailto:${site.email}`}>
                 {site.email}
               </a>
               .
@@ -118,13 +117,11 @@ export default function TermsPage() {
 
 function Section({ title, children }) {
   return (
-    <Reveal>
-      <h2 className="font-display text-xl font-semibold tracking-tight text-bone">
-        {title}
-      </h2>
-      <div className="mt-3 space-y-3 text-[1.02rem] leading-relaxed text-ink2">
+    <div className="border-t border-rule pt-5">
+      <h2 className="h3 text-[22px]">{title}</h2>
+      <div className="mt-3 space-y-3 text-[18px] leading-relaxed text-graphite [&_a]:text-ink [&_a]:underline [&_a]:decoration-tally [&_a]:underline-offset-2">
         {children}
       </div>
-    </Reveal>
+    </div>
   );
 }

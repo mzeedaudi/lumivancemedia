@@ -1,73 +1,70 @@
 import Link from "next/link";
-import { nav, site } from "@/lib/site";
-import { Wordmark } from "@/components/Logo";
+import { cta, nav, site } from "@/lib/site";
 
-const SOCIAL_LABELS = { instagram: "Instagram", linkedin: "LinkedIn", x: "X / Twitter", vimeo: "Vimeo" };
+const SOCIAL_LABELS = { instagram: "Instagram", linkedin: "LinkedIn", x: "X", tiktok: "TikTok" };
 
 export default function Footer() {
   // Social entries are dropped when their URL is blank in lib/site.js, so the
   // footer never ships a link that goes nowhere.
   const socials = Object.entries(site.social || {})
     .filter(([, url]) => url)
-    .map(([key, url]) => ({ label: SOCIAL_LABELS[key] || key, href: url, external: true }));
-
-  const groups = [
-    { title: "Studio", links: nav },
-    {
-      title: "Connect",
-      links: [
-        { label: "Start a retainer", href: "/contact" },
-        { label: site.email, href: `mailto:${site.email}` },
-        ...socials,
-      ],
-    },
-  ];
+    .map(([key, url]) => ({ label: SOCIAL_LABELS[key] || key, href: url }));
 
   return (
-    <footer className="relative mt-32 border-t border-line">
-      <div className="container-x py-16">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_0.8fr_0.8fr]">
-          <div>
-            <Link href="/" aria-label="Lumivance home" className="inline-block">
-              <Wordmark markClassName="h-9 w-auto" textClassName="text-xl" tagline uid="foot" />
-            </Link>
-            <p className="mt-6 max-w-sm font-serif text-2xl italic leading-snug text-bone/80">
-              Cinematic AI commercials for brands — made in days, delivered every month.
-            </p>
-            <p className="mt-6 text-sm text-sand">{site.location}</p>
-          </div>
-
-          {groups.map((group) => (
-            <div key={group.title}>
-              <h3 className="text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-sand">
-                {group.title}
-              </h3>
-              <ul className="mt-5 space-y-3">
-                {group.links.map((link) => (
-                  <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                      className="text-sm text-bone/70 transition-colors hover:text-bone"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+    <footer className="border-t border-ink">
+      <div className="wrap grid-12 gap-y-10 pb-8 pt-12">
+        <div className="col-span-12 lg:col-span-5">
+          <Link href="/" className="wordmark text-[30px]" aria-label="Lumivance home">
+            Lumivance
+          </Link>
+          <p className="mt-4 max-w-[340px] text-[17px] text-graphite">{site.tagline}.</p>
         </div>
 
-        <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-line pt-8 text-sm text-bone/40 sm:flex-row sm:items-center">
+        <div className="col-span-6 lg:col-span-3 lg:col-start-7">
+          <h2 className="label text-graphite">Site</h2>
+          <ul className="mt-4 space-y-2 font-display text-[15px] font-medium">
+            {nav.map((item) => (
+              <li key={item.href}>
+                <Link href={item.href} className="transition-colors hover:text-tally">
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="col-span-6 lg:col-span-3">
+          <h2 className="label text-graphite">Contact</h2>
+          <ul className="mt-4 space-y-2 font-display text-[15px] font-medium">
+            <li>
+              <Link href={cta.href} className="transition-colors hover:text-tally">
+                {cta.short}
+              </Link>
+            </li>
+            <li>
+              <a href={`mailto:${site.email}`} className="break-all transition-colors hover:text-tally">
+                {site.email}
+              </a>
+            </li>
+            {socials.map((s) => (
+              <li key={s.label}>
+                <a href={s.href} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-tally">
+                  {s.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="label col-span-12 flex flex-wrap justify-between gap-x-8 gap-y-2 border-t border-rule pt-5 text-[11px] text-graphite">
           <p>
-            © {new Date().getFullYear()} {site.legal.entity}. All rights reserved.
+            © {new Date().getFullYear()} {site.legal.entity}
           </p>
           <div className="flex gap-6">
-            <Link href="/privacy" className="transition-colors hover:text-bone">
+            <Link href="/privacy" className="transition-colors hover:text-ink">
               Privacy
             </Link>
-            <Link href="/terms" className="transition-colors hover:text-bone">
+            <Link href="/terms" className="transition-colors hover:text-ink">
               Terms
             </Link>
           </div>
