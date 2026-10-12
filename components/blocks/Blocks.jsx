@@ -28,6 +28,7 @@ const PREFERRED = {
   prose: "stack",
   matrix: "stack",
   tiers: "stack",
+  pricing: "stack",
   retainer: "stack",
   related: "stack",
 };
@@ -83,6 +84,8 @@ function render(b, stacked) {
       return <Matrix />;
     case "tiers":
       return <Tiers details />;
+    case "pricing":
+      return <Tiers />;
     case "retainer":
       return <Retainer />;
     case "related":

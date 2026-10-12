@@ -32,7 +32,7 @@ export default function ServicesPage() {
       >
         <HubIndex keys={keys("Creative")} />
       </Block>
-      <Block title="Running the ads" intro="Media buying on the platforms where UGC-style ads live, judged on cost per purchase.">
+      <Block title="Running the ads" intro="Media buying on the platforms where UGC-style ads live, judged on cost per customer.">
         <HubIndex keys={keys("Paid social")} />
       </Block>
       <Block title="What it costs">

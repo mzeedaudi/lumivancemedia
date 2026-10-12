@@ -1,6 +1,6 @@
 import { SITE_URL as BASE } from "@/lib/siteUrl";
 import { services } from "@/lib/services";
-import { industries } from "@/lib/industries";
+import { categories, industries } from "@/lib/industries";
 import { guides } from "@/lib/resources";
 
 export default function sitemap() {
@@ -9,7 +9,8 @@ export default function sitemap() {
     { path: "/services", priority: 0.9 },
     ...services.map((s) => ({ path: `/services/${s.slug}`, priority: 0.8 })),
     { path: "/industries", priority: 0.8 },
-    ...industries.map((i) => ({ path: `/industries/${i.slug}`, priority: 0.7 })),
+    ...industries.map((i) => ({ path: `/industries/${i.slug}`, priority: 0.8 })),
+    ...categories.map((c) => ({ path: `/industries/${c.slug}`, priority: 0.6 })),
     { path: "/work", priority: 0.8 },
     { path: "/pricing", priority: 0.8 },
     { path: "/about", priority: 0.6 },

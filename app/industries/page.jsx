@@ -3,19 +3,20 @@ import CtaBand from "@/components/blocks/CtaBand";
 import HubIndex from "@/components/blocks/HubIndex";
 import Points from "@/components/blocks/Points";
 import PageHero from "@/components/blocks/PageHero";
-import { industries } from "@/lib/industries";
+import { categories, industries } from "@/lib/industries";
 
 export const metadata = {
   title: "Industries",
   description:
-    "Lumivance makes video ads for skincare and beauty, supplements, fitness and wellness, and other online brands, with each category’s ad rules built into the scripts.",
+    "Lumivance makes video ads for edtech, fintech, e-commerce, subscription apps, dating apps, mobile games, and health and fitness, with each sector’s ad rules built into the scripts.",
   alternates: { canonical: "/industries" },
 };
 
 const constants = [
-  { title: "The opener gets tested hardest", text: "In every category, the first two seconds decide whether the rest gets seen." },
-  { title: "Claims come from you", text: "Scripts are written from the claims you can support, and each category’s platform rules are checked before production." },
-  { title: "Purchases are the verdict", text: "Whatever you sell, ads are judged on cost per purchase." },
+  { title: "The opener gets tested hardest", text: "In every sector, the first two seconds decide whether the rest gets seen." },
+  { title: "What you sell is shown as it is", text: "Real packaging, real app screens, real gameplay. We generate the presenter, not the product." },
+  { title: "Claims come from you", text: "Scripts are written from the claims you can support, and each sector’s platform rules are checked before production." },
+  { title: "Customers are the verdict", text: "Whatever you sell, ads are judged on what a new customer costs you." },
 ];
 
 export default function IndustriesPage() {
@@ -23,15 +24,18 @@ export default function IndustriesPage() {
     <>
       <PageHero
         crumbs={[{ label: "Industries" }]}
-        title="Who we work with"
-        lede="Every category has its own ad rules. Skincare can’t promise results, supplements can’t claim to cure, and fitness can’t show transformations. We build those rules into the scripts, so your ads get through review and still give people a reason to buy."
-        media={{ stills: ["bike-unboxing-3", "bag-unboxing-3"] }}
+        title="Who we make ads for"
+        lede="Seven sectors, each with its own ad rules. Finance can’t promise returns. Games can’t show gameplay that isn’t in the game. Dating has to stay adult and honest. We build those rules into the scripts, so your ads get through review and still give people a reason to act."
+        media={{ stills: ["emera-c-1", "bike-unboxing-3"] }}
       />
-      <Block title="Categories">
+      <Block title="Sectors">
         <HubIndex keys={industries.map((i) => i.slug)} />
       </Block>
-      <Block title="What stays the same" layout="side">
-        <Points items={constants} />
+      <Block title="E-commerce categories with rules of their own" layout="side">
+        <HubIndex keys={categories.map((c) => c.slug)} />
+      </Block>
+      <Block title="What stays the same">
+        <Points items={constants} columns />
       </Block>
       <CtaBand />
     </>

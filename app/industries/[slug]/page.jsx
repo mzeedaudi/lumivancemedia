@@ -2,27 +2,38 @@ import { notFound } from "next/navigation";
 import Blocks from "@/components/blocks/Blocks";
 import CtaBand from "@/components/blocks/CtaBand";
 import PageHero from "@/components/blocks/PageHero";
-import { industries } from "@/lib/industries";
+import { categories, industries } from "@/lib/industries";
+
+// The seven sectors, plus the e-commerce categories that sit beneath them.
+const pages = [...industries, ...categories];
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return industries.map((i) => ({ slug: i.slug }));
+  return pages.map((p) => ({ slug: p.slug }));
 }
 
 export function generateMetadata({ params }) {
-  const i = industries.find((x) => x.slug === params.slug);
-  if (!i) return {};
-  return { title: i.meta.title, description: i.meta.description, alternates: { canonical: `/industries/${i.slug}` } };
+  const p = pages.find((x) => x.slug === params.slug);
+  if (!p) return {};
+  return { title: p.meta.title, description: p.meta.description, alternates: { canonical: `/industries/${p.slug}` } };
 }
 
 export default function IndustryPage({ params }) {
-  const i = industries.find((x) => x.slug === params.slug);
-  if (!i) notFound();
+  const p = pages.find((x) => x.slug === params.slug);
+  if (!p) notFound();
+
+  const parent = p.parent && industries.find((i) => i.slug === p.parent);
+  const crumbs = [
+    { label: "Industries", href: "/industries" },
+    ...(parent ? [{ label: parent.name, href: `/industries/${parent.slug}` }] : []),
+    { label: p.name },
+  ];
+
   return (
     <>
-      <PageHero crumbs={[{ label: "Industries", href: "/industries" }, { label: i.name }]} {...i.hero} />
-      <Blocks blocks={i.blocks} />
+      <PageHero crumbs={crumbs} {...p.hero} />
+      <Blocks blocks={p.blocks} />
       <CtaBand />
     </>
   );

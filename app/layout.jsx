@@ -21,15 +21,15 @@ const mono = IBM_Plex_Mono({
 export const metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Lumivance | Video ads for skincare and wellness brands",
+    default: "Lumivance | Video ads for apps and online brands",
     template: "%s | Lumivance",
   },
   description:
-    "UGC-style video ads for skincare and wellness brands, twenty at a time, the first ones 72 hours after your brief. Test every angle, then scale the ad that brings your cost per customer down.",
+    "UGC-style video ads for apps and online brands, twenty at a time, the first ones 72 hours after your brief. Test every angle, then scale the ad that brings your cost per customer down.",
   openGraph: {
     title: "Lumivance | Test twenty ads, scale the one that sells",
     description:
-      "UGC-style video ads for skincare and wellness brands, twenty at a time, the first ones 72 hours after your brief.",
+      "UGC-style video ads for apps and online brands, twenty at a time, the first ones 72 hours after your brief.",
     type: "website",
   },
 };
