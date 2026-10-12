@@ -1,79 +1,67 @@
-import { method } from "@/lib/site";
+import { plan } from "@/lib/site";
 
 const CELL = {
-  cut: "bg-[repeating-linear-gradient(135deg,transparent_0_7px,rgba(21,19,15,0.07)_7px_8px)]",
-  iterate: "bg-ink/[0.06]",
-  scale: "bg-tally text-white",
+  cut: "bg-[repeating-linear-gradient(135deg,transparent_0_7px,rgba(21,19,15,0.06)_7px_8px)]",
+  iterate: "bg-ink/[0.07]",
+  scale: "bg-accent text-white",
 };
 
 // The shape of a twenty-ad sprint: five hooks across four executions, with an
-// illustrative read-out. Always shown with its "not client results" note.
+// illustrative read-out. The note saying it's an illustration appears once,
+// under the grid, and the table points to it for screen readers.
 export default function Matrix() {
-  const { matrix } = method;
   let id = 0;
 
   return (
     <div>
-      <table className="w-full table-fixed border-collapse border-t border-ink">
-        <caption className="sr-only">{matrix.note}</caption>
-        <thead>
-          <tr>
-            <td className="w-[92px] border-b border-rule sm:w-[180px]" />
-            {matrix.cols.map((c) => (
-              <th
-                key={c}
-                scope="col"
-                className="label border-b border-rule py-2.5 pr-2 text-left align-bottom text-[10px] font-medium text-graphite sm:text-[10.5px]"
-              >
-                {c}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {matrix.rows.map((row, r) => (
-            <tr key={row.name}>
-              <th scope="row" className="border-b border-rule py-3 pr-3 text-left align-top font-normal">
-                <span className="label block text-[10px] text-graphite">Hook {String.fromCharCode(65 + r)}</span>
-                <span className="mt-0.5 block font-display text-[15px] font-bold leading-tight tracking-[-0.01em] sm:text-[17px]">
-                  {row.name}
-                </span>
-                <span className="mt-0.5 hidden text-[14px] italic leading-snug text-graphite sm:block">{row.line}</span>
-              </th>
-              {row.states.map((state) => {
-                id += 1;
-                return (
-                  <td key={id} className={`h-[76px] border-b border-l border-rule p-2 align-top sm:h-[88px] sm:p-3 ${CELL[state]}`}>
-                    <span
-                      className={`block font-mono text-[11px] font-semibold sm:text-[12px] ${
-                        state === "cut" ? "text-graphite line-through" : ""
-                      }`}
-                    >
-                      V{String(id).padStart(2, "0")}
-                    </span>
-                    <span
-                      className={`label mt-5 block text-[9.5px] sm:mt-7 sm:text-[10.5px] ${
-                        state === "scale" ? "text-white" : "text-graphite"
-                      }`}
-                    >
-                      {state}
-                    </span>
-                  </td>
-                );
-              })}
+      <div className="border border-rule bg-white">
+        <table aria-label="How a twenty-ad sprint is laid out" aria-describedby="sprint-grid-note" className="w-full table-fixed border-collapse">
+          <thead>
+            <tr>
+              <td className="w-[92px] border-b border-rule sm:w-[190px]" />
+              {plan.cols.map((c) => (
+                <th key={c} scope="col" className="border-b border-l border-rule px-1.5 py-3 text-left align-bottom text-[12px] font-semibold leading-tight sm:px-3 sm:text-[14px]">
+                  {c}
+                </th>
+              ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <ul className="label mt-4 flex flex-wrap gap-x-6 gap-y-2 text-[10.5px] text-graphite">
-        {Object.entries(matrix.legend).map(([state, text]) => (
+          </thead>
+          <tbody className="[&>tr:last-child>*]:border-b-0">
+            {plan.rows.map((row) => (
+              <tr key={row.name}>
+                <th scope="row" className="border-b border-rule px-2 py-3 text-left align-top font-normal sm:px-3">
+                  <span className="block text-[13px] font-semibold leading-tight sm:text-[16px]">{row.name}</span>
+                  <span className="mt-1 hidden text-[14px] leading-snug text-graphite sm:block">{row.line}</span>
+                </th>
+                {row.states.map((state) => {
+                  id += 1;
+                  return (
+                    <td key={id} className={`h-[72px] border-b border-l border-rule p-2 align-top sm:h-[84px] sm:p-3 ${CELL[state]}`}>
+                      <span className={`tag block text-[11px] ${state === "cut" ? "text-graphite line-through" : ""}`}>
+                        V{String(id).padStart(2, "0")}
+                      </span>
+                      <span className={`tag mt-4 block text-[10px] sm:mt-6 ${state === "scale" ? "text-white" : "text-graphite"}`}>
+                        {state}
+                      </span>
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <ul className="tag mt-4 flex flex-wrap gap-x-6 gap-y-2 text-graphite">
+        {Object.entries(plan.legend).map(([state, text]) => (
           <li key={state} className="flex items-center gap-2">
-            <span aria-hidden="true" className={`inline-block h-3 w-3 border border-rule ${CELL[state]}`} />
+            <span aria-hidden="true" className={`inline-block h-3 w-3 border border-rule ${state === "cut" ? "bg-white" : ""} ${CELL[state]}`} />
             {text}
           </li>
         ))}
       </ul>
-      <p className="label mt-3 text-[10.5px] text-ink">{matrix.note}</p>
+      <p id="sprint-grid-note" className="meta mt-3">
+        {plan.note}
+      </p>
     </div>
   );
 }

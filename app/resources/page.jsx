@@ -7,7 +7,7 @@ import { guides } from "@/lib/resources";
 export const metadata = {
   title: "Resources",
   description:
-    "Guides from Lumivance on creative testing, AI presenters and the testimonial rules, delivery specs, plus a performance creative glossary and FAQ.",
+    "Guides from Lumivance on creative testing, AI presenters and the testimonial rules, and delivery specs, plus a glossary and common questions.",
   alternates: { canonical: "/resources" },
 };
 
@@ -16,15 +16,15 @@ export default function ResourcesPage() {
     <>
       <PageHero
         crumbs={[{ label: "Resources" }]}
-        title={["How we work,", "written down."]}
-        lede="The methods behind every sprint, published so you can use them with or without us: how to test creative, what AI presenters can say, and what arrives at the end of a sprint."
+        title="Guides and reference"
+        lede="How we work, written down so you can use it with or without us: how to test creative, what AI presenters can say, and what you get at the end of a sprint."
         media={{ stills: ["emera-b-2", "fizzbears-b-2"] }}
       />
-      <Block num="01" label="Guides" title="Guides.">
+      <Block title="Guides">
         <HubIndex keys={guides.map((g) => g.slug)} />
       </Block>
-      <Block num="02" label="Reference" title="Reference.">
-        <HubIndex keys={["work", "glossary", "faq"]} start={guides.length + 1} />
+      <Block title="Reference" layout="side">
+        <HubIndex keys={["work", "glossary", "faq"]} />
       </Block>
       <CtaBand />
     </>

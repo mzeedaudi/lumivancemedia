@@ -1,16 +1,24 @@
-// Rows of claims: a bold title on the left, the explanation on the right.
-export default function Points({ items, ink = false }) {
+// A short list of points, each a plain heading and a sentence or two.
+// `columns` lays them out two across for sections that sit under their heading.
+export default function Points({ items, columns = false }) {
+  if (columns) {
+    return (
+      <dl className="grid gap-x-14 gap-y-8 sm:grid-cols-2">
+        {items.map((it) => (
+          <div key={it.title}>
+            <dt className="h3">{it.title}</dt>
+            <dd className="mt-1.5 text-graphite">{it.text}</dd>
+          </div>
+        ))}
+      </dl>
+    );
+  }
   return (
-    <dl className={`border-t ${ink ? "border-rule-ink" : "border-ink"}`}>
+    <dl className="border-t border-rule">
       {items.map((it) => (
-        <div
-          key={it.title}
-          className={`grid gap-2 border-b py-5 sm:grid-cols-[minmax(0,0.85fr)_minmax(0,1.3fr)] sm:gap-8 ${
-            ink ? "border-rule-ink" : "border-rule"
-          }`}
-        >
-          <dt className="h3 text-[21px] [text-wrap:balance] sm:text-[22px]">{it.title}</dt>
-          <dd className={`text-[17px] leading-relaxed sm:text-[18px] ${ink ? "text-on-ink" : "text-graphite"}`}>{it.text}</dd>
+        <div key={it.title} className="border-b border-rule py-5">
+          <dt className="h3">{it.title}</dt>
+          <dd className="mt-1.5 text-graphite">{it.text}</dd>
         </div>
       ))}
     </dl>

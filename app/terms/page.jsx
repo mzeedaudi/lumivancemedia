@@ -14,13 +14,12 @@ export default function TermsPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Legal"
         title="Terms of Use"
         intro={`The terms governing your use of this website. Last updated ${UPDATED}.`}
       />
 
-      <section className="wrap grid-12 pb-24">
-        <div className="body space-y-10 lg:col-span-7">
+      <section className="wrap pb-24">
+        <div className="max-w-[760px] space-y-10">
           <Section title="Agreement">
             <p>
               By using this website you accept these terms. If you do not agree
@@ -118,8 +117,8 @@ export default function TermsPage() {
 function Section({ title, children }) {
   return (
     <div className="border-t border-rule pt-5">
-      <h2 className="h3 text-[22px]">{title}</h2>
-      <div className="mt-3 space-y-3 text-[18px] leading-relaxed text-graphite [&_a]:text-ink [&_a]:underline [&_a]:decoration-tally [&_a]:underline-offset-2">
+      <h2 className="display text-[23px]">{title}</h2>
+      <div className="mt-3 space-y-3 text-graphite [&_a]:text-ink [&_a]:underline [&_a]:decoration-accent [&_a]:underline-offset-2">
         {children}
       </div>
     </div>

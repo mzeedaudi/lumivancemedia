@@ -8,12 +8,12 @@ import { industries } from "@/lib/industries";
 export const metadata = {
   title: "Industries",
   description:
-    "Lumivance makes performance creative for skincare and beauty, supplements, fitness and wellness, and other DTC brands, with each category’s ad rules built into the scripts.",
+    "Lumivance makes video ads for skincare and beauty, supplements, fitness and wellness, and other online brands, with each category’s ad rules built into the scripts.",
   alternates: { canonical: "/industries" },
 };
 
 const constants = [
-  { title: "The opener is tested hardest", text: "In every category, the first two seconds decide whether the rest gets seen." },
+  { title: "The opener gets tested hardest", text: "In every category, the first two seconds decide whether the rest gets seen." },
   { title: "Claims come from you", text: "Scripts are written from the claims you can support, and each category’s platform rules are checked before production." },
   { title: "Purchases are the verdict", text: "Whatever you sell, ads are judged on cost per purchase." },
 ];
@@ -23,14 +23,14 @@ export default function IndustriesPage() {
     <>
       <PageHero
         crumbs={[{ label: "Industries" }]}
-        title={["Every category has", "its own rules."]}
-        lede="Skincare can’t promise results. Supplements can’t claim to cure. Fitness can’t show transformations. We build each category’s ad rules into the scripts, so your ads get through review and still give people a reason to buy."
+        title="Who we work with"
+        lede="Every category has its own ad rules. Skincare can’t promise results, supplements can’t claim to cure, and fitness can’t show transformations. We build those rules into the scripts, so your ads get through review and still give people a reason to buy."
         media={{ stills: ["bike-unboxing-3", "bag-unboxing-3"] }}
       />
-      <Block num="01" label="Categories" title={["Where we focus,", "and where else we work."]}>
+      <Block title="Categories">
         <HubIndex keys={industries.map((i) => i.slug)} />
       </Block>
-      <Block num="02" label="In every category" title="What doesn’t change.">
+      <Block title="What stays the same" layout="side">
         <Points items={constants} />
       </Block>
       <CtaBand />

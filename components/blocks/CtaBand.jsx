@@ -1,30 +1,27 @@
 import Link from "next/link";
-import { cta, site } from "@/lib/site";
+import { closing, cta, site } from "@/lib/site";
 
-// The closing ask, and the page's one full-bleed band of the accent color.
-// Plain lines here: a tally-red full stop would vanish on a tally background.
-export default function CtaBand({ title = ["Your first ads could be", "live by next week."] }) {
+// The closing ask: a full-width green band with the question, the button and
+// the email address.
+export default function CtaBand() {
   return (
-    <section className="bg-tally text-white">
-      <div className="wrap py-20 lg:py-28">
-        <span className="label">Next step</span>
-        <h2 className="display mt-5 text-[clamp(42px,7vw,100px)]">
-          {title.map((line) => (
-            <span key={line} className="block [text-wrap:balance]">
-              {line}
-            </span>
-          ))}
-        </h2>
-        <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
-          <Link href={cta.href} className="btn btn-ink">
+    <section className="bg-accent text-white">
+      <div className="wrap grid-12 items-end gap-y-8 py-16 lg:py-24">
+        <div className="col-span-12 lg:col-span-7">
+          <h2 className="display text-[clamp(30px,4.4vw,54px)]">{closing.title}</h2>
+          <p className="lede mt-4 max-w-[580px]">{closing.text}</p>
+        </div>
+        <div className="col-span-12 lg:col-span-4 lg:col-start-9">
+          <Link href={cta.href} className="btn btn-light">
             {cta.label}
-            <span aria-hidden="true" className="font-mono font-medium">
-              →
-            </span>
+            <span aria-hidden="true">→</span>
           </Link>
-          <a href={`mailto:${site.email}`} className="label break-all underline-offset-4 hover:underline">
-            Or email {site.email}
-          </a>
+          <p className="mt-4 text-[15px]">
+            Or email{" "}
+            <a href={`mailto:${site.email}`} className="break-all underline underline-offset-4">
+              {site.email}
+            </a>
+          </p>
         </div>
       </div>
     </section>

@@ -2,17 +2,30 @@
 
 import { useEffect, useRef, useState } from "react";
 
-// A spec ad that plays only while it's on screen. Browsers only autoplay muted
-// video, so every ad starts silent; the sound button unmutes this one and mutes
-// whichever other ad was playing out loud. Visitors who ask for reduced motion
-// or Save-Data get the poster frame and a play button instead of autoplay.
 const SOUND_EVENT = "lumivance:sound";
 
-export default function AdVideo({ slug, ad, tag, eager = false, className = "" }) {
+// Pixel size of each video file, by shape, so the browser reserves the space.
+const SIZE = { "3 / 4": [600, 800], "4 / 3": [800, 600], "16 / 9": [1280, 720] };
+
+// A spec ad that plays only while it's on screen.
+//
+// The first frame sits under the video as a small WebP image, so there is a
+// picture before any video data arrives, and images far down the page aren't
+// fetched until they're near. The video itself downloads nothing until it is
+// asked to play, and it isn't asked until the page has finished loading.
+//
+// Visitors on a slow connection, with Save-Data on, or who prefer reduced
+// motion get the still frame and a play button instead of autoplay (on a
+// middling connection the page's main ad still plays; the rest wait for a tap).
+//
+// Browsers only autoplay muted video, so every ad starts silent. The sound
+// button unmutes this one and mutes whichever other ad was playing out loud.
+export default function AdVideo({ slug, ad, tag, priority = false, ink = false, className = "" }) {
   const ref = useRef(null);
-  const [manual, setManual] = useState(false); // no autoplay for this visitor
+  const [manual, setManual] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [sound, setSound] = useState(false);
+  const [width, height] = SIZE[ad.ratio];
 
   useEffect(() => {
     const v = ref.current;
@@ -22,28 +35,43 @@ export default function AdVideo({ slug, ad, tag, eager = false, className = "" }
     v.defaultMuted = true;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const saveData = navigator.connection?.saveData === true;
-    if (reduced || saveData || !("IntersectionObserver" in window)) {
+    // Judge the connection by bandwidth, not latency: a far-away visitor on a
+    // good line can still play video. On 2G or with Save-Data nothing autoplays.
+    // Under 1.5 Mbps there's room for one ad, so only the page's main one plays.
+    const c = navigator.connection;
+    const none = Boolean(c && (c.saveData || /2g$/.test(c.effectiveType || "")));
+    const one = Boolean(c && c.downlink > 0 && c.downlink < 1.5);
+    if (reduced || none || (one && !priority) || !("IntersectionObserver" in window)) {
       setManual(true);
       return;
     }
 
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          v.play().catch(() => {});
-        } else {
-          v.pause();
-          // Never leave an off-screen ad talking.
-          v.muted = true;
-          setSound(false);
-        }
-      },
-      { threshold: 0.35 }
-    );
-    io.observe(v);
-    return () => io.disconnect();
-  }, []);
+    let io;
+    const watch = () => {
+      io = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            v.play().catch(() => {});
+          } else {
+            v.pause();
+            // Never leave an off-screen ad talking.
+            v.muted = true;
+            setSound(false);
+          }
+        },
+        { threshold: 0.35 }
+      );
+      io.observe(v);
+    };
+    // Wait for the page to finish loading, so video never competes with the
+    // text, fonts and still frames for bandwidth.
+    if (document.readyState === "complete") watch();
+    else window.addEventListener("load", watch, { once: true });
+    return () => {
+      window.removeEventListener("load", watch);
+      io?.disconnect();
+    };
+  }, [priority]);
 
   useEffect(() => {
     const onOther = (e) => {
@@ -76,31 +104,38 @@ export default function AdVideo({ slug, ad, tag, eager = false, className = "" }
   const buttonLabel = manual ? (playing && sound ? "Pause" : "Play") : sound ? "Sound off" : "Sound on";
 
   return (
-    <div className={`relative overflow-hidden bg-ink ${className}`} style={{ aspectRatio: ad.ratio }}>
+    <div className={`relative overflow-hidden ${ink ? "bg-frame-ink" : "bg-frame"} ${className}`} style={{ aspectRatio: ad.ratio }}>
+      <img
+        src={`/work/${slug}.webp`}
+        alt=""
+        width={width}
+        height={height}
+        loading={priority ? "eager" : "lazy"}
+        fetchPriority={priority ? "high" : "auto"}
+        decoding="async"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
       <video
         ref={ref}
         src={`/work/${slug}.mp4`}
-        poster={`/work/${slug}.jpg`}
+        width={width}
+        height={height}
         muted
         loop
         playsInline
-        preload={eager ? "auto" : "none"}
+        preload="none"
         aria-label={ad.alt}
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
         className="absolute inset-0 h-full w-full object-cover"
       />
-      {tag && (
-        <span className="label pointer-events-none absolute left-3 top-3 bg-ink px-2 py-1 text-[10.5px] text-paper">
-          {tag}
-        </span>
-      )}
+      {tag && <span className="tag pointer-events-none absolute left-3 top-3 bg-ink px-2 py-1 text-paper">{tag}</span>}
       <button
         type="button"
         onClick={toggle}
         aria-pressed={sound}
         aria-label={`${buttonLabel}: ${ad.title}`}
-        className="label absolute bottom-3 right-3 bg-ink px-2 py-1 text-[10.5px] text-paper transition-colors hover:bg-tally"
+        className="tag absolute bottom-3 right-3 bg-ink px-2 py-1 text-paper transition-colors hover:bg-accent"
       >
         {buttonLabel}
       </button>

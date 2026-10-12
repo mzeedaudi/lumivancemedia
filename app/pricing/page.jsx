@@ -8,7 +8,7 @@ import { faqGroups } from "@/lib/company";
 export const metadata = {
   title: "Pricing",
   description:
-    "Creative Testing Sprints: $10,000 for twenty ads, $16,000 for forty, $29,000 for eighty. The creative + performance retainer is quoted after an account review.",
+    "Creative Testing Sprints cost $10,000 for twenty ads, $16,000 for forty or $29,000 for eighty. The creative and performance retainer is quoted after an account review.",
   alternates: { canonical: "/pricing" },
 };
 
@@ -18,20 +18,20 @@ export default function PricingPage() {
     <>
       <PageHero
         crumbs={[{ label: "Pricing" }]}
-        title={["Priced per batch.", "Published, not hidden."]}
+        title="Pricing"
         lede="A sprint is a fixed price for a fixed number of finished ads. The retainer is quoted once we’ve seen your ad account, because channels, markets and volume change the work. Ad spend is always yours to pay, directly to the platforms."
         media={{ stills: ["vazu-can-6", "emera-b-5"] }}
       />
-      <Block num="01" label="Sprints" title={["Creative Testing Sprint.", "Three sizes."]}>
-        <Tiers />
+      <Block title="Creative Testing Sprint">
+        <Tiers details />
       </Block>
-      <Block num="02" label="Retainer" title={["After a sprint:", "the monthly retainer."]}>
+      <Block title="The monthly retainer" intro="For brands that want new ads every month and someone to run them.">
         <Retainer />
       </Block>
-      <Block num="03" label="Not included" title="What you pay for separately.">
+      <Block title="What isn’t included" intro="These apply to sprints and the retainer alike." layout="side">
         <NotIncluded />
       </Block>
-      <Block num="04" label="Questions" title="About pricing.">
+      <Block title="Questions about pricing" narrow>
         <Faq items={pricingFaq} />
       </Block>
       <CtaBand />

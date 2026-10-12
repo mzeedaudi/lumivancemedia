@@ -1,10 +1,10 @@
 import AdVideo from "@/components/AdVideo";
 import { ads } from "@/lib/site";
 
-// Spec ads side by side and staggered, each captioned with what makes it
+// Spec ads side by side and staggered, each with a line on what makes it
 // different. Portrait ads sit three to a row even when there are only two,
 // leaving air; on phones the row scrolls sideways so each ad stays usable.
-export default function VideoRow({ items, ink = false }) {
+export default function VideoRow({ items }) {
   const landscape = items.some((it) => ads[it.slug].ratio !== "3 / 4");
   return (
     <div
@@ -19,12 +19,10 @@ export default function VideoRow({ items, ink = false }) {
             i === 1 ? "sm:mt-12" : i === 2 ? "sm:mt-5" : ""
           }`}
         >
-          <AdVideo slug={it.slug} ad={ads[it.slug]} tag={it.tag || `Spec · ${ads[it.slug].length}`} />
-          <figcaption className={`mt-3 border-t pt-2.5 ${ink ? "border-rule-ink" : "border-rule"}`}>
-            <span className="h3 block text-[19px]">{it.title || ads[it.slug].title}</span>
-            {it.text && (
-              <span className={`mt-1 block text-[15px] leading-snug ${ink ? "text-on-ink" : "text-graphite"}`}>{it.text}</span>
-            )}
+          <AdVideo slug={it.slug} ad={ads[it.slug]} tag={`Spec · ${ads[it.slug].length}`} />
+          <figcaption className="mt-3">
+            <span className="h3 block text-[16px]">{it.title || ads[it.slug].title}</span>
+            {it.text && <span className="meta mt-0.5 block">{it.text}</span>}
           </figcaption>
         </figure>
       ))}

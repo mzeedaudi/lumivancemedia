@@ -9,19 +9,18 @@ export const metadata = {
 };
 
 // Last substantive review of this policy. Update when the content changes.
-const UPDATED = "3 October 2026";
+const UPDATED = "12 October 2026";
 
 export default function PrivacyPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Legal"
         title="Privacy Policy"
         intro={`How we handle the information you share with us. Last updated ${UPDATED}.`}
       />
 
-      <section className="wrap grid-12 pb-24">
-        <div className="body space-y-10 lg:col-span-7">
+      <section className="wrap pb-24">
+        <div className="max-w-[760px] space-y-10">
           <Section title="Who we are">
             <p>
               {site.legal.entity} (&ldquo;we&rdquo;, &ldquo;us&rdquo;) operates
@@ -68,8 +67,6 @@ export default function PrivacyPage() {
               Your submission is handled by our own team and by the service
               providers that run our infrastructure &mdash; our website host and
               our email provider. They process data on our instructions only.
-              The typefaces on this site are served by Google Fonts, which
-              receives your browser&rsquo;s IP address when a page loads.
             </p>
           </Section>
 
@@ -120,8 +117,8 @@ export default function PrivacyPage() {
 function Section({ title, children }) {
   return (
     <div className="border-t border-rule pt-5">
-      <h2 className="h3 text-[22px]">{title}</h2>
-      <div className="mt-3 space-y-3 text-[18px] leading-relaxed text-graphite [&_a]:text-ink [&_a]:underline [&_a]:decoration-tally [&_a]:underline-offset-2 [&_li]:ml-5 [&_li]:list-disc [&_strong]:text-ink [&_ul]:space-y-2">
+      <h2 className="display text-[23px]">{title}</h2>
+      <div className="mt-3 space-y-3 text-graphite [&_a]:text-ink [&_a]:underline [&_a]:decoration-accent [&_a]:underline-offset-2 [&_li]:ml-5 [&_li]:list-disc [&_strong]:text-ink [&_ul]:space-y-2">
         {children}
       </div>
     </div>

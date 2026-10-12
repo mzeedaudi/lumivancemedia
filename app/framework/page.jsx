@@ -12,7 +12,7 @@ export const metadata = {
 export default function FrameworkPage() {
   return (
     <>
-      <PageHero crumbs={[{ label: "Company", href: "/about" }, { label: "Our testing framework" }]} {...framework.hero} />
+      <PageHero crumbs={[{ label: "Company", href: "/about" }, { label: "How we test ads" }]} {...framework.hero} />
       <Blocks blocks={framework.blocks} />
       <CtaBand />
     </>
