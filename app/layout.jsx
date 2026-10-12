@@ -2,6 +2,8 @@ import { Fraunces, IBM_Plex_Mono, Libre_Franklin } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import JsonLd from "@/components/JsonLd";
+import { organization, website } from "@/lib/schema";
 import { SITE_URL } from "@/lib/siteUrl";
 
 // Fonts come from Google Fonts but are downloaded at build time and served
@@ -50,6 +52,7 @@ export default function RootLayout({ children }) {
         >
           Skip to content
         </a>
+        <JsonLd data={[organization, website]} />
         <Navbar />
         <main id="main">{children}</main>
         <Footer />
