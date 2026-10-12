@@ -3,12 +3,11 @@ import CtaBand from "@/components/blocks/CtaBand";
 import HubIndex from "@/components/blocks/HubIndex";
 import Points from "@/components/blocks/Points";
 import PageHero from "@/components/blocks/PageHero";
-import { categories, industries } from "@/lib/industries";
+import { categories, industries, sectorList } from "@/lib/industries";
 
 export const metadata = {
   title: "Industries",
-  description:
-    "Lumivance makes video ads for edtech, fintech, e-commerce, subscription apps, dating apps, mobile games, and health and fitness, with each sector’s ad rules built into the scripts.",
+  description: `Lumivance makes video ads for ${sectorList}, with each sector’s ad rules built into the scripts.`,
   alternates: { canonical: "/industries" },
 };
 
@@ -25,13 +24,13 @@ export default function IndustriesPage() {
       <PageHero
         crumbs={[{ label: "Industries" }]}
         title="Who we make ads for"
-        lede="Seven sectors, each with its own ad rules. Finance can’t promise returns. Games can’t show gameplay that isn’t in the game. Dating has to stay adult and honest. We build those rules into the scripts, so your ads get through review and still give people a reason to act."
+        lede="Every sector has its own ad rules. Finance can’t promise returns. Games can’t show gameplay that isn’t in the game. Dating has to stay adult and honest. We build those rules into the scripts, so your ads get through review and still give people a reason to act."
         media={{ stills: ["emera-c-1", "bike-unboxing-3"] }}
       />
       <Block title="Sectors">
         <HubIndex keys={industries.map((i) => i.slug)} />
       </Block>
-      <Block title="E-commerce categories with rules of their own" layout="side">
+      <Block title="DTC categories with rules of their own" layout="side">
         <HubIndex keys={categories.map((c) => c.slug)} />
       </Block>
       <Block title="What stays the same">

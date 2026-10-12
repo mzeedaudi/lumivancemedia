@@ -4,7 +4,7 @@ import CtaBand from "@/components/blocks/CtaBand";
 import PageHero from "@/components/blocks/PageHero";
 import { categories, industries } from "@/lib/industries";
 
-// The seven sectors, plus the e-commerce categories that sit beneath them.
+// The sectors, plus the direct-to-consumer categories that sit beneath them.
 const pages = [...industries, ...categories];
 
 export const dynamicParams = false;
