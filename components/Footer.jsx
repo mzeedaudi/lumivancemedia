@@ -1,73 +1,66 @@
 import Link from "next/link";
-import { nav, site } from "@/lib/site";
-import { Wordmark } from "@/components/Logo";
+import { site } from "@/lib/site";
+import { footerColumns } from "@/lib/pages";
 
-const SOCIAL_LABELS = { instagram: "Instagram", linkedin: "LinkedIn", x: "X / Twitter", vimeo: "Vimeo" };
+const SOCIAL_LABELS = { instagram: "Instagram", linkedin: "LinkedIn", x: "X", tiktok: "TikTok" };
 
+// The name, how to reach us, and a site map that lists only pages that exist.
 export default function Footer() {
   // Social entries are dropped when their URL is blank in lib/site.js, so the
   // footer never ships a link that goes nowhere.
   const socials = Object.entries(site.social || {})
     .filter(([, url]) => url)
-    .map(([key, url]) => ({ label: SOCIAL_LABELS[key] || key, href: url, external: true }));
-
-  const groups = [
-    { title: "Studio", links: nav },
-    {
-      title: "Connect",
-      links: [
-        { label: "Start a retainer", href: "/contact" },
-        { label: site.email, href: `mailto:${site.email}` },
-        ...socials,
-      ],
-    },
-  ];
+    .map(([key, url]) => ({ label: SOCIAL_LABELS[key] || key, href: url }));
 
   return (
-    <footer className="relative mt-32 border-t border-line">
-      <div className="container-x py-16">
-        <div className="grid gap-12 lg:grid-cols-[1.4fr_0.8fr_0.8fr]">
-          <div>
-            <Link href="/" aria-label="Lumivance home" className="inline-block">
-              <Wordmark markClassName="h-9 w-auto" textClassName="text-xl" tagline uid="foot" />
+    <footer>
+      <div className="wrap pb-8 pt-14">
+        <div className="grid-12 gap-y-12">
+          <div className="col-span-12 lg:col-span-4">
+            <Link href="/" className="wordmark text-[30px]" aria-label="Lumivance home">
+              Lumivance
             </Link>
-            <p className="mt-6 max-w-sm font-serif text-2xl italic leading-snug text-bone/80">
-              Cinematic AI commercials for brands — made in days, delivered every month.
+            <p className="mt-3 max-w-[300px] text-graphite">{site.tagline}.</p>
+            <p className="mt-7">
+              <a href={`mailto:${site.email}`} className="link break-all">
+                {site.email}
+              </a>
             </p>
-            <p className="mt-6 text-sm text-sand">{site.location}</p>
+            <p className="meta mt-2">{site.reply}</p>
           </div>
 
-          {groups.map((group) => (
-            <div key={group.title}>
-              <h3 className="text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-sand">
-                {group.title}
-              </h3>
-              <ul className="mt-5 space-y-3">
-                {group.links.map((link) => (
-                  <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                      className="text-sm text-bone/70 transition-colors hover:text-bone"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <nav aria-label="Site map" className="col-span-12 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:col-span-8 lg:grid-cols-5">
+            {footerColumns.map((col) => (
+              <div key={col.title}>
+                <h2 className="text-[14px] font-semibold">{col.title}</h2>
+                <ul className="mt-3 space-y-2 text-[15px] text-graphite">
+                  {col.links.map((l) => (
+                    <li key={l.href}>
+                      <Link href={l.href} className="transition-colors hover:text-accent">
+                        {l.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </nav>
         </div>
 
-        <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-line pt-8 text-sm text-bone/40 sm:flex-row sm:items-center">
+        <div className="meta mt-14 flex flex-wrap justify-between gap-x-8 gap-y-2 border-t border-rule pt-5">
           <p>
-            © {new Date().getFullYear()} {site.legal.entity}. All rights reserved.
+            © {new Date().getFullYear()} {site.name}
           </p>
-          <div className="flex gap-6">
-            <Link href="/privacy" className="transition-colors hover:text-bone">
+          <div className="flex flex-wrap gap-6">
+            {socials.map((s) => (
+              <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-ink">
+                {s.label}
+              </a>
+            ))}
+            <Link href="/privacy" className="transition-colors hover:text-ink">
               Privacy
             </Link>
-            <Link href="/terms" className="transition-colors hover:text-bone">
+            <Link href="/terms" className="transition-colors hover:text-ink">
               Terms
             </Link>
           </div>

@@ -1,101 +1,60 @@
-import PageHeader from "@/components/PageHeader";
-import SectionHeading from "@/components/SectionHeading";
-import Showreel from "@/components/Showreel";
-import Formats from "@/components/Formats";
-import Reveal from "@/components/Reveal";
-import CTA from "@/components/CTA";
-import { month, projects } from "@/lib/site";
+import AdVideo from "@/components/AdVideo";
+import Block from "@/components/blocks/Block";
+import CtaBand from "@/components/blocks/CtaBand";
+import FrameStrip from "@/components/blocks/FrameStrip";
+import PageHero from "@/components/blocks/PageHero";
+import { workGroups } from "@/lib/company";
+import { adTag, ads, work } from "@/lib/site";
 
 export const metadata = {
   title: "Work",
   description:
-    "The Lumivance showreel, every placement format we deliver, and what a month on retainer looks like week by week.",
+    "Every Lumivance spec ad, playable and frame by frame: unboxings, try-ons, demos, product heroes and motion pieces. All of it is spec work made with AI.",
   alternates: { canonical: "/work" },
 };
 
+// Each spec ad with the ad itself, what it is, and six of its frames.
 export default function WorkPage() {
   return (
     <>
-      <PageHeader
-        eyebrow="Work"
-        title="The reel, and what a month with us looks like"
-        intro="Every frame below was directed, generated, graded and scored in-house. No cameras were involved."
+      <PageHero
+        crumbs={[{ label: "Work" }]}
+        title="Our work"
+        lede={`${work.statement} ${work.intro}`}
+        media={{ pair: ["lookbook", "emera-a"] }}
+        caption=""
       />
-
-      <section className="container-x pt-8">
-        <Showreel id="reel" />
-      </section>
-
-      {/* Project grid appears automatically once lib/site.js `projects` has entries. */}
-      {projects.length > 0 && (
-        <section className="container-x py-20 sm:py-28">
-          <SectionHeading eyebrow="Selected work" title="Recent films" className="mb-12" />
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {projects.map((p, i) => (
-              <Reveal key={p.title} delay={i * 80} className="ring-gradient overflow-hidden rounded-3xl bg-black">
-                <video
-                  src={p.src}
-                  poster={p.poster}
-                  muted
-                  loop
-                  playsInline
-                  preload="none"
-                  className="aspect-video w-full object-cover"
-                />
-                <div className="p-5">
-                  <p className="font-display text-lg font-semibold text-bone">{p.title}</p>
-                  <p className="mt-1 text-sm text-sand">
-                    {p.client} · {p.year}
-                  </p>
+      {workGroups.map((g) => (
+        <Block key={g.title} title={g.title} intro={g.intro}>
+          {g.slugs.map((slug) => {
+            const ad = ads[slug];
+            const landscape = ad.ratio !== "3 / 4";
+            return (
+              <article
+                key={slug}
+                className={`grid items-start gap-6 border-t border-rule py-8 sm:gap-10 ${
+                  landscape ? "" : "sm:grid-cols-[minmax(0,0.6fr)_minmax(0,1fr)]"
+                }`}
+              >
+                <div className={landscape ? "max-w-[640px]" : "max-w-[360px]"}>
+                  <AdVideo slug={slug} ad={ad} tag={adTag(ad)} />
                 </div>
-              </Reveal>
-            ))}
-          </div>
-        </section>
-      )}
-
-      <section className="band-dusk container-x py-20 sm:py-28">
-        <SectionHeading
-          eyebrow="Every placement"
-          title="Delivered in every format you buy media in"
-          intro="Reframed shot by shot for each ratio, so the subject is always where it should be."
-          align="center"
-          className="mb-14"
-        />
-        <Formats />
-      </section>
-
-      <section className="band-amber container-x py-20 sm:py-28">
-        <SectionHeading
-          eyebrow="On retainer"
-          title="What a month looks like"
-          intro="A fixed rhythm you can plan campaigns around. Briefs go in at the top of the month; masters and cutdowns come out at the end."
-          className="mb-12"
-        />
-        <ol className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
-          {month.map((m, i) => (
-            <Reveal
-              as="li"
-              key={m.week}
-              delay={i * 90}
-              className="rounded-3xl border border-line bg-ink-soft/60 p-7"
-            >
-              <p className="font-mono text-[0.68rem] font-semibold uppercase tracking-[0.2em] text-amber">
-                {m.week}
-              </p>
-              <h3 className="mt-3 font-display text-xl font-semibold tracking-tight text-bone">
-                {m.title}
-              </h3>
-              <p className="mt-2.5 text-sm leading-relaxed text-sand">{m.body}</p>
-            </Reveal>
-          ))}
-        </ol>
-      </section>
-
-      <CTA
-        title="Want your brand in the next reel?"
-        body="Send us the brief. We’ll reply within a day with a treatment and a plan for your first month."
-      />
+                <div>
+                  <h3 className="display text-[24px] sm:text-[26px]">{ad.title}</h3>
+                  <p className="meta mt-1">
+                    {ad.category}, {ad.length.replace("0:", "")} seconds
+                  </p>
+                  <p className="mt-3 text-graphite">{ad.alt}.</p>
+                  <div className="mt-6">
+                    <FrameStrip slug={slug} dense />
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </Block>
+      ))}
+      <CtaBand />
     </>
   );
 }

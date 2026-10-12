@@ -1,40 +1,40 @@
-import PageHeader from "@/components/PageHeader";
-import Reveal from "@/components/Reveal";
-import SectionHeading from "@/components/SectionHeading";
-import PricingTiers from "@/components/PricingTiers";
-import FAQ from "@/components/FAQ";
-import CTA from "@/components/CTA";
+import Block from "@/components/blocks/Block";
+import CtaBand from "@/components/blocks/CtaBand";
+import Faq from "@/components/blocks/Faq";
+import { NotIncluded, Retainer, Tiers } from "@/components/blocks/Offer";
+import PageHero from "@/components/blocks/PageHero";
+import { faqGroups } from "@/lib/company";
+import { priceCopy } from "@/lib/offer";
 
 export const metadata = {
   title: "Pricing",
-  description:
-    "Monthly retainers for AI commercials, imagery and showreels, from $3,500/mo. Every format included, full ownership of the work, cancel with 30 days’ notice.",
+  description: `Creative Testing Sprints cost ${priceCopy.all}. The creative and performance retainer is quoted after an account review.`,
   alternates: { canonical: "/pricing" },
 };
 
 export default function PricingPage() {
+  const pricingFaq = faqGroups.find((g) => g.group === "Pricing").items;
   return (
     <>
-      <PageHeader
-        eyebrow="Pricing"
-        title="A studio on call. One monthly fee."
-        intro="Flat retainers, no per-asset surprises. Every plan includes every placement format and full rights to everything we make."
+      <PageHero
+        crumbs={[{ label: "Pricing" }]}
+        title="Pricing"
+        lede="A sprint is a fixed price for a fixed number of finished ads. The retainer is quoted once we’ve seen your ad account, because channels, markets and volume change the work. Ad spend is always yours to pay, directly to the platforms."
+        media={{ stills: ["vazu-can-6", "emera-b-5"] }}
       />
-
-      <section className="container-x py-16">
-        <PricingTiers />
-        <Reveal as="p" className="mx-auto mt-10 max-w-2xl text-center text-sm text-sand">
-          All retainers roll month to month with 30 days’ notice. We plan each month with you up
-          front, so the volume is spent where it matters most.
-        </Reveal>
-      </section>
-
-      <section className="container-x py-20 sm:py-28">
-        <SectionHeading eyebrow="Questions" title="Pricing, answered plainly" align="center" className="mb-12" />
-        <FAQ />
-      </section>
-
-      <CTA />
+      <Block title="Creative Testing Sprint">
+        <Tiers details />
+      </Block>
+      <Block title="The monthly retainer" intro="For brands that want new ads every month and someone to run them.">
+        <Retainer />
+      </Block>
+      <Block title="What isn’t included" intro="These apply to sprints and the retainer alike." layout="side">
+        <NotIncluded />
+      </Block>
+      <Block title="Questions about pricing" narrow>
+        <Faq items={pricingFaq} />
+      </Block>
+      <CtaBand />
     </>
   );
 }

@@ -1,78 +1,57 @@
 import PageHeader from "@/components/PageHeader";
-import Reveal from "@/components/Reveal";
 import ContactForm from "@/components/ContactForm";
 import { site } from "@/lib/site";
 
 export const metadata = {
-  title: "Start a retainer",
+  title: "Start a Creative Testing Sprint",
   description:
-    "Tell Lumivance about your brand and the placements you’re buying. We reply within one business day with a treatment and a plan for your first month.",
+    "Tell Lumivance what you sell and what you’re running now. We reply within one business day, then send a written plan of the angles we’d test first. No obligation.",
   alternates: { canonical: "/contact" },
 };
 
 const steps = [
-  "We reply within one business day with a call slot",
-  "A 30-minute brief: product, audience, placements, feeling",
-  "A treatment and first-month plan, yours to keep",
+  "We reply within one business day with a few times for a 30-minute call.",
+  "On the call we look at what you run now: your product, your current ads and roughly what you spend.",
+  "You get a written sprint plan with the angles we’d test first and what it costs. No obligation.",
 ];
 
 export default function ContactPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Contact"
-        title="Start a retainer"
-        intro="Tell us about the brand and what you need first. No pitch deck required — a paragraph is plenty."
+        title="Start a Creative Testing Sprint"
+        intro="Tell us what you sell and what you’re running now. A few lines is plenty."
       />
 
-      <section className="container-x py-12">
-        <div className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr]">
-          <div>
-            <Reveal>
-              <h2 className="font-display text-2xl font-bold tracking-tight text-bone">What happens next</h2>
-              <ol className="mt-6 space-y-4">
-                {steps.map((s, i) => (
-                  <li key={s} className="flex items-start gap-3 text-sm text-bone/85 sm:text-base">
-                    <span className="grid h-7 w-7 flex-none place-items-center rounded-full bg-gradient-to-br from-gold to-ember font-display text-xs font-bold text-ink">
-                      {i + 1}
-                    </span>
-                    {s}
-                  </li>
-                ))}
-              </ol>
-            </Reveal>
+      <section className="wrap grid-12 gap-y-14 pb-24">
+        <div className="col-span-12 lg:col-span-7">
+          <ContactForm />
+        </div>
 
-            <Reveal delay={120} className="mt-10 space-y-4 border-t border-line pt-8">
-              <Detail label="Email" value={site.email} href={`mailto:${site.email}`} />
-              {site.phone && (
-                <Detail label="Phone" value={site.phone} href={`tel:${site.phone.replace(/[^+\d]/g, "")}`} />
-              )}
-              <Detail label="Where" value={site.location} />
-            </Reveal>
-          </div>
+        <div className="col-span-12 lg:col-span-4 lg:col-start-9">
+          <h2 className="h3">What happens next</h2>
+          <ol className="mt-3 list-decimal space-y-3 pl-5 text-graphite marker:text-ink">
+            {steps.map((s) => (
+              <li key={s}>{s}</li>
+            ))}
+          </ol>
 
-          <Reveal delay={80}>
-            <ContactForm />
-          </Reveal>
+          <h2 className="h3 mt-10">Or get in touch directly</h2>
+          <p className="mt-3">
+            <a href={`mailto:${site.email}`} className="link break-all">
+              {site.email}
+            </a>
+          </p>
+          {site.phone && (
+            <p className="mt-2">
+              <a href={`tel:${site.phone.replace(/[^+\d]/g, "")}`} className="link">
+                {site.phone}
+              </a>
+            </p>
+          )}
+          <p className="meta mt-2">{site.location}</p>
         </div>
       </section>
-
-      <div className="py-16" />
     </>
-  );
-}
-
-function Detail({ label, value, href }) {
-  return (
-    <div className="flex items-baseline gap-4">
-      <span className="w-16 flex-none text-[0.68rem] uppercase tracking-[0.18em] text-bone/40">{label}</span>
-      {href ? (
-        <a href={href} className="text-sm text-bone/90 transition-colors hover:text-amber sm:text-base">
-          {value}
-        </a>
-      ) : (
-        <span className="text-sm text-bone/90 sm:text-base">{value}</span>
-      )}
-    </div>
   );
 }
