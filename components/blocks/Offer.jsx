@@ -17,7 +17,7 @@ function List({ head, items }) {
 
 const ROWS = [
   ["Price", (t) => <span className="display text-[16px] sm:text-[32px]">{usd(t.price)}</span>],
-  ["Cost per ad", (t) => usd(t.perAd)],
+  ["Cost per ad", (t) => usd(Math.round(t.price / t.ads))],
   ["Number of ads", (t) => t.ads],
   ["Maximum length", (t) => t.maxLength],
   ["Who it’s for", (t) => <span className="text-[13px] leading-snug text-graphite sm:text-[15px]">{t.who}</span>],

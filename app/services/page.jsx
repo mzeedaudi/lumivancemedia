@@ -3,6 +3,7 @@ import CtaBand from "@/components/blocks/CtaBand";
 import HubIndex from "@/components/blocks/HubIndex";
 import { Tiers } from "@/components/blocks/Offer";
 import PageHero from "@/components/blocks/PageHero";
+import { priceCopy } from "@/lib/offer";
 import { services } from "@/lib/services";
 
 export const metadata = {
@@ -21,7 +22,7 @@ export default function ServicesPage() {
         crumbs={[{ label: "Services" }]}
         title="What we do"
         lede="Two things. We make UGC-style and product-led video ads in batches, and we run the Meta, TikTok and YouTube campaigns behind them. A sprint is the place to start."
-        aside="Sprints from $10,000 for twenty ads."
+        aside={`Sprints from ${priceCopy.from}.`}
         media={{ pair: ["emera-a", "vazu-can"] }}
       />
       <Block

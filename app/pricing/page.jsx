@@ -4,11 +4,11 @@ import Faq from "@/components/blocks/Faq";
 import { NotIncluded, Retainer, Tiers } from "@/components/blocks/Offer";
 import PageHero from "@/components/blocks/PageHero";
 import { faqGroups } from "@/lib/company";
+import { priceCopy } from "@/lib/offer";
 
 export const metadata = {
   title: "Pricing",
-  description:
-    "Creative Testing Sprints cost $10,000 for twenty ads, $16,000 for forty or $29,000 for eighty. The creative and performance retainer is quoted after an account review.",
+  description: `Creative Testing Sprints cost ${priceCopy.all}. The creative and performance retainer is quoted after an account review.`,
   alternates: { canonical: "/pricing" },
 };
 
