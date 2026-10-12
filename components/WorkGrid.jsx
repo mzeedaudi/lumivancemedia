@@ -1,5 +1,5 @@
 import AdVideo from "@/components/AdVideo";
-import { ads, work } from "@/lib/site";
+import { adTag, ads, work } from "@/lib/site";
 
 // Desktop-only drops, by grid position, so each row zigzags instead of lining
 // up in a tidy grid. Rows are 6+3+3, 3+3+6 and 3+6+3 columns wide.
@@ -28,7 +28,7 @@ export default function WorkGrid() {
           return (
             <li key={slug} className={`${wide ? "col-span-2 lg:col-span-6" : "col-span-1 lg:col-span-3"} ${DROP[i] || ""}`}>
               <figure>
-                <AdVideo slug={slug} ad={ad} tag={`Spec · ${ad.length}`} ink />
+                <AdVideo slug={slug} ad={ad} tag={adTag(ad)} ink />
                 <figcaption className="mt-3">
                   <span className="block text-[15px] font-semibold leading-snug sm:text-[16px]">{ad.title}</span>
                   <span className="mt-0.5 block text-[14px] text-on-ink">{ad.category}</span>

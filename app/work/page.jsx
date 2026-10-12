@@ -4,7 +4,7 @@ import CtaBand from "@/components/blocks/CtaBand";
 import FrameStrip from "@/components/blocks/FrameStrip";
 import PageHero from "@/components/blocks/PageHero";
 import { workGroups } from "@/lib/company";
-import { ads, work } from "@/lib/site";
+import { adTag, ads, work } from "@/lib/site";
 
 export const metadata = {
   title: "Work",
@@ -37,7 +37,7 @@ export default function WorkPage() {
                 }`}
               >
                 <div className={landscape ? "max-w-[640px]" : "max-w-[360px]"}>
-                  <AdVideo slug={slug} ad={ad} tag={`Spec · ${ad.length}`} />
+                  <AdVideo slug={slug} ad={ad} tag={adTag(ad)} />
                 </div>
                 <div>
                   <h3 className="display text-[24px] sm:text-[26px]">{ad.title}</h3>

@@ -2,7 +2,7 @@ import Link from "next/link";
 import AdVideo from "@/components/AdVideo";
 import Still from "@/components/Still";
 import StaggeredPair from "@/components/StaggeredPair";
-import { ads, cta } from "@/lib/site";
+import { adTag, ads, cta } from "@/lib/site";
 
 // Inner-page hero: where you are, what the page is about, one button, and
 // spec work beside it. `media` is { pair: [slug, slug] } for two playing ads
@@ -55,8 +55,8 @@ function HeroMedia({ media, caption }) {
     const [a, b] = media.pair;
     return (
       <StaggeredPair
-        a={<AdVideo slug={a} ad={ads[a]} tag={`Spec · ${ads[a].length}`} priority />}
-        b={<AdVideo slug={b} ad={ads[b]} tag={`Spec · ${ads[b].length}`} />}
+        a={<AdVideo slug={a} ad={ads[a]} tag={adTag(ads[a])} priority />}
+        b={<AdVideo slug={b} ad={ads[b]} tag={adTag(ads[b])} />}
         caption={caption ?? "Spec ads made with AI, not client work."}
       />
     );

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import AdVideo from "@/components/AdVideo";
 import StaggeredPair from "@/components/StaggeredPair";
-import { ads, cta, hero } from "@/lib/site";
+import { adTag, ads, cta, hero } from "@/lib/site";
 
 // The claim, one button, and two spec ads beside it. The headline's last full
 // stop is the only place the accent color is used as decoration.
@@ -35,8 +35,8 @@ export default function Hero() {
 
       <StaggeredPair
         className="col-span-12 max-w-[460px] sm:ml-auto lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:ml-0 lg:max-w-none"
-        a={<AdVideo slug={a} ad={ads[a]} tag={`Spec · ${ads[a].length}`} priority />}
-        b={<AdVideo slug={b} ad={ads[b]} tag={`Spec · ${ads[b].length}`} />}
+        a={<AdVideo slug={a} ad={ads[a]} tag={adTag(ads[a])} priority />}
+        b={<AdVideo slug={b} ad={ads[b]} tag={adTag(ads[b])} />}
       />
     </section>
   );

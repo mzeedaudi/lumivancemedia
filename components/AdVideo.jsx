@@ -5,9 +5,9 @@ import { useEffect, useRef, useState } from "react";
 const SOUND_EVENT = "lumivance:sound";
 
 // Pixel size of each video file, by shape, so the browser reserves the space.
-const SIZE = { "3 / 4": [600, 800], "4 / 3": [800, 600], "16 / 9": [1280, 720] };
+const SIZE = { "3 / 4": [600, 800], "4 / 3": [800, 600], "16 / 9": [1280, 720], "9 / 16": [540, 960] };
 
-// A spec ad that plays only while it's on screen.
+// An ad that plays only while it's on screen.
 //
 // The first frame sits under the video as a small WebP image, so there is a
 // picture before any video data arrives, and images far down the page aren't
