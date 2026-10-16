@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { closing, cta, site } from "@/lib/site";
 
-// The closing ask: a full-width green band with the question, the button and
+// The closing ask: a full-width purple band with the question, the button and
 // the email address.
 export default function CtaBand() {
   return (

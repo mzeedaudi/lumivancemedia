@@ -4,7 +4,7 @@ import StaggeredPair from "@/components/StaggeredPair";
 import { adTag, ads, cta, hero } from "@/lib/site";
 
 // The claim, one button, and two spec ads beside it. The headline's last full
-// stop is the only place the accent color is used as decoration.
+// stop, in the emblem's orange, is the only colored decoration.
 export default function Hero() {
   const [a, b] = hero.reel;
   const last = hero.title[hero.title.length - 1];
@@ -20,7 +20,7 @@ export default function Hero() {
           ))}
           <span className="block [text-wrap:balance]">
             {last.slice(0, -1)}
-            <span className="text-accent">.</span>
+            <span className="text-dot">.</span>
           </span>
         </h1>
         <p className="lede mt-6 max-w-[580px]">{hero.lede}</p>

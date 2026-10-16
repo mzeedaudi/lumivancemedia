@@ -7,14 +7,15 @@ module.exports = {
   ],
   theme: {
     extend: {
-      // Warm off-white, near-black type and one forest-green accent.
+      // Warm off-white, near-black type, and the emblem's purple as the accent.
       // Mirrors the custom properties in app/globals.css.
       colors: {
         paper: "#F4F1EA", // the page
         ink: "#15130F", // type and the one dark band
         graphite: "#57524A", // secondary text, 6.9:1 on paper
         rule: "rgba(21,19,15,0.14)", // hairlines
-        accent: "#1F4D3A", // buttons and links; white text on it is 9.6:1
+        accent: "#43379A", // the emblem's deep purple: buttons and links; white text on it is 9.3:1
+        dot: "#E2643A", // the emblem's orange dot: only the hero headline's full stop
         "on-ink": "rgba(244,241,234,0.72)", // secondary text on ink
         "rule-ink": "rgba(244,241,234,0.16)", // hairlines on ink
         frame: "#E5E0D5", // behind media on paper, before it loads

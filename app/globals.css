@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Lumivance: warm off-white, near-black type, one forest-green accent.
+/* Lumivance: warm off-white, near-black type, the purple of the emblem as the accent.
    Color tokens mirror tailwind.config.js. Fonts are self-hosted by next/font
    in app/layout.jsx and arrive here as CSS variables. */
 :root {
@@ -10,7 +10,7 @@
   --ink: #15130f;
   --graphite: #57524a;
   --rule: rgba(21, 19, 15, 0.14);
-  --accent: #1f4d3a;
+  --accent: #43379a;
 
   --pad: 40px;
   --gutter: 24px;
@@ -159,7 +159,7 @@ body {
   .btn:hover {
     background: var(--ink);
   }
-  /* For the green band, where a green button would vanish. */
+  /* For the purple band, where a purple button would vanish. */
   .btn-light {
     background: var(--paper);
     color: var(--ink);
@@ -188,7 +188,7 @@ body {
     line-height: 1;
   }
 
-  /* Plain lists with a small green marker. */
+  /* Plain lists with a small purple marker. */
   .ticks > li {
     position: relative;
     padding-left: 1.1em;
