@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Emblem from "@/components/Emblem";
 import { usePathname } from "next/navigation";
 import { cta, nav } from "@/lib/site";
 
@@ -17,7 +18,8 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-rule bg-paper">
       <nav className="wrap flex h-16 items-center justify-between gap-6">
-        <Link href="/" className="wordmark text-[26px]" aria-label="Lumivance home">
+        <Link href="/" className="wordmark inline-flex items-center gap-2 text-[26px]" aria-label="Lumivance home">
+          <Emblem className="h-8 w-9 flex-none" />
           Lumivance
         </Link>
 

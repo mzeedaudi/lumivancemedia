@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Emblem from "@/components/Emblem";
 import { site } from "@/lib/site";
 import { footerColumns } from "@/lib/pages";
 
@@ -17,7 +18,8 @@ export default function Footer() {
       <div className="wrap pb-8 pt-14">
         <div className="grid-12 gap-y-12">
           <div className="col-span-12 lg:col-span-4">
-            <Link href="/" className="wordmark text-[30px]" aria-label="Lumivance home">
+            <Link href="/" className="wordmark inline-flex items-center gap-2 text-[30px]" aria-label="Lumivance home">
+              <Emblem className="h-9 w-10 flex-none" />
               Lumivance
             </Link>
             <p className="mt-3 max-w-[300px] text-graphite">{site.tagline}.</p>
