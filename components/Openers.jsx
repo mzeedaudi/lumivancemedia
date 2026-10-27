@@ -1,18 +1,20 @@
 import VideoRow from "@/components/blocks/VideoRow";
 import { openers } from "@/lib/site";
 
-// Why twenty at a time: the argument on the left, three real openers for one
-// product on the right.
+// Why twenty at a time: the argument across the top, three real openers for
+// one product underneath.
 export default function Openers() {
   return (
-    <section className="wrap">
-      <div className="grid-12 gap-y-10 border-t border-rule py-16 lg:py-24">
-        <div className="col-span-12 lg:col-span-4">
+    <section className="band">
+      <div className="wrap py-12 lg:py-16">
+        <div className="grid gap-x-12 gap-y-3 lg:grid-cols-2 lg:items-end">
           <h2 className="display h2">{openers.title}</h2>
-          <p className="mt-5">{openers.intro}</p>
-          <p className="mt-4 text-graphite">{openers.example}</p>
+          <div className="text-[19px] leading-snug text-graphite lg:pb-1">
+            <p>{openers.intro}</p>
+            <p className="mt-3 text-ink">{openers.example}</p>
+          </div>
         </div>
-        <div className="col-span-12 lg:col-span-7 lg:col-start-6">
+        <div className="mt-8 lg:mt-10">
           <VideoRow items={openers.items} />
         </div>
       </div>

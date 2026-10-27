@@ -104,7 +104,7 @@ export default function AdVideo({ slug, ad, tag, priority = false, ink = false, 
   const buttonLabel = manual ? (playing && sound ? "Pause" : "Play") : sound ? "Sound off" : "Sound on";
 
   return (
-    <div className={`relative overflow-hidden ${ink ? "bg-frame-ink" : "bg-frame"} ${className}`} style={{ aspectRatio: ad.ratio }}>
+    <div className={`relative overflow-hidden rounded-[18px] ${ink ? "bg-frame-ink" : "bg-frame"} ${className}`} style={{ aspectRatio: ad.ratio }}>
       <img
         src={`/work/${slug}.webp`}
         alt=""
@@ -129,13 +129,13 @@ export default function AdVideo({ slug, ad, tag, priority = false, ink = false, 
         onPause={() => setPlaying(false)}
         className="absolute inset-0 h-full w-full object-cover"
       />
-      {tag && <span className="tag pointer-events-none absolute left-3 top-3 bg-ink px-2 py-1 text-paper">{tag}</span>}
+      {tag && <span className="tag pointer-events-none absolute left-3 top-3 rounded-full bg-black/60 px-2.5 py-1 text-white backdrop-blur-sm">{tag}</span>}
       <button
         type="button"
         onClick={toggle}
         aria-pressed={sound}
         aria-label={`${buttonLabel}: ${ad.title}`}
-        className="tag absolute bottom-3 right-3 bg-ink px-2 py-1 text-paper transition-colors hover:bg-accent"
+        className="tag absolute bottom-3 right-3 rounded-full bg-black/60 px-2.5 py-1 text-white backdrop-blur-sm transition-colors hover:bg-accent"
       >
         {buttonLabel}
       </button>

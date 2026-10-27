@@ -1,17 +1,16 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import AdVideo from "@/components/AdVideo";
 import JsonLd from "@/components/JsonLd";
 import Photo from "@/components/Photo";
 import Block from "@/components/blocks/Block";
 import CaseCards from "@/components/blocks/CaseCards";
 import CtaBand from "@/components/blocks/CtaBand";
-import SpecTable from "@/components/blocks/SpecTable";
 import Steps from "@/components/blocks/Steps";
+import VideoRow from "@/components/blocks/VideoRow";
 import { caseStudies, caseStudy } from "@/lib/cases";
 import { industries } from "@/lib/industries";
 import { breadcrumbs } from "@/lib/schema";
-import { adTag, ads, cta } from "@/lib/site";
+import { cta } from "@/lib/site";
 
 export const dynamicParams = false;
 
@@ -53,7 +52,7 @@ export default function CaseStudyPage({ params }) {
         </div>
       )}
 
-      <section className="wrap grid-12 items-start gap-y-12 pb-14 pt-10 lg:pb-20 lg:pt-14">
+      <section className="wrap grid-12 items-center gap-y-10 pb-12 pt-8 lg:pb-16 lg:pt-12">
         <div className="col-span-12 lg:col-span-7 lg:pt-4">
           <nav aria-label="Breadcrumb" className="meta mb-4 flex flex-wrap gap-x-2">
             <Link href="/case-studies" className="underline-offset-4 hover:underline">
@@ -69,7 +68,6 @@ export default function CaseStudyPage({ params }) {
           <div className="mt-8">
             <Link href={cta.href} className="btn">
               {cta.label}
-              <span aria-hidden="true">→</span>
             </Link>
           </div>
         </div>
@@ -79,68 +77,64 @@ export default function CaseStudyPage({ params }) {
       </section>
 
       <Block title="By the numbers">
-        <dl className="grid gap-px border border-rule bg-rule sm:grid-cols-3">
+        <dl className="grid gap-3 sm:grid-cols-3 lg:gap-4">
           {c.kpis.map((k) => (
-            <div key={k.label} className="flex flex-col-reverse bg-white p-6">
+            <div key={k.label} className="tile flex flex-col-reverse p-7">
               <dt className="meta mt-2">{k.label}</dt>
-              <dd className="display text-[44px] leading-none">{k.value}</dd>
+              <dd className="display text-[48px] leading-none text-accent">{k.value}</dd>
             </div>
           ))}
         </dl>
-        <div className="mt-8 max-w-[760px]">
-          <SpecTable
-            rows={[
-              ["Client", c.client],
-              ["Sector", sector.name],
-              ["Channels", c.channels.join(", ")],
-              ["What we did", c.services.join(", ")],
-              ["Timeline", c.timeline],
-            ]}
-          />
-        </div>
+        <dl className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:mt-4 lg:grid-cols-5 lg:gap-4">
+          {[
+            ["Client", c.client],
+            ["Sector", sector.name],
+            ["Channels", c.channels.join(", ")],
+            ["What we did", c.services.join(", ")],
+            ["Timeline", c.timeline],
+          ].map(([k, v]) => (
+            <div key={k} className="tile px-5 py-4">
+              <dt className="meta mb-1">{k}</dt>
+              <dd className="text-[16px] font-semibold leading-snug">{v}</dd>
+            </div>
+          ))}
+        </dl>
       </Block>
 
-      <Block title="The challenge" layout="side">
-        <div className="space-y-4 text-[18px]">
-          {c.challenge.map((p) => (
-            <p key={p}>{p}</p>
+      <Block title="The story">
+        <div className="grid gap-3 lg:grid-cols-3 lg:gap-4">
+          {[
+            ["The challenge", c.challenge],
+            ["What we changed", c.solution],
+            ["The result", [c.result]],
+          ].map(([head, paras]) => (
+            <div key={head} className="tile p-7">
+              <h3 className="text-[14px] font-semibold text-accent">{head}</h3>
+              <div className="mt-2 space-y-3 text-[19px] leading-snug tracking-[-0.016em]">
+                {paras.map((p) => (
+                  <p key={p}>{p}</p>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
+        {c.quote && (
+          <blockquote className="tile mt-4 p-7">
+            <p className="text-[21px] leading-snug">“{c.quote.text}”</p>
+            <footer className="meta mt-2">{c.quote.by}</footer>
+          </blockquote>
+        )}
       </Block>
 
-      <Block title="What we changed">
-        <div className="max-w-[720px] space-y-4 text-[18px]">
-          {c.solution.map((p) => (
-            <p key={p}>{p}</p>
-          ))}
-        </div>
-      </Block>
-
-      <Block title="How it ran" layout="side">
+      <Block title="How it ran">
         <Steps items={c.approach} />
       </Block>
 
       {c.creatives?.length > 0 && (
         <Block title="The ads" intro={c.placeholder ? "Spec ads stand in here until the real ads from the campaign are added." : undefined}>
-          <ul className="grid grid-cols-2 items-start gap-4 sm:grid-cols-3 sm:gap-6">
-            {c.creatives.map((slug) => (
-              <li key={slug}>
-                <AdVideo slug={slug} ad={ads[slug]} tag={adTag(ads[slug])} />
-              </li>
-            ))}
-          </ul>
+          <VideoRow items={c.creatives.map((slug) => ({ slug }))} />
         </Block>
       )}
-
-      <Block title="The result" layout="side">
-        <p className="lede">{c.result}</p>
-        {c.quote && (
-          <blockquote className="mt-8 border-l-4 border-accent pl-5">
-            <p className="text-[19px]">“{c.quote.text}”</p>
-            <footer className="meta mt-2">{c.quote.by}</footer>
-          </blockquote>
-        )}
-      </Block>
 
       {more.length > 0 && (
         <Block title={`More ${sector.inText ?? sector.name} case studies`}>

@@ -14,7 +14,7 @@ export default function Matrix() {
 
   return (
     <div>
-      <div className="border border-rule bg-white">
+      <div className="overflow-hidden rounded-[18px] border border-rule bg-white">
         <table aria-label="How a twenty-ad sprint is laid out" aria-describedby="sprint-grid-note" className="w-full table-fixed border-collapse">
           <thead>
             <tr>

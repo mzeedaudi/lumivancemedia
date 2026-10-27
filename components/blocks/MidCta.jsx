@@ -5,10 +5,10 @@ import { cta } from "@/lib/site";
 // know they have the problem the page describes.
 export default function MidCta({ text, label = "Ask for a second opinion" }) {
   return (
-    <div className="flex flex-col gap-5 border-l-4 border-accent bg-white px-6 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-8">
-      <p className="lede max-w-[640px]">{text}</p>
-      <Link href={cta.href} className="link flex-none whitespace-nowrap">
-        {label} <span aria-hidden="true">→</span>
+    <div className="tile flex flex-col gap-5 px-6 py-7 sm:flex-row sm:items-center sm:justify-between sm:px-10">
+      <p className="lede max-w-[680px] font-semibold tracking-[-0.016em]">{text}</p>
+      <Link href={cta.href} className="btn flex-none whitespace-nowrap">
+        {label}
       </Link>
     </div>
   );

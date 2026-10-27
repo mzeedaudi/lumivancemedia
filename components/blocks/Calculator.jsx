@@ -16,10 +16,10 @@ export default function Calculator({ unit, units, budget = 20000, cost = 40, cut
   const lower = c * (1 - r / 100);
   const after = lower > 0 ? b / lower : 0;
 
-  const field = "mt-1.5 w-full border border-rule bg-white px-3 py-2.5 text-[17px] focus:border-accent";
+  const field = "mt-1.5 w-full rounded-xl border border-rule bg-white px-3.5 py-2.5 text-[17px] focus:border-accent";
 
   return (
-    <div className="border border-rule bg-white">
+    <div className="tile overflow-hidden">
       <div className="grid gap-5 p-5 sm:grid-cols-3 sm:p-6">
         <label htmlFor={`${id}-b`} className="block text-[15px] font-medium">
           Monthly ad budget (USD)
@@ -34,21 +34,21 @@ export default function Calculator({ unit, units, budget = 20000, cost = 40, cut
           <input id={`${id}-r`} type="range" min="5" max="50" step="5" value={r} onChange={(e) => setR(Number(e.target.value))} className="mt-4 w-full accent-[#43379A]" />
         </label>
       </div>
-      <dl className="grid grid-cols-3 border-t border-rule" aria-live="polite">
+      <dl className="grid grid-cols-3 border-t border-rule/70" aria-live="polite">
         <div className="p-5 sm:p-6">
           <dt className="meta">{units} a month now</dt>
           <dd className="display mt-1 text-[30px] sm:text-[40px]">{whole(now)}</dd>
         </div>
-        <div className="border-l border-rule p-5 sm:p-6">
+        <div className="border-l border-rule/70 p-5 sm:p-6">
           <dt className="meta">At the lower cost</dt>
           <dd className="display mt-1 text-[30px] sm:text-[40px]">{whole(after)}</dd>
         </div>
-        <div className="border-l border-rule p-5 sm:p-6">
+        <div className="border-l border-rule/70 p-5 sm:p-6">
           <dt className="meta">Extra each month</dt>
           <dd className="display mt-1 text-[30px] text-accent sm:text-[40px]">+{whole(after - now)}</dd>
         </div>
       </dl>
-      <p className="meta border-t border-rule px-5 py-3 sm:px-6">Arithmetic on your numbers, not a forecast. Nobody can promise how far a cost will fall.</p>
+      <p className="meta border-t border-rule/70 px-5 py-3 sm:px-6">Arithmetic on your numbers, not a forecast. Nobody can promise how far a cost will fall.</p>
     </div>
   );
 }

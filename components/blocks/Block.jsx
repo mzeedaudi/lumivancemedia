@@ -1,32 +1,20 @@
-// A page section, in one of two shapes so neighbors don't look alike:
-// "side" puts the heading in a left column with the content beside it;
-// "stack" puts the heading on top with the content below. `narrow` keeps
-// stacked text content at a readable width.
-export default function Block({ id, title, intro, layout = "stack", narrow = false, children }) {
-  if (layout === "side") {
-    return (
-      <section id={id} className="wrap">
-        <div className="grid-12 gap-y-8 border-t border-rule py-14 lg:py-20">
-          <div className="col-span-12 lg:col-span-4">
-            {title && <h2 className="display h2">{title}</h2>}
-            {intro && <p className="mt-4 text-graphite">{intro}</p>}
-          </div>
-          <div className="col-span-12 lg:col-span-7 lg:col-start-6">{children}</div>
-        </div>
-      </section>
-    );
-  }
-
+// A page section, set the way Apple sets them: the headline on top, with the
+// intro beside it on wide screens, and the content full width underneath.
+// Sections alternate white and light grey by themselves (see .band in
+// globals.css), so no rules are needed between them. `compact` is for
+// one-line sections. `layout` and `narrow` are accepted for older callers and
+// no longer change anything.
+export default function Block({ id, title, intro, compact = false, children }) {
   return (
-    <section id={id} className="wrap">
-      <div className="border-t border-rule py-14 lg:py-20">
+    <section id={id} className="band">
+      <div className={`wrap ${compact ? "py-7 lg:py-8" : "py-12 lg:py-16"}`}>
         {(title || intro) && (
-          <div className="max-w-[720px]">
+          <div className="grid gap-x-12 gap-y-3 lg:grid-cols-2 lg:items-end">
             {title && <h2 className="display h2">{title}</h2>}
-            {intro && <p className="mt-4 text-graphite">{intro}</p>}
+            {intro && <p className="text-[19px] leading-snug text-graphite lg:pb-1">{intro}</p>}
           </div>
         )}
-        <div className={`${title || intro ? "mt-9" : ""} ${narrow ? "max-w-[820px]" : ""}`}>{children}</div>
+        <div className={title || intro ? "mt-8 lg:mt-10" : ""}>{children}</div>
       </div>
     </section>
   );

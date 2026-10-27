@@ -29,7 +29,7 @@ const ROWS = [
 export function Tiers({ details = false }) {
   return (
     <div>
-      <div className="border border-rule bg-white">
+      <div className="overflow-hidden rounded-[18px] border border-rule bg-white">
         <table className="w-full table-fixed border-collapse text-left">
           <thead>
             <tr>
@@ -68,7 +68,6 @@ export function Tiers({ details = false }) {
       <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
         <Link href={cta.href} className="btn">
           {cta.label}
-          <span aria-hidden="true">→</span>
         </Link>
         {!details && (
           <Link href="/pricing" className="link">
@@ -83,7 +82,7 @@ export function Tiers({ details = false }) {
 // The retainer: what's in it and how it's charged, in a white panel.
 export function Retainer() {
   return (
-    <div className="border border-rule bg-white p-6 sm:p-9">
+    <div className="rounded-[18px] border border-rule bg-white p-6 sm:p-9">
       <h3 className="display text-[24px] sm:text-[28px]">{retainer.name}</h3>
       <p className="mt-2 text-graphite">{retainer.price}.</p>
       <div className="mt-8 grid gap-10 sm:grid-cols-[1.4fr_1fr] sm:gap-12">

@@ -5,7 +5,7 @@ const OPTIONS = ["Lumivance", "An in-house team", "A generalist agency"];
 export default function Compare({ rows }) {
   return (
     <div className="-mx-[var(--pad)] overflow-x-auto px-[var(--pad)] sm:mx-0 sm:px-0">
-      <div className="min-w-[640px] border border-rule bg-white">
+      <div className="min-w-[640px] overflow-hidden rounded-[18px] border border-rule bg-white">
         <table className="w-full table-fixed border-collapse text-left">
           <thead>
             <tr>

@@ -10,7 +10,7 @@ export default function Checklist({ items, verdicts }) {
   const verdict = score === items.length ? verdicts.ready : score >= items.length - 2 ? verdicts.close : verdicts.early;
 
   return (
-    <div>
+    <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-10">
       <ul className="border-t border-rule">
         {items.map((it, i) => (
           <li key={it} className="border-b border-rule">
@@ -26,11 +26,11 @@ export default function Checklist({ items, verdicts }) {
           </li>
         ))}
       </ul>
-      <p className="mt-5" aria-live="polite">
-        <span className="display text-[28px]">
+      <p className="tile p-7 lg:sticky lg:top-20" aria-live="polite">
+        <span className="display block text-[56px] leading-none text-accent">
           {score} of {items.length}
         </span>
-        <span className="mt-1 block text-graphite">{verdict}</span>
+        <span className="mt-3 block text-[17px]">{verdict}</span>
       </p>
     </div>
   );

@@ -1,27 +1,21 @@
 import Link from "next/link";
 import { closing, cta, site } from "@/lib/site";
 
-// The closing ask: a full-width purple band with the question, the button and
-// the email address.
+// The closing ask: a full-width purple band, centred, with the question, the
+// button and the email address.
 export default function CtaBand() {
   return (
     <section className="bg-accent text-white">
-      <div className="wrap grid-12 items-end gap-y-8 py-16 lg:py-24">
-        <div className="col-span-12 lg:col-span-7">
-          <h2 className="display text-[clamp(30px,4.4vw,54px)]">{closing.title}</h2>
-          <p className="lede mt-4 max-w-[580px]">{closing.text}</p>
-        </div>
-        <div className="col-span-12 lg:col-span-4 lg:col-start-9">
+      <div className="wrap py-16 text-center lg:py-20">
+        <h2 className="display mx-auto max-w-[820px] text-[clamp(32px,4.4vw,56px)]">{closing.title}</h2>
+        <p className="lede mx-auto mt-4 max-w-[640px] text-white/85">{closing.text}</p>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-4">
           <Link href={cta.href} className="btn btn-light">
             {cta.label}
-            <span aria-hidden="true">→</span>
           </Link>
-          <p className="mt-4 text-[15px]">
-            Or email{" "}
-            <a href={`mailto:${site.email}`} className="break-all underline underline-offset-4">
-              {site.email}
-            </a>
-          </p>
+          <a href={`mailto:${site.email}`} className="text-[17px] font-medium text-white hover:underline">
+            Or email {site.email} <span aria-hidden="true">›</span>
+          </a>
         </div>
       </div>
     </section>

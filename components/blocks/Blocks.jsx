@@ -76,6 +76,7 @@ export default function Blocks({ blocks }) {
         intro={b.intro}
         layout={layout}
         narrow={stacked && ["steps", "faq", "specs", "prose"].includes(b.type)}
+        compact={b.type === "clients" || b.type === "cta"}
       >
         {render(b, stacked)}
       </Block>

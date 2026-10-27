@@ -2,18 +2,23 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Lumivance: warm off-white, near-black type, the purple of the emblem as the accent.
-   Color tokens mirror tailwind.config.js. Fonts are self-hosted by next/font
-   in app/layout.jsx and arrive here as CSS variables. */
+/* Lumivance: Apple's way of setting type and space. White page, light grey
+   tiles, near-black text, and the emblem's purple as the accent.
+   Type is the visitor's own San Francisco on Apple devices (SF Pro can't be
+   served as a web font) and Inter, its closest open match, everywhere else.
+   Color tokens mirror tailwind.config.js. */
 :root {
-  --paper: #f4f1ea;
-  --ink: #15130f;
-  --graphite: #57524a;
-  --rule: rgba(21, 19, 15, 0.14);
+  --paper: #ffffff;
+  --tile: #f5f5f7;
+  --ink: #1d1d1f;
+  --graphite: #6e6e73;
+  --rule: #d2d2d7;
   --accent: #43379a;
 
   --pad: 40px;
   --gutter: 24px;
+
+  --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", var(--font-inter), "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 @media (max-width: 1023px) {
@@ -32,7 +37,7 @@
 html {
   scroll-behavior: smooth;
   /* Anchored sections land below the sticky nav, not under it. */
-  scroll-padding-top: 80px;
+  scroll-padding-top: 64px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -44,17 +49,13 @@ html {
 body {
   background: var(--paper);
   color: var(--ink);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  font-family: var(--font-stack);
   font-size: 17px;
-  line-height: 1.6;
+  line-height: 1.47;
+  letter-spacing: -0.012em;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-}
-
-@media (max-width: 639px) {
-  body {
-    font-size: 16px;
-  }
 }
 
 ::selection {
@@ -70,7 +71,7 @@ body {
 @layer components {
   .wrap {
     width: 100%;
-    max-width: 1320px;
+    max-width: 1240px;
     margin-inline: auto;
     padding-inline: var(--pad);
   }
@@ -81,110 +82,140 @@ body {
     column-gap: var(--gutter);
   }
 
-  /* Headings: Fraunces, softened and medium weight, so they read like
-     someone talking rather than a poster. */
+  /* Headlines: semibold and tightly tracked, the way Apple sets SF Pro Display. */
   .display {
-    font-family: var(--font-display), Georgia, serif;
-    font-weight: 560;
-    font-variation-settings: "SOFT" 60;
-    letter-spacing: -0.02em;
-    line-height: 1.05;
+    font-family: var(--font-stack);
+    font-weight: 600;
+    letter-spacing: -0.022em;
+    line-height: 1.07;
   }
-  /* Sized so the hero headline's first sentence holds one line at every width. */
+  /* Homepage headline. */
   .h1 {
-    font-size: clamp(36px, 11.4vw, 88px);
+    font-size: clamp(40px, 9.6vw, 80px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
   }
   @media (min-width: 1024px) {
     .h1 {
-      font-size: clamp(48px, 6vw, 88px);
+      font-size: clamp(56px, 6.2vw, 80px);
     }
   }
   /* Inner-page headlines. */
   .h1s {
-    font-size: clamp(32px, 8.4vw, 58px);
-    line-height: 1.08;
+    font-size: clamp(34px, 7.6vw, 56px);
+    line-height: 1.07;
+    letter-spacing: -0.028em;
     text-wrap: balance;
   }
   @media (min-width: 1024px) {
     .h1s {
-      font-size: clamp(40px, 4.2vw, 58px);
+      font-size: clamp(44px, 4.4vw, 56px);
     }
   }
+  /* Section headlines. */
   .h2 {
-    font-size: clamp(27px, 3vw, 40px);
-    line-height: 1.12;
+    font-size: clamp(30px, 3.6vw, 48px);
+    line-height: 1.08;
+    letter-spacing: -0.025em;
     text-wrap: balance;
   }
+  /* Tile and item headlines. */
   .h3 {
     font-weight: 600;
-    font-size: 18px;
-    line-height: 1.3;
+    font-size: 19px;
+    line-height: 1.26;
+    letter-spacing: -0.016em;
   }
 
+  /* Apple's 21px intro size. */
   .lede {
-    font-size: clamp(18px, 1.5vw, 21px);
-    line-height: 1.5;
+    font-size: clamp(19px, 1.6vw, 21px);
+    line-height: 1.38;
+    letter-spacing: -0.012em;
+  }
+
+  /* The small grey line above a headline. */
+  .eyebrow {
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.24;
+    color: var(--accent);
   }
 
   /* Captions and small print. */
   .meta {
     font-size: 14px;
-    line-height: 1.45;
+    line-height: 1.43;
+    letter-spacing: -0.01em;
     color: var(--graphite);
   }
 
-  /* The only mono on the site: tags on videos and inside the sprint grid. */
+  /* Labels on videos and inside the sprint grid. */
   .tag {
-    font-family: var(--font-mono), ui-monospace, monospace;
-    font-size: 10.5px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
+    font-family: var(--font-stack);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
     line-height: 1.45;
     text-transform: uppercase;
   }
 
+  /* Rounded light-grey panel, Apple's basic unit of layout. */
+  .tile {
+    background: var(--tile);
+    border-radius: 22px;
+  }
+
+  /* Pill buttons. */
   .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 8px;
     background: var(--accent);
     color: #fff;
-    font-weight: 600;
-    font-size: 16px;
-    line-height: 1.2;
-    padding: 17px 22px;
-    transition: background-color 0.15s;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 1.18;
+    letter-spacing: -0.012em;
+    padding: 13px 24px;
+    border-radius: 980px;
+    transition: background-color 0.2s;
   }
   .btn:hover {
-    background: var(--ink);
+    background: #362c80;
   }
-  /* For the purple band, where a purple button would vanish. */
   .btn-light {
-    background: var(--paper);
+    background: #fff;
     color: var(--ink);
   }
   .btn-light:hover {
-    background: #fff;
+    background: var(--tile);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--accent);
+    box-shadow: inset 0 0 0 1px var(--accent);
+  }
+  .btn-ghost:hover {
+    background: var(--accent);
+    color: #fff;
   }
 
+  /* Apple's "Learn more ›" text link. */
   .link {
-    font-weight: 600;
-    text-decoration: underline;
-    text-decoration-color: var(--accent);
-    text-decoration-thickness: 2px;
-    text-underline-offset: 4px;
-    transition: color 0.15s;
+    color: var(--accent);
+    font-weight: 500;
+    text-underline-offset: 3px;
   }
   .link:hover {
-    color: var(--accent);
+    text-decoration: underline;
   }
 
   .wordmark {
-    font-family: var(--font-display), Georgia, serif;
-    font-weight: 620;
-    font-variation-settings: "SOFT" 60;
-    letter-spacing: -0.02em;
+    font-family: var(--font-stack);
+    font-weight: 600;
+    letter-spacing: -0.03em;
     line-height: 1;
   }
 
@@ -198,8 +229,9 @@ body {
     position: absolute;
     left: 0;
     top: 0.62em;
-    width: 5px;
-    height: 5px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
     background: var(--accent);
   }
 }
@@ -212,4 +244,11 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
+}
+
+/* Sections alternate white and light grey on their own. Inside a grey
+   section, tiles turn white so they still stand out. */
+main > section.band:nth-of-type(even) {
+  background: #f5f5f7;
+  --tile: #ffffff;
 }

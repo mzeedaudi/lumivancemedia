@@ -2,11 +2,11 @@
 // what we change in the ads, and the number each stage is judged on.
 export default function Funnel({ stages }) {
   return (
-    <ol className="grid gap-px border border-rule bg-rule sm:grid-cols-2 lg:grid-cols-4">
+    <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4">
       {stages.map((s, i) => (
-        <li key={s.stage} className="flex flex-col bg-paper p-5 sm:p-6">
-          <span className="meta">Stage {i + 1}</span>
-          <h3 className="display mt-1 text-[24px]">{s.stage}</h3>
+        <li key={s.stage} className="tile flex flex-col p-6">
+          <span className="text-[14px] font-semibold text-accent">Stage {i + 1}</span>
+          <h3 className="display mt-1 text-[26px]">{s.stage}</h3>
           <dl className="mt-4 flex-1 space-y-3 text-[15px] leading-relaxed">
             <div>
               <dt className="font-semibold">What goes wrong</dt>

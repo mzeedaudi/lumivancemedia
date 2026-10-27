@@ -14,7 +14,7 @@ const interests = [
 ];
 
 const INPUT =
-  "w-full border bg-white px-4 py-3.5 text-[16px] text-ink outline-none transition-colors placeholder:text-graphite/60 focus:border-ink";
+  "w-full rounded-xl border bg-white px-4 py-3.5 text-[17px] text-ink outline-none transition-colors placeholder:text-graphite/60 focus:border-accent";
 const LABEL = "mb-2 block text-[14px] font-medium";
 
 export default function ContactForm() {
@@ -60,7 +60,7 @@ export default function ContactForm() {
 
   if (status === "success") {
     return (
-      <div className="border border-rule bg-white p-8 sm:p-10">
+      <div className="rounded-[22px] border border-rule bg-white p-8 sm:p-10">
         <h2 className="display text-[30px]">Thanks, we’ve got it.</h2>
         <p className="mt-3 max-w-[460px] text-graphite">{site.reply} We’ll send a few times for a call.</p>
         <button type="button" onClick={() => setStatus("idle")} className="link mt-7">
@@ -126,11 +126,10 @@ export default function ContactForm() {
 
       <button type="submit" disabled={status === "loading"} className="btn mt-8 w-full disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto">
         {status === "loading" ? "Sending…" : "Send"}
-        {status !== "loading" && <span aria-hidden="true">→</span>}
       </button>
 
       {status === "error" && (
-        <p role="alert" className="mt-4 border border-[#B3261E] bg-white px-4 py-3 text-[15px]">
+        <p role="alert" className="mt-4 rounded-xl border border-[#B3261E] bg-white px-4 py-3 text-[15px]">
           {sendError}{" "}
           <a href={`mailto:${site.email}`} className="link">
             {site.email}

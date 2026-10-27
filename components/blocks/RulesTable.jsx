@@ -1,7 +1,7 @@
 // A sector's ad rules on white: the rule, then what we do about it.
 export default function RulesTable({ rows }) {
   return (
-    <div className="border border-rule bg-white">
+    <div className="overflow-hidden rounded-[18px] border border-rule bg-white">
       <table className="w-full border-collapse text-left">
         <thead className="sr-only sm:not-sr-only">
           <tr>

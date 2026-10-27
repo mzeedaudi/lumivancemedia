@@ -1,16 +1,18 @@
 import Matrix from "@/components/blocks/Matrix";
 import { plan } from "@/lib/site";
 
-// The sprint grid at full width on white, with its explanation above it.
+// The sprint grid at full width, with its explanation above it.
 export default function SprintPlan() {
   return (
-    <section className="wrap pb-16 lg:pb-24">
-      <div className="grid-12 gap-y-4">
-        <h2 className="display h2 col-span-12 lg:col-span-5">{plan.title}</h2>
-        <p className="col-span-12 lg:col-span-6 lg:col-start-7">{plan.intro}</p>
-      </div>
-      <div className="mt-10">
-        <Matrix />
+    <section className="band">
+      <div className="wrap py-12 lg:py-16">
+        <div className="grid gap-x-12 gap-y-3 lg:grid-cols-2 lg:items-end">
+          <h2 className="display h2">{plan.title}</h2>
+          <p className="text-[19px] leading-snug text-graphite lg:pb-1">{plan.intro}</p>
+        </div>
+        <div className="mt-8 lg:mt-10">
+          <Matrix />
+        </div>
       </div>
     </section>
   );
