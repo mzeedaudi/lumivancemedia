@@ -2,6 +2,7 @@ import { SITE_URL as BASE } from "@/lib/siteUrl";
 import { services } from "@/lib/services";
 import { categories, industries } from "@/lib/industries";
 import { guides } from "@/lib/resources";
+import { caseStudies } from "@/lib/cases";
 
 export default function sitemap() {
   return [
@@ -12,6 +13,9 @@ export default function sitemap() {
     ...industries.map((i) => ({ path: `/industries/${i.slug}`, priority: 0.8 })),
     ...categories.map((c) => ({ path: `/industries/${c.slug}`, priority: 0.6 })),
     { path: "/work", priority: 0.8 },
+    // Placeholder case studies are never listed; they are noindex and preview-only.
+    ...(caseStudies.some((c) => !c.placeholder) ? [{ path: "/case-studies", priority: 0.8 }] : []),
+    ...caseStudies.filter((c) => !c.placeholder).map((c) => ({ path: `/case-studies/${c.slug}`, priority: 0.7 })),
     { path: "/pricing", priority: 0.8 },
     { path: "/about", priority: 0.6 },
     { path: "/framework", priority: 0.6 },
