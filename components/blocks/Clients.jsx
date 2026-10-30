@@ -2,7 +2,7 @@ import { ads } from "@/lib/site";
 
 // The brands Lumivance has made ads for, as plain names: taken from the client
 // ads on the site, so the list can't claim anyone who isn't there.
-const names = [...new Set(Object.values(ads).map((a) => a.client).filter(Boolean))];
+const names = [...new Set(Object.values(ads).filter((a) => !a.pending).map((a) => a.client).filter(Boolean))];
 const list = new Intl.ListFormat("en", { style: "long", type: "conjunction" }).format(names);
 
 export default function Clients() {

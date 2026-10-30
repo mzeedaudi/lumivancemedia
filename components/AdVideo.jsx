@@ -106,7 +106,7 @@ export default function AdVideo({ slug, ad, tag, priority = false, ink = false, 
   return (
     <div className={`relative overflow-hidden rounded-[18px] ${ink ? "bg-frame-ink" : "bg-frame"} ${className}`} style={{ aspectRatio: ad.ratio }}>
       <img
-        src={`/work/${slug}.webp`}
+        src={`/work/${slug}.${ad.poster ?? "webp"}`}
         alt=""
         width={width}
         height={height}
