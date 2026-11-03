@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { frame } from "@/lib/frames";
+import { isPhoto, photo } from "@/lib/photos";
 import { page } from "@/lib/pages";
 
 // A hub page's index: a grid of tiles, each with a still, the page's name and
@@ -11,7 +12,7 @@ export default function HubIndex({ keys }) {
     <ul className={`grid gap-3 sm:grid-cols-2 lg:gap-4 ${side ? "" : "lg:grid-cols-4"}`}>
       {keys.map((key) => {
         const p = page(key);
-        const f = frame(p.thumb);
+        const f = isPhoto(p.thumb) ? photo(p.thumb) : frame(p.thumb);
         return (
           <li key={key}>
             <Link href={p.href} className={`tile group flex h-full overflow-hidden ${side ? "flex-col sm:flex-row" : "flex-col"}`}>

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { frame } from "@/lib/frames";
+import { isPhoto, photo } from "@/lib/photos";
 import { page } from "@/lib/pages";
 
 // Where to go next: a few other pages, each with a still and one line.
@@ -9,7 +10,7 @@ export default function Related({ keys }) {
     <ul className="grid gap-3 sm:grid-cols-3 lg:gap-4">
       {keys.map((key) => {
         const p = page(key);
-        const f = frame(p.thumb);
+        const f = isPhoto(p.thumb) ? photo(p.thumb) : frame(p.thumb);
         return (
           <li key={key}>
             <Link href={p.href} className="tile group flex h-full items-center gap-4 p-4">
