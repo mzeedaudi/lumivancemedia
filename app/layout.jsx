@@ -1,4 +1,4 @@
-import { Fraunces, IBM_Plex_Mono, Libre_Franklin } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -6,19 +6,12 @@ import JsonLd from "@/components/JsonLd";
 import { organization, website } from "@/lib/schema";
 import { SITE_URL } from "@/lib/siteUrl";
 
-// Fonts come from Google Fonts but are downloaded at build time and served
-// from this site, so visitors make no request to Google. All use
-// font-display: swap, so text shows at once in a fallback face.
-const display = Fraunces({ subsets: ["latin"], axes: ["opsz", "SOFT"], display: "swap", variable: "--font-display" });
-const sans = Libre_Franklin({ subsets: ["latin"], display: "swap", variable: "--font-sans" });
-// Only used for the small tags on videos and in the sprint grid, so not preloaded.
-const mono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  display: "swap",
-  preload: false,
-  variable: "--font-mono",
-});
+// Apple devices draw the text in their own San Francisco (see the font stack
+// in globals.css). Everywhere else gets Inter, downloaded at build time and
+// served from this site, so visitors make no request to Google. It isn't
+// preloaded: Apple devices never need it, and text shows at once in a
+// metric-matched fallback until it arrives.
+const inter = Inter({ subsets: ["latin"], display: "swap", preload: false, variable: "--font-inter" });
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
@@ -37,14 +30,14 @@ export const metadata = {
 };
 
 export const viewport = {
-  themeColor: "#F4F1EA",
+  themeColor: "#FFFFFF",
   width: "device-width",
   initialScale: 1,
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${display.variable} ${sans.variable} ${mono.variable}`}>
+    <html lang="en" className={inter.variable}>
       <body>
         <a
           href="#main"

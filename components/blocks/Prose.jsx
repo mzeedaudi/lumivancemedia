@@ -5,7 +5,7 @@ export default function Prose({ sections }) {
   return (
     <div className="max-w-[700px] space-y-12">
       {sections.map((s) => (
-        <section key={s.heading}>
+        <section key={s.heading} id={s.id} className={s.id ? "scroll-mt-24" : undefined}>
           <h3 className="display text-[24px] sm:text-[26px]">{s.heading}</h3>
           <div className="mt-3 space-y-4">
             {s.paras?.map((p) => (

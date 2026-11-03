@@ -1,20 +1,29 @@
 import Link from "next/link";
 import AdVideo from "@/components/AdVideo";
+import Photo from "@/components/Photo";
 import Still from "@/components/Still";
 import StaggeredPair from "@/components/StaggeredPair";
 import { adTag, ads, cta } from "@/lib/site";
 
 // Inner-page hero: where you are, what the page is about, one button, and
-// spec work beside it. `media` is { pair: [slug, slug] } for two playing ads
-// or { stills: [id, id] }. The caption under the media is where each inner
-// page says, once, that what's shown is spec work made with AI.
-export default function PageHero({ crumbs = [], title, lede, aside, media, caption }) {
+// media beside it. `media` is { pair: [slug, slug] } for two playing ads,
+// { trio: [slug, slug, slug] } for three upright ads in a row, { stills:
+// [id, id] } for spec-ad frames, or { photos: [id, id] } for AI illustrations. The caption under the media is where each inner page says,
+// once, what the media is. `stats` adds a row of three facts under the
+// button, and `teaser` a link to the page's lead case study.
+export default function PageHero({ crumbs = [], title, lede, aside, media, caption, stats, teaser }) {
+  // Without media the hero is one centred column, so no half of it sits empty.
+  const solo = !media;
   return (
-    <section className="wrap grid-12 items-start gap-y-12 pb-14 pt-10 lg:pb-20 lg:pt-14">
-      <div className="col-span-12 lg:col-span-7 lg:col-start-1 lg:row-start-1 lg:pt-4">
+    <section
+      className={`wrap grid items-center gap-x-14 gap-y-10 pb-12 pt-8 lg:pb-16 lg:pt-12 ${
+        solo ? "text-center" : media.trio ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-x-12" : "lg:grid-cols-2"
+      }`}
+    >
+      <div className={solo ? "mx-auto max-w-[820px]" : undefined}>
         {crumbs.length > 1 && (
           <nav aria-label="Breadcrumb" className="meta mb-4">
-            <ol className="flex flex-wrap gap-x-2">
+            <ol className={`flex flex-wrap gap-x-2 ${solo ? "justify-center" : ""}`}>
               {crumbs.map((c, i) => (
                 <li key={c.label} className="flex gap-2">
                   {i > 0 && <span aria-hidden="true">/</span>}
@@ -31,18 +40,37 @@ export default function PageHero({ crumbs = [], title, lede, aside, media, capti
           </nav>
         )}
         <h1 className="display h1s">{title}</h1>
-        {lede && <p className="lede mt-5 max-w-[600px]">{lede}</p>}
-        <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+        {lede && <p className={`lede mt-5 max-w-[640px] text-graphite ${solo ? "mx-auto" : ""}`}>{lede}</p>}
+        <div className={`mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 ${solo ? "justify-center" : ""}`}>
           <Link href={cta.href} className="btn">
             {cta.label}
-            <span aria-hidden="true">→</span>
           </Link>
           {aside && <span className="meta">{aside}</span>}
         </div>
+        {stats && (
+          <dl className="mt-9 grid max-w-[600px] grid-cols-3 gap-3">
+            {stats.map((s) => (
+              <div key={s.label} className="flex flex-col-reverse rounded-2xl bg-[#f5f5f7] px-4 py-3.5">
+                <dt className="meta mt-1 leading-snug">{s.label}</dt>
+                <dd className="display text-[22px] leading-none sm:text-[28px]">{s.value}</dd>
+              </div>
+            ))}
+          </dl>
+        )}
+        {teaser && (
+          <Link href={`/case-studies/${teaser.slug}`} className="group mt-3 flex max-w-[600px] items-baseline gap-3 rounded-2xl border border-rule px-4 py-3 transition-colors hover:border-accent">
+            <span className="display text-[22px] leading-none text-accent">{teaser.metric.value}</span>
+            <span className="text-[15px]">
+              {teaser.metric.label}, {teaser.client.charAt(0).toLowerCase() + teaser.client.slice(1)}
+              {teaser.placeholder && <span className="text-dot"> (placeholder)</span>}
+              <span className="link ml-2 whitespace-nowrap">Read it ›</span>
+            </span>
+          </Link>
+        )}
       </div>
 
       {media && (
-        <div className="col-span-12 w-full max-w-[420px] sm:ml-auto lg:col-span-5 lg:col-start-8 lg:row-start-1 lg:ml-0 lg:max-w-none">
+        <div className="w-full">
           <HeroMedia media={media} caption={caption} />
         </div>
       )}
@@ -51,6 +79,24 @@ export default function PageHero({ crumbs = [], title, lede, aside, media, capti
 }
 
 function HeroMedia({ media, caption }) {
+  if (media.trio) {
+    // Three upright ads; the middle one sits lower. On phones the row scrolls
+    // sideways so each stays big enough to watch.
+    return (
+      <figure>
+        <ul className="-mx-[var(--pad)] flex snap-x snap-mandatory scroll-px-[var(--pad)] gap-3 overflow-x-auto px-[var(--pad)] pb-2 sm:mx-0 sm:grid sm:grid-cols-3 sm:items-start sm:overflow-visible sm:px-0 sm:pb-0">
+          {media.trio.map((slug, i) => (
+            <li key={slug} className={`w-[58%] flex-none snap-start sm:w-auto ${i === 1 ? "sm:mt-10" : ""}`}>
+              <AdVideo slug={slug} ad={ads[slug]} tag={ads[slug].client ? undefined : adTag(ads[slug])} priority={i === 0} />
+              {/* Client ads carry their own captions and logos, so the label goes underneath. */}
+              {ads[slug].client && <span className="tag mt-2 block text-graphite">{adTag(ads[slug])}</span>}
+            </li>
+          ))}
+        </ul>
+        {caption && <figcaption className="meta mt-3 text-right">{caption}</figcaption>}
+      </figure>
+    );
+  }
   if (media.pair) {
     const [a, b] = media.pair;
     return (
@@ -58,6 +104,16 @@ function HeroMedia({ media, caption }) {
         a={<AdVideo slug={a} ad={ads[a]} tag={adTag(ads[a])} priority />}
         b={<AdVideo slug={b} ad={ads[b]} tag={adTag(ads[b])} />}
         caption={caption ?? "Spec ads made with AI, not client work."}
+      />
+    );
+  }
+  if (media.photos) {
+    const [a, b] = media.photos;
+    return (
+      <StaggeredPair
+        a={<Photo id={a} priority sizes="(min-width: 1024px) 420px, 80vw" />}
+        b={<Photo id={b} sizes="(min-width: 1024px) 260px, 50vw" />}
+        caption={caption ?? "Illustrations made with AI."}
       />
     );
   }

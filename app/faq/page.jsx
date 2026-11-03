@@ -29,8 +29,8 @@ export default function FaqPage() {
         lede="Straight answers, including the ones that might talk you out of working with us."
         media={{ stills: ["emera-c-1", "gold-cuff-6"] }}
       />
-      <section className="wrap">
-        <div className="max-w-[820px] space-y-14 border-t border-rule py-14 lg:py-20">
+      <section className="band">
+        <div className="wrap space-y-12 py-12 lg:py-16">
           {faqGroups.map((g) => (
             <div key={g.group}>
               <h2 className="display h2 mb-6">{g.group}</h2>

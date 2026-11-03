@@ -14,7 +14,7 @@ export default function FrameStrip({ slug, dense = false }) {
         const f = frame(`${slug}-${n}`);
         return (
           <li key={n}>
-            <div className="relative overflow-hidden bg-frame" style={{ aspectRatio: f.ratio }}>
+            <div className="relative overflow-hidden rounded-xl bg-frame" style={{ aspectRatio: f.ratio }}>
               <Image
                 src={f.src}
                 alt={n === 1 ? f.alt : `The same ad at ${f.at}`}

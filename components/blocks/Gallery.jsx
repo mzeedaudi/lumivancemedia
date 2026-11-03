@@ -1,17 +1,14 @@
 import Still from "@/components/Still";
 import { frame } from "@/lib/frames";
 
-// Drops by position (from 640px up) so the set reads as a loose spread, not a grid.
-const DROP = ["", "sm:mt-12", "sm:mt-5", "sm:mt-16", "sm:mt-8", ""];
-
-// A staggered set of stills from the spec ads. Landscape frames take two cells.
+// Stills from the spec ads in an even grid. Landscape frames take two cells.
 export default function Gallery({ items }) {
   return (
-    <ul className="grid grid-flow-row-dense grid-cols-2 items-start gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 lg:grid-cols-4">
-      {items.map((it, i) => {
+    <ul className="grid grid-flow-row-dense grid-cols-2 items-start gap-x-3 gap-y-6 sm:grid-cols-3 lg:grid-cols-4 lg:gap-x-4">
+      {items.map((it) => {
         const wide = frame(it.id).ratio !== "3 / 4";
         return (
-          <li key={it.id} className={`${wide ? "col-span-2" : "col-span-1"} ${DROP[i % DROP.length]}`}>
+          <li key={it.id} className={wide ? "col-span-2" : "col-span-1"}>
             <Still id={it.id} caption={it.caption} sizes={wide ? "(min-width: 1024px) 600px, 90vw" : "(min-width: 1024px) 300px, 50vw"} />
           </li>
         );

@@ -12,7 +12,7 @@ import { services } from "@/lib/services";
 
 // The homepage, in order: the claim, why twenty at a time, how a sprint is
 // laid out, the work, how a sprint runs, what it costs, common questions, and
-// the ask. Each section is laid out differently from the ones beside it.
+// the ask. Sections alternate white and grey (see .band in globals.css).
 export default function Home() {
   const timeline = services.find((s) => s.slug === "creative-testing-sprint").blocks.find((b) => b.type === "steps").items;
   const homeFaq = faqGroups.flatMap((g) => g.items.filter((it) => it.home));
@@ -24,50 +24,49 @@ export default function Home() {
       <SprintPlan />
       <WorkGrid />
 
-      {/* How a sprint works: one narrow column, a plain numbered list. */}
-      <section id="process" className="wrap py-16 lg:py-24">
-        <div className="max-w-[820px]">
-          <h2 className="display h2">How a sprint works</h2>
-          <div className="mt-8">
+      <section id="process" className="band">
+        <div className="wrap py-12 lg:py-16">
+          <div className="grid gap-x-12 gap-y-3 lg:grid-cols-2 lg:items-end">
+            <h2 className="display h2">How a sprint works</h2>
+            <p className="text-[19px] leading-snug text-graphite lg:pb-1">
+              From a 30-minute call to twenty finished ads and a test plan.{" "}
+              <Link href="/framework" className="link">
+                Read how we test ads <span aria-hidden="true">›</span>
+              </Link>
+            </p>
+          </div>
+          <div className="mt-8 lg:mt-10">
             <Steps items={timeline} />
           </div>
-          <p className="mt-6">
-            <Link href="/framework" className="link">
-              Read how we test ads
-            </Link>
-          </p>
         </div>
       </section>
 
-      {/* What it costs: one comparison table, full width, on white. */}
-      <section id="pricing" className="wrap">
-        <div className="border-t border-rule py-16 lg:py-24">
-          <div className="grid-12 gap-y-4">
-            <h2 className="display h2 col-span-12 lg:col-span-5">What it costs</h2>
-            <p className="col-span-12 text-graphite lg:col-span-6 lg:col-start-7">
+      <section id="pricing" className="band">
+        <div className="wrap py-12 lg:py-16">
+          <div className="grid gap-x-12 gap-y-3 lg:grid-cols-2 lg:items-end">
+            <h2 className="display h2">What it costs</h2>
+            <p className="text-[19px] leading-snug text-graphite lg:pb-1">
               A sprint is a fixed price for a fixed number of finished ads. After that there’s a monthly retainer, which
-              is 20 to 40 new ads a month and the media buying behind them. We quote it once we’ve looked at your ad
-              account.
+              is 20 to 40 new ads a month and the media buying behind them, quoted once we’ve looked at your ad account.
             </p>
           </div>
-          <div className="mt-10">
+          <div className="mt-8 lg:mt-10">
             <Tiers />
           </div>
         </div>
       </section>
 
-      {/* Common questions: heading on the left, answers on the right. */}
-      <section id="faq" className="wrap">
-        <div className="grid-12 gap-y-8 border-t border-rule py-16 lg:py-24">
-          <div className="col-span-12 lg:col-span-4">
+      <section id="faq" className="band">
+        <div className="wrap py-12 lg:py-16">
+          <div className="grid gap-x-12 gap-y-3 lg:grid-cols-2 lg:items-end">
             <h2 className="display h2">Common questions</h2>
-            <p className="mt-5">
+            <p className="text-[19px] leading-snug text-graphite lg:pb-1">
               <Link href="/faq" className="link">
-                See all questions
+                See all questions <span aria-hidden="true">›</span>
               </Link>
             </p>
           </div>
-          <div className="col-span-12 lg:col-span-7 lg:col-start-6">
+          <div className="mt-6 lg:mt-8">
             <Faq items={homeFaq} />
           </div>
         </div>

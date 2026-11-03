@@ -3,6 +3,7 @@ import Blocks from "@/components/blocks/Blocks";
 import CtaBand from "@/components/blocks/CtaBand";
 import PageHero from "@/components/blocks/PageHero";
 import JsonLd from "@/components/JsonLd";
+import { casesFor } from "@/lib/cases";
 import { categories, industries } from "@/lib/industries";
 import { breadcrumbs, faq, service } from "@/lib/schema";
 
@@ -42,7 +43,7 @@ export default function IndustryPage({ params }) {
           faq(p.blocks),
         ]}
       />
-      <PageHero crumbs={crumbs} {...p.hero} />
+      <PageHero crumbs={crumbs} {...p.hero} teaser={casesFor(p.slug)[0]} />
       <Blocks blocks={p.blocks} />
       <CtaBand />
     </>

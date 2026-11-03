@@ -32,21 +32,21 @@ export default function WorkPage() {
             return (
               <article
                 key={slug}
-                className={`grid items-start gap-6 border-t border-rule py-8 sm:gap-10 ${
-                  landscape ? "" : "sm:grid-cols-[minmax(0,0.6fr)_minmax(0,1fr)]"
+                className={`tile mb-4 grid items-start gap-6 p-4 last:mb-0 sm:gap-10 sm:p-6 ${
+                  landscape ? "lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]" : "sm:grid-cols-[minmax(0,0.6fr)_minmax(0,1fr)] lg:grid-cols-[minmax(0,0.45fr)_minmax(0,1fr)]"
                 }`}
               >
-                <div className={landscape ? "max-w-[640px]" : "max-w-[360px]"}>
+                <div>
                   <AdVideo slug={slug} ad={ad} tag={adTag(ad)} />
                 </div>
                 <div>
-                  <h3 className="display text-[24px] sm:text-[26px]">{ad.title}</h3>
+                  <h3 className="display text-[26px] sm:text-[30px]">{ad.title}</h3>
                   <p className="meta mt-1">
                     {ad.category}, {ad.length.replace("0:", "")} seconds
                   </p>
                   <p className="mt-3 text-graphite">{ad.alt}.</p>
                   <div className="mt-6">
-                    <FrameStrip slug={slug} dense />
+                    <FrameStrip slug={slug} dense={!landscape} />
                   </div>
                 </div>
               </article>

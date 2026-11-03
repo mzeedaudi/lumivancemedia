@@ -1,7 +1,7 @@
 // A two-column table on white: what something is called, then what it is.
 export default function SpecTable({ rows }) {
   return (
-    <div className="border border-rule bg-white">
+    <div className="overflow-hidden rounded-[18px] border border-rule bg-white">
       <table className="w-full table-fixed border-collapse text-left">
         <tbody className="[&>tr:last-child>*]:border-b-0">
           {rows.map(([k, v]) => (
