@@ -7,13 +7,17 @@ import { adTag, ads, cta } from "@/lib/site";
 
 // Inner-page hero: where you are, what the page is about, one button, and
 // media beside it. `media` is { pair: [slug, slug] } for two playing ads,
-// { stills: [id, id] } for spec-ad frames, or { photos: [id, id] } for AI
-// illustrations. The caption under the media is where each inner page says,
+// { trio: [slug, slug, slug] } for three upright ads in a row, { stills:
+// [id, id] } for spec-ad frames, or { photos: [id, id] } for AI illustrations. The caption under the media is where each inner page says,
 // once, what the media is. `stats` adds a row of three facts under the
 // button, and `teaser` a link to the page's lead case study.
 export default function PageHero({ crumbs = [], title, lede, aside, media, caption, stats, teaser }) {
   return (
-    <section className="wrap grid items-center gap-x-14 gap-y-10 pb-12 pt-8 lg:grid-cols-2 lg:pb-16 lg:pt-12">
+    <section
+      className={`wrap grid items-center gap-x-14 gap-y-10 pb-12 pt-8 lg:pb-16 lg:pt-12 ${
+        media?.trio ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-x-12" : "lg:grid-cols-2"
+      }`}
+    >
       <div>
         {crumbs.length > 1 && (
           <nav aria-label="Breadcrumb" className="meta mb-4">
@@ -73,6 +77,24 @@ export default function PageHero({ crumbs = [], title, lede, aside, media, capti
 }
 
 function HeroMedia({ media, caption }) {
+  if (media.trio) {
+    // Three upright ads; the middle one sits lower. On phones the row scrolls
+    // sideways so each stays big enough to watch.
+    return (
+      <figure>
+        <ul className="-mx-[var(--pad)] flex snap-x snap-mandatory scroll-px-[var(--pad)] gap-3 overflow-x-auto px-[var(--pad)] pb-2 sm:mx-0 sm:grid sm:grid-cols-3 sm:items-start sm:overflow-visible sm:px-0 sm:pb-0">
+          {media.trio.map((slug, i) => (
+            <li key={slug} className={`w-[58%] flex-none snap-start sm:w-auto ${i === 1 ? "sm:mt-10" : ""}`}>
+              <AdVideo slug={slug} ad={ads[slug]} tag={ads[slug].client ? undefined : adTag(ads[slug])} priority={i === 0} />
+              {/* Client ads carry their own captions and logos, so the label goes underneath. */}
+              {ads[slug].client && <span className="tag mt-2 block text-graphite">{adTag(ads[slug])}</span>}
+            </li>
+          ))}
+        </ul>
+        {caption && <figcaption className="meta mt-3 text-right">{caption}</figcaption>}
+      </figure>
+    );
+  }
   if (media.pair) {
     const [a, b] = media.pair;
     return (
