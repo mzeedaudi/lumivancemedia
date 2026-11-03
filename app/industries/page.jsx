@@ -24,7 +24,7 @@ export default function IndustriesPage() {
       <PageHero
         crumbs={[{ label: "Industries" }]}
         title="Who we make ads for"
-        lede="Every sector has its own ad rules. Finance can’t promise returns. Games can’t show gameplay that isn’t in the game. Dating has to stay adult and honest. We build those rules into the scripts, so your ads get through review and still give people a reason to act."
+        lede="Every sector has its own ad rules. Finance can’t promise returns. Games can’t show gameplay that isn’t in the game. Health ads can’t promise a new body. We build those rules into the scripts, so your ads get through review and still give people a reason to act."
         media={{ stills: ["emera-c-1", "bike-unboxing-3"] }}
       />
       <Block title="Sectors">

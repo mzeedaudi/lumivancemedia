@@ -12,16 +12,18 @@ import { adTag, ads, cta } from "@/lib/site";
 // once, what the media is. `stats` adds a row of three facts under the
 // button, and `teaser` a link to the page's lead case study.
 export default function PageHero({ crumbs = [], title, lede, aside, media, caption, stats, teaser }) {
+  // Without media the hero is one centred column, so no half of it sits empty.
+  const solo = !media;
   return (
     <section
       className={`wrap grid items-center gap-x-14 gap-y-10 pb-12 pt-8 lg:pb-16 lg:pt-12 ${
-        media?.trio ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-x-12" : "lg:grid-cols-2"
+        solo ? "text-center" : media.trio ? "lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-x-12" : "lg:grid-cols-2"
       }`}
     >
-      <div>
+      <div className={solo ? "mx-auto max-w-[820px]" : undefined}>
         {crumbs.length > 1 && (
           <nav aria-label="Breadcrumb" className="meta mb-4">
-            <ol className="flex flex-wrap gap-x-2">
+            <ol className={`flex flex-wrap gap-x-2 ${solo ? "justify-center" : ""}`}>
               {crumbs.map((c, i) => (
                 <li key={c.label} className="flex gap-2">
                   {i > 0 && <span aria-hidden="true">/</span>}
@@ -38,8 +40,8 @@ export default function PageHero({ crumbs = [], title, lede, aside, media, capti
           </nav>
         )}
         <h1 className="display h1s">{title}</h1>
-        {lede && <p className="lede mt-5 max-w-[600px] text-graphite">{lede}</p>}
-        <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+        {lede && <p className={`lede mt-5 max-w-[640px] text-graphite ${solo ? "mx-auto" : ""}`}>{lede}</p>}
+        <div className={`mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 ${solo ? "justify-center" : ""}`}>
           <Link href={cta.href} className="btn">
             {cta.label}
           </Link>
