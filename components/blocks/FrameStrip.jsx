@@ -6,7 +6,8 @@ import { frame } from "@/lib/frames";
 // see how fifteen seconds are built without pressing play. `dense` keeps
 // portrait frames in two rows of three for narrower columns.
 export default function FrameStrip({ slug, dense = false }) {
-  const landscape = ads[slug].ratio !== "3 / 4";
+  const [w, h] = ads[slug].ratio.split(" / ").map(Number);
+  const landscape = w > h;
   const cols = landscape ? "grid-cols-2 sm:grid-cols-3" : dense ? "grid-cols-3" : "grid-cols-3 sm:grid-cols-6";
   return (
     <ol className={`grid gap-2 sm:gap-3 ${cols}`}>
