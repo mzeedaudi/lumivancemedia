@@ -17,6 +17,7 @@ import { Retainer, Tiers } from "@/components/blocks/Offer";
 import Points from "@/components/blocks/Points";
 import Prose from "@/components/blocks/Prose";
 import Related from "@/components/blocks/Related";
+import Sources from "@/components/blocks/Sources";
 import RulesTable from "@/components/blocks/RulesTable";
 import SpecTable from "@/components/blocks/SpecTable";
 import Split from "@/components/blocks/Split";
@@ -52,6 +53,7 @@ const PREFERRED = {
   checklist: "side",
   article: "stack",
   clients: "stack",
+  sources: "stack",
 };
 
 // A case study section with nothing to show (no published cases for that
@@ -136,6 +138,8 @@ function render(b, stacked) {
       return <Article sections={b.sections} />;
     case "clients":
       return <Clients />;
+    case "sources":
+      return <Sources items={b.items} />;
     default:
       throw new Error(`Unknown block type: ${b.type}`);
   }

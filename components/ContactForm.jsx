@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { track } from "@/lib/analytics";
 import { site } from "@/lib/site";
 
 // The select keeps the field name `budget` so app/api/contact/route.js needs
@@ -50,6 +51,8 @@ export default function ContactForm() {
       const json = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(json.error || "Something went wrong.");
       setStatus("success");
+      // The one number that matters most: a real enquiry. No personal details are sent.
+      track("generate_lead", { form_id: "contact", service_interest: data.budget || "not_set" });
       form.reset();
     } catch (err) {
       // Never show success on a failed send. A lost brief is invisible to us.

@@ -10,6 +10,8 @@ const nextConfig = {
     // Placeholder case studies show locally and on Vercel previews, never on
     // the live site. Inlined at build time so server and browser agree.
     LUMIVANCE_DRAFTS: process.env.VERCEL_ENV === "production" ? "" : "1",
+    // Google Analytics runs on the live site only, so previews don't skew the numbers.
+    LUMIVANCE_GA_ID: process.env.VERCEL_ENV === "production" ? "G-28759VMP24" : "",
   },
 };
 

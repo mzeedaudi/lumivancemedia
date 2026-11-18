@@ -21,7 +21,7 @@ export default function sitemap() {
     { path: "/framework", priority: 0.6 },
     { path: "/how-we-use-ai", priority: 0.6 },
     { path: "/resources", priority: 0.5 },
-    ...guides.map((g) => ({ path: `/resources/${g.slug}`, priority: 0.5 })),
+    ...guides.map((g) => ({ path: `/resources/${g.slug}`, priority: g.published ? 0.7 : 0.5 })),
     { path: "/resources/glossary", priority: 0.4 },
     { path: "/faq", priority: 0.5 },
     { path: "/contact", priority: 0.8 },
