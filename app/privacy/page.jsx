@@ -1,3 +1,4 @@
+import { AnalyticsChoice } from "@/components/Analytics";
 import PageHeader from "@/components/PageHeader";
 import { site } from "@/lib/site";
 
@@ -9,7 +10,7 @@ export const metadata = {
 };
 
 // Last substantive review of this policy. Update when the content changes.
-const UPDATED = "12 October 2026";
+const UPDATED = "18 November 2026";
 
 export default function PrivacyPage() {
   return (
@@ -34,7 +35,7 @@ export default function PrivacyPage() {
           </Section>
 
           <Section title="What we collect">
-            <p>We only collect what you choose to give us:</p>
+            <p>We collect what you choose to give us, and basic information about how the site is used:</p>
             <ul>
               <li>
                 <strong>Contact form submissions.</strong> Your name, email
@@ -46,20 +47,35 @@ export default function PrivacyPage() {
                 <strong>Email correspondence.</strong> If you email us directly,
                 we keep that thread so we can pick up where we left off.
               </li>
+              <li>
+                <strong>Website analytics.</strong> Google Analytics records the
+                pages you visit, how you reached the site, your device and
+                browser, your approximate location, and actions such as sending
+                the contact form. It uses cookies to do this. It does not receive
+                your name, email address or the message you write.
+              </li>
             </ul>
-            <p>
-              We do not run advertising or analytics trackers on this site, and
-              we do not build profiles of visitors.
-            </p>
+            <p>We do not run advertising trackers on this site.</p>
           </Section>
 
           <Section title="Why we use it">
             <p>
-              Solely to respond to your enquiry, provide the services you ask
-              for, and keep records of our business correspondence. We do not
-              sell your information, and we do not share it with third parties
-              for their own marketing.
+              To respond to your enquiry, provide the services you ask for, keep
+              records of our business correspondence, and understand which pages
+              are useful so we can improve the site. We do not sell your
+              information, and we do not share it with third parties for their
+              own marketing.
             </p>
+          </Section>
+
+          <Section title="Analytics and your choices">
+            <p>
+              If you are in the European Economic Area, the UK or Switzerland,
+              analytics cookies stay off unless you accept them. Elsewhere,
+              analytics is on unless you decline. You can change your choice here
+              at any time:
+            </p>
+            <AnalyticsChoice />
           </Section>
 
           <Section title="Who can see it">
@@ -67,6 +83,8 @@ export default function PrivacyPage() {
               Your submission is handled by our own team and by the service
               providers that run our infrastructure &mdash; our website host and
               our email provider. They process data on our instructions only.
+              Website analytics is handled by Google, which may process it
+              outside your country.
             </p>
           </Section>
 
@@ -75,7 +93,8 @@ export default function PrivacyPage() {
               We keep enquiry correspondence for as long as needed to serve you,
               and afterwards only as long as required for our business records.
               Ask us to delete your information at any time and we will, unless
-              we are legally required to retain it.
+              we are legally required to retain it. Analytics data is kept for
+              14 months.
             </p>
           </Section>
 
