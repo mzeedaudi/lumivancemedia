@@ -4,7 +4,7 @@ import Prose from "@/components/blocks/Prose";
 // the sections themselves.
 export default function Article({ sections }) {
   return (
-    <div className="grid gap-x-14 gap-y-10 lg:grid-cols-[260px_1fr]">
+    <div className="grid grid-cols-[minmax(0,1fr)] gap-x-14 gap-y-10 lg:grid-cols-[260px_minmax(0,1fr)]">
       <nav aria-label="On this page" className="lg:sticky lg:top-24 lg:self-start">
         <p className="h3">On this page</p>
         <ol className="mt-3 space-y-2 text-[15px]">

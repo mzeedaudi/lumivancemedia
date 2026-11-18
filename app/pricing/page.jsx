@@ -3,6 +3,7 @@ import CtaBand from "@/components/blocks/CtaBand";
 import Faq from "@/components/blocks/Faq";
 import { Tiers } from "@/components/blocks/Offer";
 import PageHero from "@/components/blocks/PageHero";
+import Related from "@/components/blocks/Related";
 import { faqGroups } from "@/lib/company";
 import { priceCopy } from "@/lib/offer";
 
@@ -23,6 +24,9 @@ export default function PricingPage() {
       />
       <Block title="Packages">
         <Tiers details withRetainer />
+      </Block>
+      <Block title="Before you decide">
+        <Related keys={["ugc-video-ads-cost", "ai-ugc-vs-creators", "how-many-ads-to-test-on-meta"]} />
       </Block>
       <Block title="Questions about pricing" narrow>
         <Faq items={pricingFaq} />

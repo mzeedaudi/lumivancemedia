@@ -7,7 +7,7 @@ import { guides } from "@/lib/resources";
 export const metadata = {
   title: "Resources",
   description:
-    "Guides from Lumivance on creative testing, AI presenters and the testimonial rules, and delivery specs, plus a glossary and common questions.",
+    "Straight answers on what UGC video ads cost, AI UGC vs creators, how many ads to test, ad fatigue and video length, plus guides, delivery specs and a glossary.",
   alternates: { canonical: "/resources" },
 };
 
@@ -17,7 +17,7 @@ export default function ResourcesPage() {
       <PageHero
         crumbs={[{ label: "Resources" }]}
         title="Guides and reference"
-        lede="How we work, written down so you can use it with or without us: how to test creative, what AI presenters can say, and what you get at the end of a sprint."
+        lede="Straight answers to the questions brands ask before they spend on video ads, and how we work, written down so you can use it with or without us."
         media={{ stills: ["emera-b-2", "fizzbears-b-2"] }}
       />
       <Block title="Guides">
