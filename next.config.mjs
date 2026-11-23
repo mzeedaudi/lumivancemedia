@@ -1,10 +1,12 @@
+import { legacyRedirects } from "./legacy-redirects.mjs";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // Sectors we no longer serve send visitors (and search engines) to the
-  // Industries page rather than a dead end.
+  // Sectors we no longer serve, and addresses from the earlier site, send
+  // visitors (and search engines) to the closest page rather than a dead end.
   async redirects() {
-    return [{ source: "/industries/dating-apps", destination: "/industries", permanent: true }];
+    return [{ source: "/industries/dating-apps", destination: "/industries", permanent: true }, ...legacyRedirects];
   },
   env: {
     // Placeholder case studies show locally and on Vercel previews, never on

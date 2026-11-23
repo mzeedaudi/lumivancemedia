@@ -21,6 +21,7 @@ const rules = [
 
 export default function CaseStudiesPage() {
   // On the live site the page only exists once it has a real case study.
+  // Until then middleware.js sends this address to the Work page.
   if (!caseStudies.length) notFound();
   const drafts = caseStudies.some((c) => c.placeholder);
   return (
