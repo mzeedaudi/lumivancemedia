@@ -3,37 +3,45 @@ import Blocks from "@/components/blocks/Blocks";
 import CtaBand from "@/components/blocks/CtaBand";
 import PageHero from "@/components/blocks/PageHero";
 import JsonLd from "@/components/JsonLd";
-import { guides } from "@/lib/resources";
+import { longDate, post as findPost, posts } from "@/lib/blog";
 import { article, breadcrumbs, faq } from "@/lib/schema";
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return guides.map((g) => ({ slug: g.slug }));
+  return posts.map((p) => ({ slug: p.slug }));
 }
 
 export function generateMetadata({ params }) {
-  const g = guides.find((x) => x.slug === params.slug);
-  if (!g) return {};
-  return { title: g.meta.title, description: g.meta.description, alternates: { canonical: `/resources/${g.slug}` } };
+  const p = findPost(params.slug);
+  if (!p) return {};
+  return {
+    title: p.meta.title,
+    description: p.meta.description,
+    keywords: p.keywords,
+    alternates: { canonical: p.href },
+    openGraph: { type: "article", title: p.meta.title, description: p.meta.description, ...(p.published && { publishedTime: p.published, modifiedTime: p.modified }) },
+  };
 }
 
-export default function GuidePage({ params }) {
-  const g = guides.find((x) => x.slug === params.slug);
-  if (!g) notFound();
-  const path = `/resources/${g.slug}`;
-  const crumbs = [{ label: "Resources", href: "/resources" }, { label: g.name }];
+// A blog post: its flash card beside the headline, then its sections.
+export default function PostPage({ params }) {
+  const p = findPost(params.slug);
+  if (!p) notFound();
+  const crumbs = [{ label: "Resources", href: "/resources" }, { label: "Blog", href: "/resources/blog" }, { label: p.name }];
+  const aside = [p.modified && `Updated ${longDate(p.modified)}`, `${p.minutes} min read`].filter(Boolean).join(" · ");
   return (
     <>
       <JsonLd
         data={[
-          g.published && article({ title: g.meta.title, description: g.meta.description, path, published: g.published, modified: g.modified }),
-          breadcrumbs(crumbs, path),
-          faq(g.blocks),
+          p.published &&
+            article({ title: p.meta.title, description: p.meta.description, path: p.href, published: p.published, modified: p.modified, section: p.category, keywords: p.keywords }),
+          breadcrumbs(crumbs, p.href),
+          faq(p.blocks),
         ]}
       />
-      <PageHero crumbs={crumbs} {...g.hero} />
-      <Blocks blocks={g.blocks} />
+      <PageHero crumbs={crumbs} title={p.hero.title} lede={p.hero.lede} aside={aside} media={{ card: p }} />
+      <Blocks blocks={p.blocks} />
       <CtaBand />
     </>
   );

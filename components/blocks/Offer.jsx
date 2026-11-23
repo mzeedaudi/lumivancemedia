@@ -92,8 +92,8 @@ export function Tiers({ details = false, withRetainer = false }) {
         </div>
       ) : (
         <p className="mt-6">
-          <Link href="/pricing" className="link">
-            See full pricing <span aria-hidden="true">›</span>
+          <Link href={sprint.href} className="link">
+            See what every sprint includes <span aria-hidden="true">›</span>
           </Link>
         </p>
       )}

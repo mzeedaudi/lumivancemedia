@@ -22,6 +22,8 @@ export const metadata = {
   },
   description:
     "UGC-style video ads for apps and online brands, twenty at a time, the first ones 72 hours after your brief. Test every angle, then scale the ad that brings your cost per customer down.",
+  // The blog's feed, so readers and crawlers can find new posts.
+  alternates: { types: { "application/rss+xml": [{ url: "/feed.xml", title: "The Lumivance blog" }] } },
   openGraph: {
     title: "Lumivance | Test twenty ads, scale the one that sells",
     description:

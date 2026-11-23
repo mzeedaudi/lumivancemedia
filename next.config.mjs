@@ -3,10 +3,15 @@ import { legacyRedirects } from "./legacy-redirects.mjs";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // Sectors we no longer serve, and addresses from the earlier site, send
+  // Pages we no longer have, and addresses from the earlier site, send
   // visitors (and search engines) to the closest page rather than a dead end.
+  // The pricing page went in November 2026; prices still show on the homepage.
   async redirects() {
-    return [{ source: "/industries/dating-apps", destination: "/industries", permanent: true }, ...legacyRedirects];
+    return [
+      { source: "/industries/dating-apps", destination: "/industries", permanent: true },
+      { source: "/pricing", destination: "/#pricing", permanent: true },
+      ...legacyRedirects,
+    ];
   },
   env: {
     // Placeholder case studies show locally and on Vercel previews, never on

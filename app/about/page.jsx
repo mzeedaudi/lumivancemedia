@@ -22,7 +22,7 @@ export default function AboutPage() {
         <Points items={about.not} columns />
       </Block>
       <Block title="Related pages">
-        <Related keys={["framework", "ai", "pricing"]} />
+        <Related keys={["framework", "ai", "creative-testing-sprint"]} />
       </Block>
       <CtaBand />
     </>
