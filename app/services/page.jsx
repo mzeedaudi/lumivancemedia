@@ -1,7 +1,6 @@
 import Block from "@/components/blocks/Block";
 import CtaBand from "@/components/blocks/CtaBand";
 import HubIndex from "@/components/blocks/HubIndex";
-import { Tiers } from "@/components/blocks/Offer";
 import PageHero from "@/components/blocks/PageHero";
 import { priceCopy } from "@/lib/offer";
 import { services } from "@/lib/services";
@@ -34,9 +33,6 @@ export default function ServicesPage() {
       </Block>
       <Block title="Running the ads" intro="Media buying on the platforms where UGC-style ads live, judged on cost per customer.">
         <HubIndex keys={keys("Paid social")} />
-      </Block>
-      <Block title="What it costs">
-        <Tiers />
       </Block>
       <CtaBand />
     </>

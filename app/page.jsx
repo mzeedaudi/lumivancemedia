@@ -1,7 +1,6 @@
 import Link from "next/link";
 import CtaBand from "@/components/blocks/CtaBand";
 import Faq from "@/components/blocks/Faq";
-import { Tiers } from "@/components/blocks/Offer";
 import Steps from "@/components/blocks/Steps";
 import Hero from "@/components/Hero";
 import Openers from "@/components/Openers";
@@ -15,8 +14,8 @@ import { services } from "@/lib/services";
 export const metadata = { alternates: { canonical: "/" } };
 
 // The homepage, in order: the claim, why twenty at a time, how a sprint is
-// laid out, the work, how a sprint runs, what it costs, common questions, and
-// the ask. Sections alternate white and grey (see .band in globals.css).
+// laid out, the work, how a sprint runs, common questions, and the ask.
+// Sections alternate white and grey (see .band in globals.css).
 export default function Home() {
   const timeline = services.find((s) => s.slug === "creative-testing-sprint").blocks.find((b) => b.type === "steps").items;
   const homeFaq = faqGroups.flatMap((g) => g.items.filter((it) => it.home));
@@ -41,21 +40,6 @@ export default function Home() {
           </div>
           <div className="mt-8 lg:mt-10">
             <Steps items={timeline} />
-          </div>
-        </div>
-      </section>
-
-      <section id="pricing" className="band">
-        <div className="wrap py-12 lg:py-16">
-          <div className="grid gap-x-12 gap-y-3 lg:grid-cols-2 lg:items-end">
-            <h2 className="display h2">What it costs</h2>
-            <p className="text-[19px] leading-snug text-graphite lg:pb-1">
-              A sprint is a fixed price for a fixed number of finished ads. After that there’s a monthly retainer, which
-              is 20 to 40 new ads a month and the media buying behind them, quoted once we’ve looked at your ad account.
-            </p>
-          </div>
-          <div className="mt-8 lg:mt-10">
-            <Tiers />
           </div>
         </div>
       </section>

@@ -5,11 +5,12 @@ const nextConfig = {
   reactStrictMode: true,
   // Pages we no longer have, and addresses from the earlier site, send
   // visitors (and search engines) to the closest page rather than a dead end.
-  // The pricing page went in November 2026; prices still show on the homepage.
+  // The pricing page went in November 2026; its address goes to the sprint,
+  // which is what the prices were for.
   async redirects() {
     return [
       { source: "/industries/dating-apps", destination: "/industries", permanent: true },
-      { source: "/pricing", destination: "/#pricing", permanent: true },
+      { source: "/pricing", destination: "/services/creative-testing-sprint", permanent: true },
       ...legacyRedirects,
     ];
   },
