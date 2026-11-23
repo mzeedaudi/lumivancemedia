@@ -10,6 +10,10 @@ import WorkGrid from "@/components/WorkGrid";
 import { faqGroups } from "@/lib/company";
 import { services } from "@/lib/services";
 
+// Title and description come from the layout; this names the one address
+// Google should use for the homepage.
+export const metadata = { alternates: { canonical: "/" } };
+
 // The homepage, in order: the claim, why twenty at a time, how a sprint is
 // laid out, the work, how a sprint runs, what it costs, common questions, and
 // the ask. Sections alternate white and grey (see .band in globals.css).
