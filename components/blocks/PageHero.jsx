@@ -1,5 +1,6 @@
 import Link from "next/link";
 import AdVideo from "@/components/AdVideo";
+import FlashCard from "@/components/FlashCard";
 import Photo from "@/components/Photo";
 import Still from "@/components/Still";
 import StaggeredPair from "@/components/StaggeredPair";
@@ -8,7 +9,8 @@ import { adTag, ads, cta } from "@/lib/site";
 // Inner-page hero: where you are, what the page is about, one button, and
 // media beside it. `media` is { pair: [slug, slug] } for two playing ads,
 // { trio: [slug, slug, slug] } for three upright ads in a row, { stills:
-// [id, id] } for spec-ad frames, or { photos: [id, id] } for AI illustrations. The caption under the media is where each inner page says,
+// [id, id] } for spec-ad frames, { photos: [id, id] } for AI illustrations, or
+// { card: post } for a blog post's flash card. The caption under the media is where each inner page says,
 // once, what the media is. `stats` adds a row of three facts under the
 // button, and `teaser` a link to the page's lead case study.
 export default function PageHero({ crumbs = [], title, lede, aside, media, caption, stats, teaser }) {
@@ -79,6 +81,7 @@ export default function PageHero({ crumbs = [], title, lede, aside, media, capti
 }
 
 function HeroMedia({ media, caption }) {
+  if (media.card) return <FlashCard post={media.card} size="lg" />;
   if (media.trio) {
     // Three upright ads; the middle one sits lower. On phones the row scrolls
     // sideways so each stays big enough to watch.

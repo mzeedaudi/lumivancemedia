@@ -16,12 +16,12 @@ export default function sitemap() {
     // Placeholder case studies are never listed; they are noindex and preview-only.
     ...(caseStudies.some((c) => !c.placeholder) ? [{ path: "/case-studies", priority: 0.8 }] : []),
     ...caseStudies.filter((c) => !c.placeholder).map((c) => ({ path: `/case-studies/${c.slug}`, priority: 0.7 })),
-    { path: "/pricing", priority: 0.8 },
     { path: "/about", priority: 0.6 },
     { path: "/framework", priority: 0.6 },
     { path: "/how-we-use-ai", priority: 0.6 },
     { path: "/resources", priority: 0.5 },
-    ...guides.map((g) => ({ path: `/resources/${g.slug}`, priority: g.published ? 0.7 : 0.5 })),
+    { path: "/resources/blog", priority: 0.7 },
+    ...guides.map((g) => ({ path: `/resources/${g.slug}`, priority: g.published ? 0.7 : 0.5, modified: g.modified })),
     { path: "/resources/glossary", priority: 0.4 },
     { path: "/faq", priority: 0.5 },
     { path: "/contact", priority: 0.8 },
@@ -29,7 +29,8 @@ export default function sitemap() {
     { path: "/terms", priority: 0.2 },
   ].map((r) => ({
     url: `${BASE}${r.path}`,
-    lastModified: new Date(),
+    // Dated posts give their own date, so search engines can tell what changed.
+    lastModified: r.modified ? new Date(r.modified) : new Date(),
     changeFrequency: "monthly",
     priority: r.priority,
   }));

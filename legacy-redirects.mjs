@@ -7,7 +7,8 @@
 // The old case studies were for example clients, not real ones, so they all
 // go to the Work page rather than to anything that looks like a result.
 
-// Old blog posts with a close match here. Every other post goes to Resources.
+// Old blog posts with a close match here. Every other old post goes to the
+// blog, which now lives at /resources/blog.
 const posts = {
   "tiktok-ads-for-app-installs": "/services/tiktok-ads",
   "meta-ads-for-saas-full-funnel-playbook": "/services/meta-ads",
@@ -45,9 +46,8 @@ const to = (source, destination) => ({ source, destination, permanent: true });
 
 export const legacyRedirects = [
   ...Object.entries(posts).map(([slug, dest]) => to(`/blog/${slug}`, dest)),
-  to("/blog/:slug*", "/resources"),
-  to("/blog", "/resources"),
-  to("/feed.xml", "/resources"),
+  to("/blog/:slug*", "/resources/blog"),
+  to("/blog", "/resources/blog"),
   ...Object.entries(channels).map(([slug, dest]) => to(`/services/${slug}`, dest)),
   to(`/case-studies/:slug(${oldCases.join("|")})`, "/work"),
 ];
